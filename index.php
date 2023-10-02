@@ -16,6 +16,7 @@ echo "Hello world!";
 <body>
     <p>Hello world! but it's a paragraph</p>
     <script type="text/javascript" src="./js/index.js"></script>
+    <p>Look at me !!!</p>
 </body>
 
 </html>
