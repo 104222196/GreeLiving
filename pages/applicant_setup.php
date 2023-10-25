@@ -1,3 +1,21 @@
+<?php
+
+$mysql_connection = new mysqli("localhost", "root", "GnutTung@04", "greeliving");
+
+    $query = sprintf("SELECT * FROM Applicants WHERE ApplicantID = '%s'", $mysql_connection->real_escape_string($session->user["sub"]));
+    $result = $mysql_connection->query($query);
+
+    $mysql_connection->close();
+    
+    if ($result->fetch_assoc() !== null) {
+        header("Location: " . ROUTE_URL_APPLICANT_INDEX);
+        exit;
+    }
+
+    require("home.php");
+
+?>
+
 <form method="post" action="/applicants/handle-create-profile">
     <label>
         First name: <input type="text" name="fName" />
