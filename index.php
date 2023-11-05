@@ -28,10 +28,10 @@ use Steampixel\Route;
 
 // Define route constants:
 define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
-define('ROUTE_URL_APPLICANT_INDEX', ROUTE_URL_INDEX . '/applicants');
-define('ROUTE_URL_APPLICANT_LOGIN', ROUTE_URL_INDEX . '/applicants/login');
-define('ROUTE_URL_APPLICANT_CALLBACK', ROUTE_URL_INDEX . '/applicants/callback');
-define('ROUTE_URL_APPLICANT_LOGOUT', ROUTE_URL_INDEX . '/applicants/logout');
+define('ROUTE_URL_APPLICANT_INDEX', ROUTE_URL_INDEX . '/applicant/profile');
+define('ROUTE_URL_APPLICANT_LOGIN', ROUTE_URL_INDEX . '/applicant/login');
+define('ROUTE_URL_APPLICANT_CALLBACK', ROUTE_URL_INDEX . '/applicant/callback');
+define('ROUTE_URL_APPLICANT_LOGOUT', ROUTE_URL_INDEX . '/applicant/logout');
 define('ROUTE_URL_COMPANY_INDEX', ROUTE_URL_INDEX . '/companies');
 define('ROUTE_URL_COMPANY_LOGIN', ROUTE_URL_INDEX . '/companies/login');
 define('ROUTE_URL_COMPANY_CALLBACK', ROUTE_URL_INDEX . '/companies/callback');
@@ -41,18 +41,19 @@ Route::add('/', function () {
     require("./pages/home.php");
 });
 
-Route::add("/applicants", function () use ($auth0_applicants) {
-    $session = $auth0_applicants->getCredentials();
+Route::add('/change-language', function () {
+    require("./pages/change_language.php");
+});
 
-    if ($session === null) {
-        header("Location: " . ROUTE_URL_APPLICANT_LOGIN);
-        exit;
-    }
+Route::add('/applicant/jobsearch', function () {
+    require("./pages/job_search.php");
+});
 
+Route::add("/applicant/profile", function () use ($auth0_applicants) {
     require("./pages/applicant_profile.php");    
 });
 
-Route::add('/applicants/setup', function () use ($auth0_applicants) {
+Route::add('/applicant/setup', function () use ($auth0_applicants) {
     $session = $auth0_applicants->getCredentials();
 
     if ($session === null) {
@@ -63,7 +64,7 @@ Route::add('/applicants/setup', function () use ($auth0_applicants) {
     require("./pages/applicant_setup.php");
 });
 
-Route::add('/applicants/handle-setup', function () use ($auth0_applicants) {
+Route::add('/applicant/handle-setup', function () use ($auth0_applicants) {
     $session = $auth0_applicants->getCredentials();
 
     if ($session === null) {
@@ -74,19 +75,19 @@ Route::add('/applicants/handle-setup', function () use ($auth0_applicants) {
     require("./pages/applicants_handle_setup.php");
 }, "post");
 
-Route::add('/applicants/login', function () use ($auth0_applicants) {
+Route::add('/applicant/login', function () use ($auth0_applicants) {
     $auth0_applicants->clear();
     header("Location: " . $auth0_applicants->login(ROUTE_URL_APPLICANT_CALLBACK));
     exit;
 });
 
-Route::add('/applicants/callback', function () use ($auth0_applicants) {
+Route::add('/applicant/callback', function () use ($auth0_applicants) {
     $auth0_applicants->exchange(ROUTE_URL_APPLICANT_CALLBACK);
     header("Location: " . ROUTE_URL_APPLICANT_INDEX);
     exit;
 });
 
-Route::add('/applicants/logout', function () use ($auth0_applicants) {
+Route::add('/applicant/logout', function () use ($auth0_applicants) {
     header("Location: " . $auth0_applicants->logout(ROUTE_URL_INDEX));
     exit;
 });

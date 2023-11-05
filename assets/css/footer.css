@@ -1,0 +1,27 @@
+@media screen and (max-width: 767px) {
+    footer p {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.25px;
+    }
+}
+
+footer {
+    background-color: #152036;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 0px;
+    padding: 25px 0px;
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+footer p a,
+footer p a:hover {
+    color: #f5a425;
+}
