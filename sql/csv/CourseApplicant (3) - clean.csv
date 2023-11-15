@@ -1,0 +1,981 @@
+CourseID,ApplicantID,CourseStatus
+1,105,In progress
+1,122,Completed
+1,141,In progress
+1,184,In progress
+1,199,In progress
+1,215,Completed
+1,238,Completed
+1,241,In progress
+1,250,In progress
+1,277,Completed
+1,307,Completed
+1,33,In progress
+1,335,In progress
+1,441,In progress
+1,476,Completed
+1,505,Completed
+1,515,Completed
+1,608,In progress
+1,615,In progress
+1,639,In progress
+1,665,Completed
+1,679,Completed
+1,685,In progress
+1,702,Completed
+1,760,Completed
+1,774,Completed
+1,828,Completed
+1,89,Completed
+1,913,Completed
+1,915,In progress
+1,951,Completed
+1,965,Completed
+1,982,Completed
+10,134,In progress
+10,166,In progress
+10,183,In progress
+10,19,Completed
+10,240,Completed
+10,275,In progress
+10,286,In progress
+10,333,Completed
+10,353,In progress
+10,39,Completed
+10,400,In progress
+10,401,In progress
+10,420,Completed
+10,423,In progress
+10,429,In progress
+10,441,Completed
+10,474,Completed
+10,499,Completed
+10,507,In progress
+10,545,In progress
+10,583,In progress
+10,598,Completed
+10,609,In progress
+10,625,In progress
+10,636,In progress
+10,664,In progress
+10,667,Completed
+10,739,Completed
+10,762,Completed
+10,820,In progress
+10,847,Completed
+10,92,Completed
+10,921,In progress
+10,929,Completed
+10,939,In progress
+10,973,Completed
+11,106,Completed
+11,108,Completed
+11,109,Completed
+11,114,Completed
+11,118,Completed
+11,131,Completed
+11,220,In progress
+11,268,In progress
+11,297,In progress
+11,341,Completed
+11,498,Completed
+11,50,In progress
+11,593,Completed
+11,659,In progress
+11,673,Completed
+11,678,Completed
+11,703,In progress
+11,732,Completed
+11,784,Completed
+11,877,In progress
+11,889,Completed
+11,915,Completed
+11,947,Completed
+12,114,Completed
+12,146,Completed
+12,181,Completed
+12,192,Completed
+12,227,In progress
+12,242,Completed
+12,246,In progress
+12,294,In progress
+12,328,Completed
+12,354,Completed
+12,393,In progress
+12,48,Completed
+12,500,In progress
+12,525,In progress
+12,54,In progress
+12,578,In progress
+12,582,In progress
+12,631,In progress
+12,669,In progress
+12,69,Completed
+12,700,Completed
+12,734,In progress
+12,735,Completed
+12,746,In progress
+12,762,In progress
+12,763,In progress
+12,765,In progress
+12,804,Completed
+12,806,Completed
+12,84,Completed
+12,849,Completed
+12,88,In progress
+12,912,In progress
+12,915,In progress
+12,959,Completed
+12,967,In progress
+12,970,Completed
+13,10,Completed
+13,117,In progress
+13,143,In progress
+13,194,In progress
+13,201,In progress
+13,204,In progress
+13,256,In progress
+13,286,Completed
+13,344,Completed
+13,385,In progress
+13,422,Completed
+13,437,Completed
+13,438,In progress
+13,481,Completed
+13,506,In progress
+13,577,In progress
+13,579,Completed
+13,581,Completed
+13,611,In progress
+13,612,Completed
+13,683,Completed
+13,734,In progress
+13,741,Completed
+13,750,Completed
+13,757,In progress
+13,763,In progress
+13,768,In progress
+13,772,In progress
+13,781,In progress
+13,797,In progress
+13,809,Completed
+13,82,In progress
+13,826,In progress
+13,860,Completed
+13,977,In progress
+13,979,In progress
+14,12,Completed
+14,141,Completed
+14,142,Completed
+14,205,In progress
+14,22,Completed
+14,282,Completed
+14,312,In progress
+14,395,Completed
+14,416,In progress
+14,44,Completed
+14,484,Completed
+14,537,Completed
+14,543,Completed
+14,593,Completed
+14,621,In progress
+14,624,In progress
+14,657,In progress
+14,705,In progress
+14,713,Completed
+14,8,Completed
+14,832,Completed
+14,890,Completed
+14,907,Completed
+14,938,In progress
+14,956,Completed
+14,992,In progress
+15,14,Completed
+15,141,Completed
+15,156,In progress
+15,177,Completed
+15,192,Completed
+15,240,In progress
+15,251,In progress
+15,296,Completed
+15,32,Completed
+15,339,Completed
+15,348,In progress
+15,356,Completed
+15,382,Completed
+15,383,Completed
+15,392,In progress
+15,396,Completed
+15,416,In progress
+15,48,In progress
+15,513,In progress
+15,584,In progress
+15,670,In progress
+15,724,Completed
+15,768,Completed
+15,859,Completed
+15,898,Completed
+15,983,In progress
+15,998,Completed
+16,14,Completed
+16,177,Completed
+16,186,In progress
+16,196,In progress
+16,219,In progress
+16,236,Completed
+16,242,Completed
+16,258,In progress
+16,259,In progress
+16,261,In progress
+16,332,Completed
+16,342,Completed
+16,422,In progress
+16,516,Completed
+16,533,In progress
+16,540,Completed
+16,627,Completed
+16,653,Completed
+16,671,In progress
+16,786,In progress
+16,793,Completed
+16,820,Completed
+16,829,Completed
+16,834,Completed
+16,840,Completed
+16,860,Completed
+16,912,Completed
+16,963,In progress
+16,966,In progress
+17,123,Completed
+17,133,Completed
+17,159,In progress
+17,291,Completed
+17,310,In progress
+17,317,Completed
+17,319,In progress
+17,361,In progress
+17,368,In progress
+17,370,In progress
+17,371,Completed
+17,386,In progress
+17,432,Completed
+17,439,In progress
+17,447,In progress
+17,450,In progress
+17,496,In progress
+17,519,In progress
+17,525,In progress
+17,538,In progress
+17,574,In progress
+17,576,Completed
+17,592,In progress
+17,60,In progress
+17,637,In progress
+17,642,Completed
+17,689,Completed
+17,74,In progress
+17,80,In progress
+17,829,In progress
+17,834,In progress
+17,864,Completed
+17,928,Completed
+17,938,In progress
+17,959,Completed
+17,969,Completed
+18,1,Completed
+18,123,In progress
+18,132,Completed
+18,171,Completed
+18,177,In progress
+18,199,In progress
+18,25,Completed
+18,268,Completed
+18,271,In progress
+18,286,Completed
+18,294,In progress
+18,302,In progress
+18,316,Completed
+18,363,In progress
+18,371,In progress
+18,373,Completed
+18,376,Completed
+18,385,Completed
+18,464,In progress
+18,474,Completed
+18,486,Completed
+18,490,Completed
+18,545,Completed
+18,594,Completed
+18,627,In progress
+18,63,Completed
+18,644,In progress
+18,687,Completed
+18,722,Completed
+18,724,Completed
+18,736,In progress
+18,755,Completed
+18,758,In progress
+18,796,In progress
+18,82,In progress
+18,831,Completed
+18,885,In progress
+18,950,Completed
+18,956,Completed
+19,114,In progress
+19,116,Completed
+19,125,Completed
+19,134,Completed
+19,144,Completed
+19,153,In progress
+19,167,Completed
+19,191,In progress
+19,199,In progress
+19,213,In progress
+19,225,Completed
+19,246,In progress
+19,273,In progress
+19,281,Completed
+19,316,Completed
+19,363,In progress
+19,38,In progress
+19,388,Completed
+19,4,In progress
+19,415,In progress
+19,418,In progress
+19,508,In progress
+19,574,Completed
+19,603,Completed
+19,611,Completed
+19,657,In progress
+19,660,In progress
+19,681,Completed
+19,867,In progress
+19,894,In progress
+19,917,Completed
+19,958,In progress
+2,121,In progress
+2,203,Completed
+2,218,In progress
+2,344,In progress
+2,367,In progress
+2,43,Completed
+2,447,Completed
+2,473,In progress
+2,519,In progress
+2,575,In progress
+2,659,In progress
+2,675,Completed
+2,684,Completed
+2,689,In progress
+2,749,Completed
+2,805,Completed
+2,858,Completed
+2,865,Completed
+2,883,In progress
+2,918,In progress
+2,939,In progress
+2,96,Completed
+2,960,In progress
+2,998,In progress
+20,1000,Completed
+20,143,Completed
+20,176,In progress
+20,185,In progress
+20,23,In progress
+20,374,Completed
+20,385,Completed
+20,536,In progress
+20,554,In progress
+20,607,Completed
+20,646,In progress
+20,656,In progress
+20,701,In progress
+20,706,In progress
+20,724,In progress
+20,755,In progress
+20,77,Completed
+20,780,In progress
+20,843,In progress
+20,856,Completed
+20,857,In progress
+20,871,In progress
+20,958,Completed
+20,97,In progress
+20,99,In progress
+20,991,Completed
+21,102,Completed
+21,118,Completed
+21,135,Completed
+21,175,Completed
+21,258,Completed
+21,273,Completed
+21,276,Completed
+21,377,Completed
+21,398,Completed
+21,442,In progress
+21,452,Completed
+21,475,In progress
+21,543,Completed
+21,548,Completed
+21,610,Completed
+21,63,Completed
+21,633,Completed
+21,685,In progress
+21,707,In progress
+21,760,In progress
+21,812,Completed
+21,829,Completed
+21,897,In progress
+21,910,Completed
+21,933,In progress
+21,934,Completed
+21,984,In progress
+22,105,Completed
+22,129,Completed
+22,154,Completed
+22,227,Completed
+22,276,In progress
+22,3,Completed
+22,32,In progress
+22,361,Completed
+22,384,Completed
+22,389,Completed
+22,425,Completed
+22,430,In progress
+22,44,Completed
+22,442,Completed
+22,455,Completed
+22,458,Completed
+22,463,Completed
+22,485,In progress
+22,489,In progress
+22,504,Completed
+22,558,Completed
+22,580,In progress
+22,632,In progress
+22,643,In progress
+22,65,In progress
+22,650,In progress
+22,670,Completed
+22,715,Completed
+22,771,In progress
+22,810,Completed
+22,825,In progress
+22,839,In progress
+22,863,In progress
+22,92,Completed
+22,931,Completed
+22,932,In progress
+22,940,Completed
+22,948,In progress
+22,973,In progress
+23,129,In progress
+23,131,In progress
+23,132,In progress
+23,151,In progress
+23,163,Completed
+23,166,In progress
+23,180,In progress
+23,240,In progress
+23,246,In progress
+23,253,In progress
+23,258,Completed
+23,301,Completed
+23,393,Completed
+23,414,In progress
+23,419,Completed
+23,44,Completed
+23,484,Completed
+23,521,In progress
+23,54,In progress
+23,547,Completed
+23,552,In progress
+23,561,Completed
+23,596,In progress
+23,598,In progress
+23,646,In progress
+23,655,In progress
+23,710,Completed
+23,750,In progress
+23,789,In progress
+23,796,In progress
+23,828,Completed
+23,847,Completed
+23,899,Completed
+23,922,In progress
+23,939,In progress
+23,95,In progress
+23,970,In progress
+23,995,Completed
+24,125,In progress
+24,129,Completed
+24,154,Completed
+24,213,Completed
+24,221,Completed
+24,227,In progress
+24,23,Completed
+24,238,In progress
+24,274,Completed
+24,284,Completed
+24,323,In progress
+24,339,Completed
+24,367,In progress
+24,491,Completed
+24,493,Completed
+24,507,In progress
+24,521,Completed
+24,557,Completed
+24,600,In progress
+24,625,Completed
+24,701,Completed
+24,739,In progress
+24,750,Completed
+24,764,Completed
+24,770,Completed
+24,775,In progress
+24,836,In progress
+24,86,In progress
+24,891,Completed
+24,897,Completed
+24,979,In progress
+25,127,Completed
+25,149,In progress
+25,170,Completed
+25,178,In progress
+25,192,Completed
+25,200,In progress
+25,228,Completed
+25,23,Completed
+25,235,In progress
+25,426,Completed
+25,44,In progress
+25,469,Completed
+25,504,Completed
+25,526,Completed
+25,529,Completed
+25,561,Completed
+25,582,Completed
+25,607,Completed
+25,609,In progress
+25,614,Completed
+25,696,In progress
+25,7,Completed
+25,704,Completed
+25,713,In progress
+25,744,Completed
+25,752,Completed
+25,783,In progress
+25,790,Completed
+25,851,In progress
+25,898,In progress
+25,95,Completed
+25,954,Completed
+25,957,Completed
+25,968,Completed
+25,969,Completed
+25,971,Completed
+25,982,Completed
+25,986,Completed
+26,100,In progress
+26,144,Completed
+26,189,Completed
+26,190,Completed
+26,194,In progress
+26,201,Completed
+26,25,Completed
+26,288,In progress
+26,289,In progress
+26,306,Completed
+26,319,Completed
+26,353,In progress
+26,364,In progress
+26,371,In progress
+26,4,Completed
+26,414,Completed
+26,426,In progress
+26,44,In progress
+26,448,In progress
+26,477,Completed
+26,478,Completed
+26,496,Completed
+26,516,Completed
+26,608,Completed
+26,624,In progress
+26,674,In progress
+26,717,In progress
+26,725,In progress
+26,752,Completed
+26,766,Completed
+26,813,Completed
+26,86,In progress
+26,892,Completed
+26,948,In progress
+26,972,Completed
+26,995,Completed
+27,109,In progress
+27,177,In progress
+27,282,Completed
+27,319,Completed
+27,385,Completed
+27,405,In progress
+27,436,In progress
+27,461,Completed
+27,470,Completed
+27,504,In progress
+27,59,In progress
+27,591,Completed
+27,60,Completed
+27,635,Completed
+27,654,In progress
+27,779,Completed
+27,80,In progress
+27,803,In progress
+27,809,In progress
+27,820,In progress
+27,87,Completed
+27,873,Completed
+27,875,Completed
+27,900,In progress
+27,94,In progress
+27,96,In progress
+27,966,Completed
+27,990,Completed
+28,106,Completed
+28,151,In progress
+28,164,In progress
+28,167,In progress
+28,189,Completed
+28,214,In progress
+28,22,In progress
+28,283,Completed
+28,313,Completed
+28,321,In progress
+28,327,In progress
+28,330,In progress
+28,433,Completed
+28,438,In progress
+28,470,In progress
+28,478,Completed
+28,486,In progress
+28,542,In progress
+28,543,Completed
+28,561,Completed
+28,588,Completed
+28,647,In progress
+28,661,In progress
+28,676,Completed
+28,797,Completed
+28,800,Completed
+28,870,In progress
+28,88,Completed
+28,896,In progress
+28,914,Completed
+28,93,In progress
+29,146,In progress
+29,163,Completed
+29,183,In progress
+29,20,Completed
+29,21,In progress
+29,235,In progress
+29,239,Completed
+29,325,Completed
+29,367,In progress
+29,371,Completed
+29,400,Completed
+29,417,In progress
+29,471,Completed
+29,481,Completed
+29,528,Completed
+29,529,Completed
+29,61,Completed
+29,617,In progress
+29,659,Completed
+29,677,Completed
+29,685,Completed
+29,695,Completed
+29,700,In progress
+29,759,Completed
+29,767,Completed
+29,804,In progress
+29,862,Completed
+29,887,In progress
+29,904,In progress
+29,914,Completed
+29,965,In progress
+3,1000,In progress
+3,101,In progress
+3,120,In progress
+3,176,Completed
+3,207,In progress
+3,230,Completed
+3,278,In progress
+3,279,Completed
+3,284,In progress
+3,3,In progress
+3,330,In progress
+3,339,In progress
+3,350,Completed
+3,354,In progress
+3,365,In progress
+3,387,Completed
+3,599,In progress
+3,624,Completed
+3,661,Completed
+3,675,In progress
+3,683,In progress
+3,70,Completed
+3,737,Completed
+3,747,In progress
+3,766,Completed
+3,784,Completed
+3,812,Completed
+3,854,In progress
+3,867,Completed
+3,908,Completed
+3,917,In progress
+3,924,In progress
+3,972,In progress
+30,103,In progress
+30,123,Completed
+30,129,Completed
+30,135,In progress
+30,147,Completed
+30,166,In progress
+30,173,In progress
+30,207,Completed
+30,228,In progress
+30,257,Completed
+30,264,Completed
+30,30,In progress
+30,316,In progress
+30,342,In progress
+30,349,In progress
+30,350,In progress
+30,369,Completed
+30,376,Completed
+30,401,In progress
+30,412,In progress
+30,418,In progress
+30,424,Completed
+30,441,In progress
+30,453,In progress
+30,493,Completed
+30,503,In progress
+30,51,Completed
+30,512,Completed
+30,527,Completed
+30,550,Completed
+30,572,Completed
+30,587,Completed
+30,632,In progress
+30,712,Completed
+30,736,Completed
+30,741,In progress
+30,768,Completed
+30,770,In progress
+30,781,Completed
+30,79,Completed
+30,806,In progress
+30,834,Completed
+30,847,In progress
+30,854,In progress
+30,861,In progress
+30,863,In progress
+30,919,Completed
+30,957,Completed
+30,978,Completed
+30,998,In progress
+4,119,Completed
+4,186,Completed
+4,23,Completed
+4,278,Completed
+4,317,In progress
+4,349,In progress
+4,387,In progress
+4,407,Completed
+4,426,In progress
+4,537,In progress
+4,603,In progress
+4,646,Completed
+4,681,In progress
+4,689,Completed
+4,706,In progress
+4,755,Completed
+4,770,Completed
+4,805,Completed
+4,830,In progress
+4,850,In progress
+4,926,In progress
+4,967,In progress
+4,983,In progress
+4,993,In progress
+5,119,In progress
+5,12,Completed
+5,218,In progress
+5,26,Completed
+5,270,Completed
+5,316,Completed
+5,352,Completed
+5,353,In progress
+5,371,In progress
+5,429,In progress
+5,444,Completed
+5,461,In progress
+5,463,In progress
+5,471,Completed
+5,52,Completed
+5,545,In progress
+5,578,Completed
+5,583,In progress
+5,604,Completed
+5,629,Completed
+5,64,In progress
+5,641,Completed
+5,682,Completed
+5,683,Completed
+5,704,Completed
+5,73,In progress
+5,743,In progress
+5,745,In progress
+5,759,Completed
+5,791,In progress
+5,826,Completed
+5,839,Completed
+5,840,In progress
+5,87,In progress
+5,884,Completed
+5,893,In progress
+5,895,Completed
+5,991,In progress
+6,108,In progress
+6,137,Completed
+6,161,In progress
+6,166,In progress
+6,172,Completed
+6,176,Completed
+6,214,In progress
+6,237,Completed
+6,264,In progress
+6,283,Completed
+6,292,Completed
+6,299,In progress
+6,320,In progress
+6,327,In progress
+6,328,Completed
+6,394,In progress
+6,396,In progress
+6,421,In progress
+6,48,Completed
+6,508,Completed
+6,51,Completed
+6,517,In progress
+6,57,In progress
+6,589,Completed
+6,607,Completed
+6,632,In progress
+6,642,Completed
+6,702,Completed
+6,714,Completed
+6,738,Completed
+6,758,Completed
+6,760,Completed
+6,768,In progress
+6,830,In progress
+6,848,Completed
+6,851,In progress
+6,877,In progress
+6,9,In progress
+6,915,Completed
+6,938,Completed
+6,95,In progress
+6,971,Completed
+7,163,Completed
+7,215,In progress
+7,268,Completed
+7,279,Completed
+7,368,Completed
+7,388,In progress
+7,447,In progress
+7,449,In progress
+7,450,Completed
+7,454,In progress
+7,502,In progress
+7,514,In progress
+7,54,In progress
+7,584,In progress
+7,590,Completed
+7,646,In progress
+7,671,Completed
+7,703,Completed
+7,710,In progress
+7,757,In progress
+7,771,In progress
+7,786,In progress
+7,806,Completed
+7,810,In progress
+7,823,In progress
+7,825,Completed
+7,89,In progress
+8,114,Completed
+8,14,Completed
+8,2,Completed
+8,253,In progress
+8,260,Completed
+8,297,In progress
+8,321,Completed
+8,361,Completed
+8,416,Completed
+8,422,In progress
+8,494,In progress
+8,504,Completed
+8,56,Completed
+8,603,Completed
+8,636,Completed
+8,658,In progress
+8,678,In progress
+8,806,In progress
+8,818,In progress
+8,833,In progress
+8,849,Completed
+8,892,Completed
+8,897,Completed
+8,940,Completed
+8,941,In progress
+8,949,In progress
+8,966,In progress
+8,979,In progress
+9,100,Completed
+9,108,In progress
+9,129,In progress
+9,136,In progress
+9,162,In progress
+9,170,Completed
+9,19,In progress
+9,193,In progress
+9,212,Completed
+9,220,In progress
+9,282,Completed
+9,323,In progress
+9,368,Completed
+9,413,In progress
+9,43,In progress
+9,440,In progress
+9,443,Completed
+9,51,Completed
+9,519,Completed
+9,522,In progress
+9,659,Completed
+9,710,Completed
+9,717,Completed
+9,79,Completed
+9,803,In progress
+9,825,Completed
+9,826,Completed
+9,83,In progress
+9,85,Completed
+9,859,Completed
+9,874,Completed
+9,882,Completed
+9,939,In progress
+9,970,In progress
+9,980,In progress

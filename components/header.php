@@ -1,10 +1,5 @@
 <?php
-	session_start();
-	if (!isset($_SESSION["language"])) {
-		$_SESSION["language"] = "en";
-	}
-
-	($_SESSION["language"] == "vn") ? require("./localization/header.vn.php") : require("./localization/header.en.php");
+	($_SESSION["language"] == "vn") ? require("./localization/vn.php") : require("./localization/en.php");
 
 	$returnUrl = "/change-language?returnUrl=";
 	$returnUrl .= (isset($_SERVER["PATH_INFO"])) ? $_SERVER["PATH_INFO"] : "/";

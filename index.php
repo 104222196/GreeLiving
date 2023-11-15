@@ -1,41 +1,8 @@
 <?php
 
-// Import the Composer Autoloader to make the SDK classes accessible:
-require 'vendor/autoload.php';
+require_once("./functions/init.php");
 
-// Load our environment variables from the .env file:
-$Loader = (new josegonzalez\Dotenv\Loader('./.env'))
-    ->parse()
-    ->toEnv();
-
-// Now instantiate the Auth0 class with our configuration:
-$auth0_applicants = new \Auth0\SDK\Auth0([
-    'domain' => $_ENV['AUTH0_APPLICANTS_DOMAIN'],
-    'clientId' => $_ENV['AUTH0_APPLICANTS_CLIENT_ID'],
-    'clientSecret' => $_ENV['AUTH0_APPLICANTS_CLIENT_SECRET'],
-    'cookieSecret' => $_ENV['AUTH0_APPLICANTS_COOKIE_SECRET']
-]);
-
-$auth0_companies = new \Auth0\SDK\Auth0([
-    'domain' => $_ENV['AUTH0_COMPANIES_DOMAIN'],
-    'clientId' => $_ENV['AUTH0_COMPANIES_CLIENT_ID'],
-    'clientSecret' => $_ENV['AUTH0_COMPANIES_CLIENT_SECRET'],
-    'cookieSecret' => $_ENV['AUTH0_COMPANIES_COOKIE_SECRET']
-]);
-
-// Import our router library:
 use Steampixel\Route;
-
-// Define route constants:
-define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
-define('ROUTE_URL_APPLICANT_INDEX', ROUTE_URL_INDEX . '/applicant/profile');
-define('ROUTE_URL_APPLICANT_LOGIN', ROUTE_URL_INDEX . '/applicant/login');
-define('ROUTE_URL_APPLICANT_CALLBACK', ROUTE_URL_INDEX . '/applicant/callback');
-define('ROUTE_URL_APPLICANT_LOGOUT', ROUTE_URL_INDEX . '/applicant/logout');
-define('ROUTE_URL_COMPANY_INDEX', ROUTE_URL_INDEX . '/companies');
-define('ROUTE_URL_COMPANY_LOGIN', ROUTE_URL_INDEX . '/companies/login');
-define('ROUTE_URL_COMPANY_CALLBACK', ROUTE_URL_INDEX . '/companies/callback');
-define('ROUTE_URL_COMPANY_LOGOUT', ROUTE_URL_INDEX . '/companies/logout');
 
 Route::add('/', function () {
     require("./pages/home.php");
@@ -49,49 +16,46 @@ Route::add('/applicant/jobsearch', function () {
     require("./pages/job_search.php");
 });
 
-Route::add("/applicant/profile", function () use ($auth0_applicants) {
-    require("./pages/applicant_profile.php");    
+Route::add("/applicant/job/([0-9]*)", function ($var1) {
+    $jobId = $var1;
+    require("./pages/job_details.php");
 });
 
-Route::add('/applicant/setup', function () use ($auth0_applicants) {
-    $session = $auth0_applicants->getCredentials();
+Route::add("/applicant/profile", function () {
+    require("./pages/applicant_profile.php");
+});
 
-    if ($session === null) {
-        header("Location: " . ROUTE_URL_APPLICANT_LOGIN);
-        exit;
-    }
-
+Route::add('/applicant/setup', function () {
     require("./pages/applicant_setup.php");
-});
+}, array("get", "post"));
 
-Route::add('/applicant/handle-setup', function () use ($auth0_applicants) {
-    $session = $auth0_applicants->getCredentials();
-
-    if ($session === null) {
-        header("Location: " . ROUTE_URL_APPLICANT_LOGIN);
-        exit;
-    }
-
-    require("./pages/applicants_handle_setup.php");
-}, "post");
-
-Route::add('/applicant/login', function () use ($auth0_applicants) {
-    $auth0_applicants->clear();
-    header("Location: " . $auth0_applicants->login(ROUTE_URL_APPLICANT_CALLBACK));
+Route::add('/applicant/login', function () {
+    $GLOBALS["auth0_applicants"]->clear();
+    header("Location: " . $GLOBALS["auth0_applicants"]->login(ROUTE_URL_APPLICANT_CALLBACK));
     exit;
 });
 
-Route::add('/applicant/callback', function () use ($auth0_applicants) {
-    $auth0_applicants->exchange(ROUTE_URL_APPLICANT_CALLBACK);
+Route::add('/applicant/callback', function () {
+    $GLOBALS["auth0_applicants"]->exchange(ROUTE_URL_APPLICANT_CALLBACK);
     header("Location: " . ROUTE_URL_APPLICANT_INDEX);
     exit;
 });
 
-Route::add('/applicant/logout', function () use ($auth0_applicants) {
-    header("Location: " . $auth0_applicants->logout(ROUTE_URL_INDEX));
+Route::add('/applicant/logout', function () {
+    header("Location: " . $GLOBALS["auth0_applicants"]->logout(ROUTE_URL_INDEX));
     exit;
 });
 
+Route::add("/applicant/save-job", function () {
+    require("./pages/save_job.php");
+}, "post");
+
+Route::add("/applicant/apply/([0-9]*)", function ($var1) {
+    $jobId = $var1;
+    require("./pages/apply_job.php");
+}, array("get", "post"));
+
+/* 
 Route::add("/companies", function () use ($auth0_companies) {
     $session = $auth0_companies->getCredentials();
 
@@ -130,7 +94,7 @@ Route::add('/companies/logout', function () use ($auth0_companies) {
     // Clear the user's local session with our app, then redirect them to the Auth0 logout endpoint to clear their Auth0 session.
     header("Location: " . $auth0_companies->logout(ROUTE_URL_COMPANY_INDEX));
     exit;
-});
+}); */
 
 
 Route::run('/');

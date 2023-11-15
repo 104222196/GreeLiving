@@ -2,12 +2,8 @@
 
 session_start();
 
-if (isset($_SESSION["language"])) {
-    if ($_SESSION["language"] == "vn") {
-        $_SESSION["language"] = "en";
-    } else {
-        $_SESSION["language"] = "vn";
-    }
+if ($_SESSION["language"] == "vn") {
+    $_SESSION["language"] = "en";
 } else {
     $_SESSION["language"] = "vn";
 }

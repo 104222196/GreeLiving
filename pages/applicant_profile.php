@@ -1,19 +1,24 @@
 <?php
 
-$session = $auth0_applicants->getCredentials();
+require("./functions/check_applicant_login.php");
 
-if ($session === null) {
-    header("Location: " . ROUTE_URL_APPLICANT_LOGIN);
-    exit;
+checkFirstTimeLogIn();
+
+$authID = $GLOBALS["auth0_applicants"]->getCredentials()->user["sub"];
+$db = $GLOBALS["db"];
+
+$query = 'SELECT * FROM Applicant WHERE AuthenticationID = "' . $db->real_escape_string($authID) . '"';
+$result = $db->query($query);
+
+if ($result->num_rows === 0) {
+    header('Location: /');
+    exit();
 }
 
-echo '<pre>';
-print_r($session->user);
-echo '</pre>';
+$applicant = $result->fetch_assoc();
 
-echo '<p>You have logged in as an applicant</p>';
+$result = $db->query('SELECT * FROM JobApplication WHERE ApplicantID = "' . $applicant["ApplicantID"] . '" AND ApplicationStatus = "Saved"');
 
-echo '<p>You can now <a href="/applicant/logout">log out</a>.</p>';
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +31,21 @@ echo '<p>You can now <a href="/applicant/logout">log out</a>.</p>';
     <link href="/assets/css/footer.css" rel="stylesheet"/>
 </head>
 
-<body>
+<body style="padding-top:100px">
     <?php require("./components/header.php") ?>
+
+    <h1><?php echo "Hello " . $applicant["FirstName"] . " " . $applicant["LastName"]; ?></h1>
+
+    <?php
+    echo "<pre>";
+    print_r($applicant);
+
+    while ($saved = $result->fetch_assoc()) {
+        print_r($saved);
+    }
+    echo "</pre>";
+    ?>
+
     <?php require("./components/footer.php") ?>
 </body>
 

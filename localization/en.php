@@ -1,5 +1,6 @@
 <?php
     $content = array(
+        // Header
         "home" => "Home",
         "about"=> "About us",
         "courses"=> "Courses",
