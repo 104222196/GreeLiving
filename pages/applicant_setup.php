@@ -1,8 +1,8 @@
 <?php
 
 // Check if this is in fact the first time log in.
-require_once("./functions/check_applicant_login.php");
-checkNotFirstTimeLogIn();
+require_once("./functions/applicant_auth.php");
+checkApplicantNotFirstLogIn();
 
 // Check if this a form submision
 if (
@@ -15,12 +15,12 @@ if (
     $columns = array("AuthenticationID", "FirstName", "LastName", "Birthdate", "Gender", "Email", "Phone", "Nationality", "CountryOfResidence", "City", "District", "StreetAddress", "JobTitle", "ExperienceLevel", "EducationBackground", "CareerGoal");
     $values = array();
 
-    $authID = '"' . $GLOBALS["auth0_applicants"]->getCredentials()->user["sub"] . '"';
+    $authID = '"' . $GLOBALS["auth0_applicant"]->getCredentials()->user["sub"] . '"';
     $fName = '"' . $db->real_escape_string($_POST["fName"]) . '"';
     $lName = '"' . $db->real_escape_string($_POST["lName"]) . '"';
     $birthdate = '"' . $db->real_escape_string($_POST["birthdate"]) . '"';
     $gender = '"' . $db->real_escape_string($_POST["gender"]) . '"';
-    $email = '"' . $GLOBALS["auth0_applicants"]->getCredentials()->user["email"] . '"';
+    $email = '"' . $GLOBALS["auth0_applicant"]->getCredentials()->user["email"] . '"';
     $phone = '"' . $db->real_escape_string($_POST["phone"]) . '"';
     $nationality = '"' . $db->real_escape_string($_POST["nationality"]) . '"';
     $countryOfRes = '"' . $db->real_escape_string($_POST["countryOfRes"]) . '"';

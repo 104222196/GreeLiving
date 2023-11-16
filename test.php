@@ -1,19 +1,13 @@
 <?php
 
-$pt = "/^(cat|dog|rat)$/";
+$pattern = "/(^\d{1,5}$)|(^\d{1,5}\.\d{1,2}$)/";
 
-echo preg_match($pt, "cat");
-echo preg_match($pt, "dog");
-echo preg_match($pt, "rat");
-echo preg_match($pt, "catto");
-echo preg_match($pt, "dogged");
-echo preg_match($pt, "ratty");
-echo preg_match($pt, "acat");
-echo preg_match($pt, "adog");
-echo preg_match($pt, "arat");
-
-echo preg_match("/^\d*$/", "");
-
-echo "Hello " . "123" * "5";
+echo preg_match($pattern,"");
+echo preg_match($pattern,"12345");
+echo preg_match($pattern,"123456");
+echo preg_match($pattern,"12345.1");
+echo preg_match($pattern,"12345.12");
+echo preg_match($pattern,"12345.123");
+echo preg_match($pattern,"123456.12");
 
 ?>

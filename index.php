@@ -1,24 +1,51 @@
 <?php
 
 require_once("./functions/init.php");
+require_once("./functions/applicant_auth.php");
+require_once("./functions/employer_auth.php");
 
 use Steampixel\Route;
 
-Route::add('/', function () {
-    require("./pages/home.php");
+Route::add("/", function() {
+    if (isset($_SESSION)) {
+        echo "Session is set";
+
+        if (isset($_SESSION["applicantId"])) {
+            echo "Applicant ID is " . $_SESSION["applicantId"];
+        } else {
+            echo "Applicant ID is not set.";
+        }
+
+        if (isset($_SESSION["employerId"])) {
+            echo "Employer ID is " . $_SESSION["employerId"];
+        } else {
+            echo "Employer ID is not set.";
+        }
+    } else {
+        echo "Session is not set.";
+    }
+
+    $applicantCreds = $GLOBALS["auth0_applicant"]->getCredentials();
+    if ($applicantCreds !== null) {
+        print_r($applicantCreds->user);
+    } else {
+        echo "Applicant credentials non-existent.";
+    }
+
+    $employerCreds = $GLOBALS["auth0_employer"]->getCredentials();
+    if ($employerCreds !== null) {
+        print_r($employerCreds->user);
+    } else {
+        echo "Employer credentials non-existent.";
+    }
 });
 
 Route::add('/change-language', function () {
     require("./pages/change_language.php");
 });
 
-Route::add('/applicant/jobsearch', function () {
-    require("./pages/job_search.php");
-});
-
-Route::add("/applicant/job/([0-9]*)", function ($var1) {
-    $jobId = $var1;
-    require("./pages/job_details.php");
+Route::add('/applicant/home', function () {
+    require("./pages/home.php");
 });
 
 Route::add("/applicant/profile", function () {
@@ -30,72 +57,88 @@ Route::add('/applicant/setup', function () {
 }, array("get", "post"));
 
 Route::add('/applicant/login', function () {
-    $GLOBALS["auth0_applicants"]->clear();
-    header("Location: " . $GLOBALS["auth0_applicants"]->login(ROUTE_URL_APPLICANT_CALLBACK));
+    deleteApplicantId();
+    deleteEmployerId();
+    $GLOBALS["auth0_applicant"]->clear(true);
+    $GLOBALS["auth0_employer"]->clear(true);
+    header("Location: " . $GLOBALS["auth0_applicant"]->login(ROUTE_URL_APPLICANT_CALLBACK));
     exit;
 });
 
 Route::add('/applicant/callback', function () {
-    $GLOBALS["auth0_applicants"]->exchange(ROUTE_URL_APPLICANT_CALLBACK);
+    $GLOBALS["auth0_applicant"]->exchange(ROUTE_URL_APPLICANT_CALLBACK);
+    saveApplicantId();
     header("Location: " . ROUTE_URL_APPLICANT_INDEX);
     exit;
 });
 
 Route::add('/applicant/logout', function () {
-    header("Location: " . $GLOBALS["auth0_applicants"]->logout(ROUTE_URL_INDEX));
+    deleteApplicantId();
+    header("Location: " . $GLOBALS["auth0_applicant"]->logout(ROUTE_URL_INDEX));
     exit;
 });
 
-Route::add("/applicant/save-job", function () {
-    require("./pages/save_job.php");
-}, "post");
+Route::add('/applicant/jobsearch', function () {
+    require("./pages/job_search.php");
+});
+
+Route::add("/applicant/job/([0-9]*)", function ($var1) {
+    $jobId = $var1;
+    require("./pages/job_details.php");
+}, array("get", "post"));
 
 Route::add("/applicant/apply/([0-9]*)", function ($var1) {
     $jobId = $var1;
     require("./pages/apply_job.php");
 }, array("get", "post"));
 
-/* 
-Route::add("/companies", function () use ($auth0_companies) {
-    $session = $auth0_companies->getCredentials();
+Route::add("/employer/post-job", function () {
+    require("./pages/job_post.php");
+}, array("get", "post"));
 
-    if ($session === null) {
-        echo '<p>Please <a href="/companies/login">log in</a> as a company.</p>';
-        return;
-    }
+Route::add("/employer/edit-job/([0-9]*)", function ($var1) {
+    $jobId = $var1;
+    require("./pages/job_edit.php");
+}, array("get", "post"));
 
-    echo '<pre>';
-    print_r($session->user);
-    echo '</pre>';
-    echo '<p>You have logged in as a company</p>';
-
-    echo '<p>You can now <a href="/companies/logout">log out</a>.</p>';
+Route::add("/employer/profile", function () {
+    require("./pages/employer_profile.php");
 });
 
-Route::add('/companies/login', function () use ($auth0_companies) {
-    // It's a good idea to reset user sessions each time they go to login to avoid "invalid state" errors, should they hit network issues or other problems that interrupt a previous login process:
-    $auth0_companies->clear();
+Route::add("/employer/setup", function () {
+    require("./pages/employer_setup.php");
+}, array("get", "post"));
 
-    // Finally, set up the local application session, and redirect the user to the Auth0 Universal Login Page to authenticate.
-    header("Location: " . $auth0_companies->login(ROUTE_URL_COMPANY_CALLBACK));
+Route::add('/employer/login', function () {
+    deleteApplicantId();
+    deleteEmployerId();
+    $GLOBALS["auth0_applicant"]->clear(true);
+    $GLOBALS["auth0_employer"]->clear(true);
+    header("Location: " . $GLOBALS["auth0_employer"]->login(ROUTE_URL_EMPLOYER_CALLBACK));
     exit;
 });
 
-Route::add('/companies/callback', function () use ($auth0_companies) {
-    // Have the SDK complete the authentication flow:
-    $auth0_companies->exchange(ROUTE_URL_COMPANY_CALLBACK);
-
-    // Finally, redirect our end user back to the / index route, to display their user profile:
-    header("Location: " . ROUTE_URL_COMPANY_INDEX);
+Route::add('/employer/callback', function () {
+    $GLOBALS["auth0_employer"]->exchange(ROUTE_URL_EMPLOYER_CALLBACK);
+    saveEmployerId();
+    header("Location: " . ROUTE_URL_EMPLOYER_INDEX);
     exit;
 });
 
-Route::add('/companies/logout', function () use ($auth0_companies) {
-    // Clear the user's local session with our app, then redirect them to the Auth0 logout endpoint to clear their Auth0 session.
-    header("Location: " . $auth0_companies->logout(ROUTE_URL_COMPANY_INDEX));
+Route::add('/employer/logout', function () {
+    deleteEmployerId();
+    header("Location: " . $GLOBALS["auth0_employer"]->logout(ROUTE_URL_INDEX));
     exit;
-}); */
+});
 
+Route::add('/employer/view-application/([0-9]*)', function($var1) {
+    $applicationId = $var1;
+    require("./pages/application_view_employer.php");
+}, array("get", "post"));
+
+Route::add("/test", function () {
+    require("./pages/test.php");
+}, array("get", "post"));
 
 Route::run('/');
 ?>

@@ -16,7 +16,9 @@ DROP TABLE IF EXISTS greeliving.InPersonInterview;
 DROP TABLE IF EXISTS greeliving.OnTheGoInterview;
 DROP TABLE IF EXISTS greeliving.Interview;
 DROP TABLE IF EXISTS greeliving.JobApplication;
+DROP TABLE IF EXISTS greeliving.SavedJob;
 
+-- COnstraint: Unique AuthenticationID for applicants and companies.
 
 CREATE TABLE greeliving.Applicant (
     ApplicantID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -145,16 +147,33 @@ CREATE TABLE greeliving.Job (
         ON UPDATE CASCADE
 );
 
+CREATE TABLE greeliving.SavedJob (
+	JobID INT NOT NULL,
+    ApplicantID INT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY (JobID, ApplicantID),
+    
+    CONSTRAINT FOREIGN KEY (ApplicantID)
+        REFERENCES Applicant(ApplicantID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT FOREIGN KEY (JobID)
+        REFERENCES Job(JobID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);    
+
 CREATE TABLE greeliving.JobApplication (
     ApplicationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     JobID INT NOT NULL,
     ApplicantID INT NOT NULL,
-    TimeOfApplication DATETIME NOT NULL,
+    TimeOfApplication DATETIME NOT NULL DEFAULT NOW(),
     CV VARCHAR(255) NOT NULL,
     StatementOfPurpose TEXT NOT NULL,
     ExpectToGain TEXT NOT NULL,
     Questions TEXT,
-    ApplicationStatus ENUM("Saved", "Applying", "Reviewing", "Failed", "Succeeded", "Interviewing") NOT NULL,
+    ApplicationStatus ENUM("Applying", "Reviewing", "Failed", "Succeeded", "Interviewing") NOT NULL,
 
     CONSTRAINT FOREIGN KEY (ApplicantID)
         REFERENCES Applicant(ApplicantID)

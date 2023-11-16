@@ -1,16 +1,61 @@
 <?php
 
 $db = $GLOBALS["db"];
-$query = 'SELECT * FROM Job JOIN Specialization ON Job.SpecializationID = Specialization.SpecializationID JOIN Company ON Job.CompanyID = Company.CompanyID WHERE JobID = "' . $jobId . '"';
 
-$result = mysqli_query($db, $query);
+$statement = new mysqli_stmt($db, "SELECT * FROM Job 
+                                   JOIN Specialization ON Job.SpecializationID = Specialization.SpecializationID 
+                                   JOIN Company ON Job.CompanyID = Company.CompanyID WHERE JobID = ?");
+$statement->bind_param("s", $jobId);
+$success = $statement->execute();
+$result = $statement->get_result();
 
-if ($result == false || mysqli_num_rows($result) == 0) {
+if (!$success || $result->num_rows == 0) {
     header("Location: /applicant/jobsearch");
     exit();
 }
 
 $job = $result->fetch_assoc();
+
+require_once("./functions/applicant_auth.php");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST["save"]) && !isset($_POST["unsave"])) {
+        header("Location: /applicant/job/" . $jobId);
+        exit;
+    }
+
+    checkApplicantId();
+
+    $applicantId = $_SESSION["applicantId"];
+    $jobId = trim($jobId);
+
+    if (isset($_POST["save"])) {
+        $statement = new mysqli_stmt($db, "INSERT IGNORE INTO SavedJob VALUES (?,?)");
+    } else if (isset($_POST["unsave"])) {
+        $statement = new mysqli_stmt($db, "DELETE FROM SavedJob WHERE JobID = ? AND ApplicantID = ?");
+    }
+
+    $statement->bind_param("ss", $jobId, $applicantId);
+    $statement->execute();
+}
+
+if (isApplicantLoggedIn()) {
+    checkApplicantId();
+
+    $applicantId = $_SESSION["applicantId"];
+    $jobId = trim($jobId);
+    
+    $statement = new mysqli_stmt($db, "SELECT * FROM SavedJob WHERE JobID = ? AND ApplicantID = ?");
+    $statement->bind_param("ss", $jobId, $applicantId);
+    $statement->execute();
+    $statement->store_result();
+
+    if ($statement->num_rows() > 0) {
+        $saved = true;
+    } else {
+        $saved = false;
+    }
+}
 
 ?>
 
@@ -26,12 +71,24 @@ $job = $result->fetch_assoc();
     <p>Employer: <?php echo $job["CompanyName"] ?></p>
     <p>Application deadline: <?php echo $job["ApplicationDeadline"] ?></p>
 
-    <form method="post" action="/applicant/save-job">
+    <form method="post" action="">
         <input type="hidden" name="jobId" value=<?php echo '"' . $jobId . '"'?>/>
-        <input type="submit" value="Save job"/>
+        <input
+            type="submit"
+            <?php
+                if (isset($saved)) {
+                    if ($saved) {
+                        echo 'name="unsave" value="Unsave"';
+                    } else {
+                        echo 'name="save" value="Save"';
+                    }
+                } else {
+                    echo 'name="save" value="Save"';
+                }
+            ?>
+        />
     </form>
 
-    <a href="/applicant/apply/<?php echo $jobId?>">Apply</a>
-    
+    <a href="/applicant/apply/<?php echo $jobId?>">Apply</a>    
 </body>
 </html>

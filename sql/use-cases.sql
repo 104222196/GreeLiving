@@ -162,3 +162,5 @@ SELECT * FROM Job JOIN Specialization ON Job.SpecializationID = Specialization.S
 UPDATE greeliving.Job
 SET ApplicationDeadline = "2024-12-31 23:59:59"
 WHERE JobID >= '1';
+
+DELETE FROM greeliving.JobApplication WHERE ApplicationStatus = "Saved";

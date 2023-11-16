@@ -8,6 +8,7 @@ SELECT * FROM greeliving.ExtracurricularExperience;
 SELECT * FROM greeliving.WorkExperience;
 SELECT * FROM greeliving.Skill;
 SELECT * FROM greeliving.Job;
+SELECT * FROM greeliving.SavedJob;
 
 SELECT * FROM greeliving.JobApplication;
 

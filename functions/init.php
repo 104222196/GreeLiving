@@ -6,14 +6,14 @@ require('vendor/autoload.php');
 $Loader = (new josegonzalez\Dotenv\Loader('./.env'))->parse()->toEnv();
 
 // Set up Auth0 objects for applicants and companies.
-$GLOBALS["auth0_applicants"] = new \Auth0\SDK\Auth0([
+$GLOBALS["auth0_applicant"] = new \Auth0\SDK\Auth0([
     'domain' => $_ENV['AUTH0_APPLICANTS_DOMAIN'],
     'clientId' => $_ENV['AUTH0_APPLICANTS_CLIENT_ID'],
     'clientSecret' => $_ENV['AUTH0_APPLICANTS_CLIENT_SECRET'],
     'cookieSecret' => $_ENV['AUTH0_APPLICANTS_COOKIE_SECRET']
 ]);
 
-$GLOBALS["auth0_companies"] = new \Auth0\SDK\Auth0([
+$GLOBALS["auth0_employer"] = new \Auth0\SDK\Auth0([
     'domain' => $_ENV['AUTH0_COMPANIES_DOMAIN'],
     'clientId' => $_ENV['AUTH0_COMPANIES_CLIENT_ID'],
     'clientSecret' => $_ENV['AUTH0_COMPANIES_CLIENT_SECRET'],
@@ -26,10 +26,10 @@ define('ROUTE_URL_APPLICANT_INDEX', ROUTE_URL_INDEX . '/applicant/profile');
 define('ROUTE_URL_APPLICANT_LOGIN', ROUTE_URL_INDEX . '/applicant/login');
 define('ROUTE_URL_APPLICANT_CALLBACK', ROUTE_URL_INDEX . '/applicant/callback');
 define('ROUTE_URL_APPLICANT_LOGOUT', ROUTE_URL_INDEX . '/applicant/logout');
-define('ROUTE_URL_COMPANY_INDEX', ROUTE_URL_INDEX . '/companies');
-define('ROUTE_URL_COMPANY_LOGIN', ROUTE_URL_INDEX . '/companies/login');
-define('ROUTE_URL_COMPANY_CALLBACK', ROUTE_URL_INDEX . '/companies/callback');
-define('ROUTE_URL_COMPANY_LOGOUT', ROUTE_URL_INDEX . '/companies/logout');
+define('ROUTE_URL_EMPLOYER_INDEX', ROUTE_URL_INDEX . '/employer/profile');
+define('ROUTE_URL_EMPLOYER_LOGIN', ROUTE_URL_INDEX . '/employer/login');
+define('ROUTE_URL_EMPLOYER_CALLBACK', ROUTE_URL_INDEX . '/employer/callback');
+define('ROUTE_URL_EMPLOYER_LOGOUT', ROUTE_URL_INDEX . '/employer/logout');
 
 // Set the default language, saving it in the session.
 session_start();
@@ -48,6 +48,11 @@ $GLOBALS["db"] = new mysqli(
 
 if ($GLOBALS["db"]->connect_error) {
     die("Failed to connect to the database.");
+}
+
+// Initialize a directory to store applicants' CVs.
+if (!file_exists("uploads") && !is_dir("uploads")) {
+    mkdir("uploads");
 }
 
 ?>
