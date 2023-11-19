@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (1,'Website Updating');
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (2,'DLL');
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (3,'Major Gift Development');
@@ -49,4 +48,3 @@ INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUE
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (48,'DVD Replication');
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (49,'PXE');
 INSERT INTO greeliving.Specialization(SpecializationID,SpecializationName) VALUES (50,'CTM');
-COMMIT;

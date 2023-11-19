@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (1,526,'Roombo','Desktop Support Technician','2023-08-03','2023-03-24','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.');
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (2,658,'Dabjam','Developer III','2022-11-13','2023-07-10','Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.');
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (3,120,'Ozu','Database Administrator II','2023-03-14','2023-01-17',NULL);
@@ -999,4 +998,3 @@ INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,App
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (998,390,'Voonte','Director of Sales','2023-04-17',NULL,'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.');
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (999,504,'Vitz','Database Administrator IV','2023-04-28','2023-04-01',NULL);
 INSERT INTO greeliving.ExtracurricularExperience(ExtracurricularExperienceID,ApplicantID,Organization,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (1000,658,'Zoozzy','Budget/Accounting Analyst III','2023-04-23','2022-11-02','Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.');
-COMMIT;

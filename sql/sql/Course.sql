@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (1,'eBusiness Suite');
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (2,'NYSE');
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (3,'OMB Circular A-133');
@@ -29,4 +28,3 @@ INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (27,'Basel II');
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (28,'ePub');
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (29,'Yardi Property Management');
 INSERT INTO greeliving.Course(CourseID,CourseName) VALUES (30,'FDTD');
-COMMIT;

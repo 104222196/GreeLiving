@@ -13,18 +13,18 @@
       rel="stylesheet"
     />
     
-    <title>Grad School HTML5 Template</title>
+    <title>GreeLiving - Home</title>
     
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
     
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css" />
-    <link rel="stylesheet" href="assets/css/home.css" />
+    <link rel="stylesheet" href="/assets/css/fontawesome.css" />
+    <link rel="stylesheet" href="/assets/css/home.css" />
     <link href="/assets/css/header.css" rel="stylesheet"/>
     <link href="/assets/css/footer.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/css/owl.css" />
+    <link rel="stylesheet" href="/assets/css/owl.css" />
   </head>
 
   <body>
@@ -34,7 +34,7 @@
     <!-- ***** Main Banner Area Start ***** -->
     <section class="section main-banner" id="section1">
       <video autoplay muted loop id="bg-video">
-        <source src="./assets/images/course-video.mp4" type="video/mp4" />
+        <source src="/assets/images/course-video.mp4" type="video/mp4" />
       </video>
 
       <div class="video-overlay header-text">
@@ -150,7 +150,7 @@
                 <article id="tabs-1">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="assets/images/choose-us-image-01.png" alt="" />
+                      <img src="/assets/images/choose-us-image-01.png" alt="" />
                     </div>
                     <div class="col-md-6">
                       <h4>Best Education</h4>
@@ -173,7 +173,7 @@
                 <article id="tabs-2">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="assets/images/choose-us-image-02.png" alt="" />
+                      <img src="/assets/images/choose-us-image-02.png" alt="" />
                     </div>
                     <div class="col-md-6">
                       <h4>Top Level</h4>
@@ -193,7 +193,7 @@
                 <article id="tabs-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="assets/images/choose-us-image-03.png" alt="" />
+                      <img src="/assets/images/choose-us-image-03.png" alt="" />
                     </div>
                     <div class="col-md-6">
                       <h4>Quality Meeting</h4>
@@ -324,7 +324,7 @@
           </div>
           <div class="owl-carousel owl-theme">
             <div class="item">
-              <img src="assets/images/courses-01.jpg" alt="Course #1" />
+              <img src="/assets/images/courses-01.jpg" alt="Course #1" />
               <div class="down-content">
                 <h4>Digital Marketing</h4>
                 <p>
@@ -332,7 +332,7 @@
                   visiting Unsplash, Pixabay, and Pexels.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-01.png" alt="Author 1" />
+                  <img src="/assets/images/author-01.png" alt="Author 1" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -340,7 +340,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-02.jpg" alt="Course #2" />
+              <img src="/assets/images/courses-02.jpg" alt="Course #2" />
               <div class="down-content">
                 <h4>Business World</h4>
                 <p>
@@ -348,7 +348,7 @@
                   blandit. Maecenas a lectus ac ipsum porta.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-02.png" alt="Author 2" />
+                  <img src="/assets/images/author-02.png" alt="Author 2" />
                 </div>
                 <div class="text-button-free">
                   <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
@@ -356,7 +356,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-03.jpg" alt="Course #3" />
+              <img src="/assets/images/courses-03.jpg" alt="Course #3" />
               <div class="down-content">
                 <h4>Media Technology</h4>
                 <p>
@@ -364,7 +364,7 @@
                   pretium nec. Maecenas finibus lobortis enim.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-03.png" alt="Author 3" />
+                  <img src="/assets/images/author-03.png" alt="Author 3" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -372,7 +372,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-04.jpg" alt="Course #4" />
+              <img src="/assets/images/courses-04.jpg" alt="Course #4" />
               <div class="down-content">
                 <h4>Communications</h4>
                 <p>
@@ -380,7 +380,7 @@
                   Unsplash, Pixabay, and Pexels.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-04.png" alt="Author 4" />
+                  <img src="/assets/images/author-04.png" alt="Author 4" />
                 </div>
                 <div class="text-button-free">
                   <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
@@ -388,7 +388,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-05.jpg" alt="" />
+              <img src="/assets/images/courses-05.jpg" alt="" />
               <div class="down-content">
                 <h4>Business Ethics</h4>
                 <p>
@@ -396,7 +396,7 @@
                   pretium nec. Maecenas finibus lobortis enim.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-05.png" alt="" />
+                  <img src="/assets/images/author-05.png" alt="" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -404,7 +404,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-01.jpg" alt="" />
+              <img src="/assets/images/courses-01.jpg" alt="" />
               <div class="down-content">
                 <h4>Photography</h4>
                 <p>
@@ -412,7 +412,7 @@
                   blandit. Maecenas a lectus ac ipsum porta.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-01.png" alt="" />
+                  <img src="/assets/images/author-01.png" alt="" />
                 </div>
                 <div class="text-button-free">
                   <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
@@ -420,7 +420,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-02.jpg" alt="" />
+              <img src="/assets/images/courses-02.jpg" alt="" />
               <div class="down-content">
                 <h4>Web Development</h4>
                 <p>
@@ -428,7 +428,7 @@
                   pretium nec. Maecenas finibus lobortis enim.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-02.png" alt="" />
+                  <img src="/assets/images/author-02.png" alt="" />
                 </div>
                 <div class="text-button-free">
                   <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
@@ -436,7 +436,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-03.jpg" alt="" />
+              <img src="/assets/images/courses-03.jpg" alt="" />
               <div class="down-content">
                 <h4>Learn HTML CSS</h4>
                 <p>
@@ -444,7 +444,7 @@
                   visiting Unsplash, Pixabay, and Pexels.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-03.png" alt="" />
+                  <img src="/assets/images/author-03.png" alt="" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -452,7 +452,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-04.jpg" alt="" />
+              <img src="/assets/images/courses-04.jpg" alt="" />
               <div class="down-content">
                 <h4>Social Media</h4>
                 <p>
@@ -460,7 +460,7 @@
                   pretium nec. Maecenas finibus lobortis enim.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-04.png" alt="" />
+                  <img src="/assets/images/author-04.png" alt="" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -468,7 +468,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-05.jpg" alt="" />
+              <img src="/assets/images/courses-05.jpg" alt="" />
               <div class="down-content">
                 <h4>Digital Arts</h4>
                 <p>
@@ -476,7 +476,7 @@
                   blandit. Maecenas a lectus ac ipsum porta.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-05.png" alt="" />
+                  <img src="/assets/images/author-05.png" alt="" />
                 </div>
                 <div class="text-button-free">
                   <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
@@ -484,7 +484,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/courses-01.jpg" alt="" />
+              <img src="/assets/images/courses-01.jpg" alt="" />
               <div class="down-content">
                 <h4>Media Streaming</h4>
                 <p>
@@ -492,7 +492,7 @@
                   pretium nec. Maecenas finibus lobortis enim.
                 </p>
                 <div class="author-image">
-                  <img src="assets/images/author-01.png" alt="" />
+                  <img src="/assets/images/author-01.png" alt="" />
                 </div>
                 <div class="text-button-pay">
                   <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
@@ -545,7 +545,7 @@
                 <a
                   href="https://www.youtube.com/watch?v=r9LtOG6pNUw"
                   class="play"
-                  ><img src="assets/images/main-thumb.png"
+                  ><img src="/assets/images/main-thumb.png"
                 /></a>
               </figure>
             </article>
@@ -629,7 +629,7 @@
 
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 

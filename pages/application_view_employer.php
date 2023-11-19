@@ -40,9 +40,9 @@ $validStatuses = array("Applying", "Reviewing", "Failed", "Succeeded", "Intervie
 // Array of errors to show the user.
 $errors = array();
 
-// Handles POST request.
+// Handles POST request. 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST, $_POST["updateStatus"], $_POST["status"])) {
+    if (!isset($_POST, $_POST["status"])) {
         header("Location: /employer/view-application/" . $applicationId);
         exit;
     }
@@ -60,6 +60,117 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (!$success) {
             array_push($errors, "An error happened while changing the status. Please try again.");
+        }
+    }
+
+    if (isset($_POST["interviewFormat"])) {
+        $format = trim($_POST["interviewFormat"]);
+
+        if ($format === "in-person" && isset($_POST["inPersonStart"], $_POST["inPersonEnd"])) {
+            if (count($_POST["inPersonStart"]) !== count($_POST["inPersonEnd"])) {
+                array_push($errors, "Please make sure your start and end dates are chosen.");
+            }
+
+            $startDates = array();
+            foreach ($_POST["inPersonStart"] as $start) {
+                $dateObj = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i", trim($start));
+                if ($dateObj === false) {
+                    array_push($errors, "Please format all your interview start times correctly.");
+                    break;
+                } else {
+                    array_push($startDates, $dateObj->format("Y-m-d H:i:s"));
+                }
+            }
+
+            $endDates = array();
+            foreach ($_POST["inPersonEnd"] as $end) {
+                $dateObj = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i", trim($end));
+                if ($dateObj === false) {
+                    array_push($errors, "Please format all your interview end times correctly.");
+                    break;
+                } else {
+                    array_push($endDates, $dateObj->format("Y-m-d H:i:s"));
+                }
+            }
+
+            if (count($errors) === 0) {
+                $statement = new mysqli_stmt($db, "DELETE FROM Interview WHERE ApplicationID = ? AND InterviewTypeID = '2'");
+                $statement->bind_param("s", $applicationId);
+                $success = $statement->execute();
+    
+                $statement = new mysqli_stmt($db, "INSERT IGNORE INTO Interview VALUES (?, '1')");
+                $statement->bind_param("s", $applicationId);
+                $statement->execute();
+
+                $statement = new mysqli_stmt($db, "INSERT IGNORE INTO InPersonInterview (ApplicationID) VALUES (?)");
+                $statement->bind_param("s", $applicationId);
+                $statement->execute();
+
+                $statement = new mysqli_stmt($db, "SELECT InterviewTimeFrom, InterviewTimeTo FROM InPersonInterviewDate WHERE ApplicationID = ?");
+                $statement->bind_param("s", $applicationId);
+                $statement->execute();
+
+                $result = $statement->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    $keep = false;
+
+                    for ( $i = 0; $i < count($startDates); $i++) {
+                        if ($row["InterviewTimeFrom"] === $startDates[ $i ] && $row["InterviewTimeTo"] === $endDates[ $i ]) {
+                            $keep = true;
+                        }
+                    }
+
+                    if ( $keep === false ) {
+                        $statement = new mysqli_stmt($db, "DELETE FROM InPersonInterviewDate WHERE ApplicationID = ? AND InterviewTimeFrom = ? AND InterviewTimeTo = ?");
+                        $statement->bind_param("sss", $applicationId, $row["InterviewTimeFrom"], $row["InterviewTimeTo"]);
+                        $statement->execute();
+                    }
+                }
+
+                $statement = new mysqli_stmt($db, "INSERT IGNORE INTO InPersonInterviewDate (ApplicationID, InterviewTimeFrom, InterviewTimeTo) VALUES (?, ?, ?)");
+                $statement->bind_param("sss", $applicationId, $from, $to);
+                for ( $i = 0; $i < count($startDates); $i++) {
+                    $from = $startDates[$i];
+                    $to = $endDates[$i];
+                    $statement->execute();
+                }
+            }
+        } else if ($format === "on-the-go" && isset($_POST["onTheGoStart"], $_POST["onTheGoEnd"], $_POST["onTheGoLink"])) {
+            $startObj = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i", trim($_POST["onTheGoStart"]));
+            $endObj = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i", trim($_POST["onTheGoEnd"]));
+            $link = trim($_POST["onTheGoLink"]);
+
+            if ( $startObj === false ) {
+                array_push( $errors,"Please format your online interview start time correctly.");
+            }
+            if ( $endObj === false ) {
+                array_push( $errors,"Please format your online interview end time correctly.");
+            }
+            if ($link === "") {
+                array_push( $errors,"Please specify a meeting link for the interview.");
+            }
+            if (strlen($link) > 255) {
+                array_push( $errors,"Your meeting link is too long. The character limit is 255.");
+            }
+
+            if (count( $errors) === 0) {
+                $startDate = $startObj->format("Y-m-d H:i:s");
+                $endDate = $endObj->format("Y-m-d H:i:s");
+
+                $statement = new mysqli_stmt($db, "DELETE FROM Interview WHERE ApplicationID = ? AND InterviewTypeID = '1'");
+                $statement->bind_param("s", $applicationId);
+                $success = $statement->execute();
+    
+                $statement = new mysqli_stmt($db, "INSERT IGNORE INTO Interview VALUES (?, '2')");
+                $statement->bind_param("s", $applicationId);
+                $statement->execute();
+
+                $statement = new mysqli_stmt($db, "INSERT INTO OnTheGoInterview (ApplicationID, InterviewTimeFrom, InterviewTimeTo, InterviewLink) VALUES (?,?,?,?)
+                                                   ON DUPLICATE KEY UPDATE InterviewTimeFrom = ?, InterviewTimeTo = ?, InterviewLink = ?");
+                $statement->bind_param("sssssss", $applicationId, $startDate, $endDate, $link, $startDate, $endDate, $link);
+                $statement->execute();
+            }
         } else {
             header("Location: /employer/view-application/" . $applicationId);
             exit;
@@ -67,6 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
+// Gets the application from the database.
 $statement = new mysqli_stmt($db, "SELECT JobApplication.*, Job.*, FirstName, LastName, Birthdate, Gender, Email, Phone, Nationality, Applicant.JobTitle, ExperienceLevel, EducationBackground
                                    FROM JobApplication 
                                    JOIN Job ON JobApplication.JobID = Job.JobID
@@ -78,18 +190,44 @@ $success = $statement->execute();
 $result = $statement->get_result();
 $application = $result->fetch_assoc();
 
+// Gets the interview information of the application. There might be none.
+$statement = new mysqli_stmt($db, "SELECT ApplicationID, InterviewTypeID FROM Interview WHERE ApplicationID = ?");
+$statement->bind_param("s", $applicationId);
+$statement->execute();
+$result = $statement->get_result();
+if ($result->num_rows > 0) {
+    $interview = $result->fetch_assoc();
 
-echo "<pre>";
-print_r($application);
-echo "</pre>";
+    if ($interview["InterviewTypeID"] == "1") {
+        $statement = new mysqli_stmt($db, "SELECT InterviewTimeFrom, InterviewTimeTo FROM InPersonInterviewDate WHERE ApplicationID = ?");
+        $statement->bind_param("s", $applicationId);
+        $statement->execute();
 
+        $inPersonInterviewDates = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+    } else if ( $interview["InterviewTypeID"] == "2") {
+        $statement = new mysqli_stmt($db, "SELECT InterviewTimeFrom, InterviewTimeTo, InterviewLink FROM OnTheGoInterview WHERE ApplicationID = ?");
+        $statement->bind_param("s", $applicationId);
+        $statement->execute();
+
+        $onTheGoInterview = $statement->get_result()->fetch_assoc();
+    }
+}
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>View application - GreeLiving</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
 
 <form action="" method="post">
     <label>
         Application status:
-        <select name="status">
+        <select name="status" id="status">
             <?php
             foreach ($validStatuses as $status) {
                 echo '<option value="' . $status . '"';
@@ -101,13 +239,71 @@ echo "</pre>";
             ?>
         </select>
     </label>
-    <input type="submit" name="updateStatus" value="Update status"/>
+
+    <p class="bg-warning">Note: Your applicant will not see these details unless you set the status to "Interviewing"</p>
+    <fieldset id="format">
+        <legend>Interview format</legend>
+        <label>
+            In-person <input type="radio" name="interviewFormat" value="in-person" id="inPersonSelector" <?php echo isset($interview) && $interview["InterviewTypeID"] == "1" ? "checked" : ""?> />
+        </label>
+        <label>
+            Online (on-the-go) <input type="radio" name="interviewFormat" value="on-the-go" id="onlineSelector" <?php echo isset($interview) && $interview["InterviewTypeID"] == "2" ? "checked" : ""?> />
+        </label>
+    </fieldset>
+
+    <fieldset id="inPerson">
+        <legend>In-person interview</legend>
+        <?php
+            if (isset($inPersonInterviewDates)) {
+                foreach ($inPersonInterviewDates as $inPersonInterviewDate) {
+                    echo '<div>';
+                    echo '<label>Interview start: ';
+                    echo '<input type="datetime-local" name="inPersonStart[]" value="' . DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeFrom"])->format("Y-m-d\\TH:i") . '"/>';
+                    echo "</label>";
+                    echo '<label>Interview end: ';
+                    echo '<input type="datetime-local" name="inPersonEnd[]" value="' . DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeTo"])->format("Y-m-d\\TH:i") . '"/>';
+                    echo "</label>";
+                    echo '<button class="removeDate">Remove</button>';
+                    echo '</div>';
+                }
+            }
+        ?>
+        <button id="addInPersonDate">Add another date</button>
+    </fieldset>
+
+    <fieldset id="online" disabled>
+        <legend>Online interview</legend>
+        <label>
+            Interview start: 
+            <input 
+                type="datetime-local" 
+                name="onTheGoStart" 
+                value="<?php echo isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeFrom"])->format("Y-m-d\\TH:i") : ""?>" 
+            />
+        </label>
+        <label>
+            Interview end: 
+            <input 
+                type="datetime-local" 
+                name="onTheGoEnd"
+                value="<?php echo isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeTo"])->format("Y-m-d\\TH:i") : ""?>" 
+            />
+        </label>
+        <label>
+            Link to meeting: 
+            <input 
+                type="text" 
+                name="onTheGoLink"
+                value="<?php echo isset($onTheGoInterview) ? $onTheGoInterview["InterviewLink"] : ""?>"
+            />
+        </label>
+    </fieldset>
+
+    <input type="submit" value="Update application"/>
 </form>
 
-<form action="" method="post">
-    <label>
-        Some text:
-        <input type="text" name="text"/>
-    </label>
-    <input type="submit" name="schedule" value="Schedule"/>
-</form>
+<script src="/assets/js/application_view_employer.js"></script>
+    
+</body>
+</html>
+

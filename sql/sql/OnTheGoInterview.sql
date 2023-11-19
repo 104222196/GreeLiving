@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (108,'2023-04-26 14:24:32','2023-01-15 16:11:04','https://histats.com/primis/in/faucibus/orci/luctus/et/ultrices.json');
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (115,'2023-06-09 09:38:01','2023-05-03 01:39:52','https://live.com/nisi/at/nibh/in/hac/habitasse/platea.aspx');
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (130,'2023-02-19 06:47:33','2023-06-03 10:32:10','https://washingtonpost.com/pellentesque.jsp');
@@ -91,4 +90,3 @@ INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,Intervie
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (957,'2023-01-25 15:50:19','2023-08-18 18:51:29','http://newsvine.com/aliquet/maecenas/leo/odio/condimentum/id.png');
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (979,'2022-12-22 16:06:10','2023-04-17 01:03:27','http://netvibes.com/nec/molestie/sed/justo.json');
 INSERT INTO greeliving.OnTheGoInterview(ApplicationID,InterviewTimeFrom,InterviewTimeTo,InterviewLink) VALUES (999,'2023-04-07 03:41:19','2023-05-28 00:17:30','http://pen.io/dolor/quis/odio/consequat/varius/integer.xml');
-COMMIT;

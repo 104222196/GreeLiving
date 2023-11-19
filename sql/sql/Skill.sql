@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.Skill(SkillID,ApplicantID,SkillName,Proficiency,SkillDescription) VALUES (1,2,'LDPE','Moderate',NULL);
 INSERT INTO greeliving.Skill(SkillID,ApplicantID,SkillName,Proficiency,SkillDescription) VALUES (2,285,'IRAs','Very high',NULL);
 INSERT INTO greeliving.Skill(SkillID,ApplicantID,SkillName,Proficiency,SkillDescription) VALUES (3,101,'Requirements Analysis','High','Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
@@ -2459,4 +2458,3 @@ Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.');
 INSERT INTO greeliving.Skill(SkillID,ApplicantID,SkillName,Proficiency,SkillDescription) VALUES (1000,633,'Fit-out','Low','Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
 
 Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.');
-COMMIT;

@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (1,105,'In progress');
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (1,122,'Completed');
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (1,141,'In progress');
@@ -979,4 +978,3 @@ INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (9,939,'In progress');
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (9,970,'In progress');
 INSERT INTO greeliving.CourseApplicant(CourseID,ApplicantID,CourseStatus) VALUES (9,980,'In progress');
-COMMIT;

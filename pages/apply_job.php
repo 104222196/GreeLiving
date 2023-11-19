@@ -42,14 +42,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $statement = new mysqli_stmt($db, "INSERT INTO JobApplication (JobID, ApplicantID, CV, StatementOfPurpose, ExpectToGain, Questions, ApplicationStatus)
                                             VALUES (?, ?, ?, ?, ?, ?, 'Applying')");
             $statement->bind_param("ssssss", $jobId, $applicantId, $fileName, $statementOfPurpose, $expectToGain, $questions);
-            $success = $statement->execute();
+            try {
+                $success = $statement->execute();
 
-            if (!$success) {
-                array_push($errors, "An error happened. Please try again.");
-            } else {
-                header("Location: /applicant/profile");
-                exit;
-            }
+                if (!$success) {
+                    array_push($errors, "An error happened. Please try again.");
+                } else {
+                    header("Location: /applicant/profile");
+                    exit;
+                }
+            } catch (Exception $e) {
+                array_push($errors, $e->getMessage());
+            }            
         } else {
             array_push($errors, "An error happened when uploading your CV. Please try again.");
         }

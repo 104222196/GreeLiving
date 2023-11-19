@@ -6,38 +6,9 @@ require_once("./functions/employer_auth.php");
 
 use Steampixel\Route;
 
-Route::add("/", function() {
-    if (isset($_SESSION)) {
-        echo "Session is set";
-
-        if (isset($_SESSION["applicantId"])) {
-            echo "Applicant ID is " . $_SESSION["applicantId"];
-        } else {
-            echo "Applicant ID is not set.";
-        }
-
-        if (isset($_SESSION["employerId"])) {
-            echo "Employer ID is " . $_SESSION["employerId"];
-        } else {
-            echo "Employer ID is not set.";
-        }
-    } else {
-        echo "Session is not set.";
-    }
-
-    $applicantCreds = $GLOBALS["auth0_applicant"]->getCredentials();
-    if ($applicantCreds !== null) {
-        print_r($applicantCreds->user);
-    } else {
-        echo "Applicant credentials non-existent.";
-    }
-
-    $employerCreds = $GLOBALS["auth0_employer"]->getCredentials();
-    if ($employerCreds !== null) {
-        print_r($employerCreds->user);
-    } else {
-        echo "Employer credentials non-existent.";
-    }
+Route::add("/", function () {
+    header("Location: /applicant/home");
+    exit;
 });
 
 Route::add('/change-language', function () {
@@ -82,22 +53,27 @@ Route::add('/applicant/jobsearch', function () {
     require("./pages/job_search.php");
 });
 
-Route::add("/applicant/job/([0-9]*)", function ($var1) {
-    $jobId = $var1;
+Route::add("/applicant/job/([0-9]*)", function ($jobId) {
     require("./pages/job_details.php");
 }, array("get", "post"));
 
-Route::add("/applicant/apply/([0-9]*)", function ($var1) {
-    $jobId = $var1;
+Route::add("/applicant/apply/([0-9]*)", function ($jobId) {
     require("./pages/apply_job.php");
+}, array("get", "post"));
+
+Route::add("/applicant/view-application/([0-9]*)", function($applicationId) {
+    require("./pages/application_view_applicant.php");
+}, array("get", "post"));
+
+Route::add("/applicant/edit-profile", function () {
+    require("./pages/edit_applicant_profile.php");
 }, array("get", "post"));
 
 Route::add("/employer/post-job", function () {
     require("./pages/job_post.php");
 }, array("get", "post"));
 
-Route::add("/employer/edit-job/([0-9]*)", function ($var1) {
-    $jobId = $var1;
+Route::add("/employer/edit-job/([0-9]*)", function ($jobId) {
     require("./pages/job_edit.php");
 }, array("get", "post"));
 
@@ -131,13 +107,24 @@ Route::add('/employer/logout', function () {
     exit;
 });
 
-Route::add('/employer/view-application/([0-9]*)', function($var1) {
-    $applicationId = $var1;
+Route::add('/employer/view-application/([0-9]*)', function($applicationId) {
     require("./pages/application_view_employer.php");
 }, array("get", "post"));
 
-Route::add("/test", function () {
-    require("./pages/test.php");
+Route::add('/employer/view-applicant/([0-9]*)', function ($applicantId) {
+    require("./pages/applicant_view_employer.php");
+});
+
+Route::add('/employer/edit-profile', function () {
+    require('./pages/edit_employer_profile.php');
+}, array('get','post'));
+
+Route::add('/applicant/courses', function () {
+    require('./pages/course_list.php');
+});
+
+Route::add("/applicant/courses/([0-9]*)", function ($courseId) {
+    require("./pages/course_details.php");
 }, array("get", "post"));
 
 Route::run('/');

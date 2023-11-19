@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (1,50,'Fanoodle','Actuary','2022-11-13','2023-01-20',NULL);
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (2,390,'Zoonoodle','Professor','2023-04-19','2023-10-24',NULL);
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (3,469,'Podcat','Assistant Manager','2023-10-10','2023-09-09','Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.');
@@ -999,4 +998,3 @@ INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTi
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (998,799,'Realblab','Accountant IV','2023-08-11',NULL,'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.');
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (999,853,'Feednation','Librarian','2023-10-11',NULL,'In congue. Etiam justo. Etiam pretium iaculis justo.');
 INSERT INTO greeliving.WorkExperience(WorkExperienceID,ApplicantID,Company,JobTitle,StartDate,EndDate,ScopeOfWork) VALUES (1000,856,'Lazzy','Nurse Practicioner','2023-04-23','2023-03-03','Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.');
-COMMIT;

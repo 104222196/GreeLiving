@@ -41,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($deadlineDt === false) {
         array_push($errors,"Please make sure your deadline is in the correct format.");
     }
-    if (!preg_match("/(^\d{1,5}$)|(^\d{1,5}\.\d{1,2}$)/", $salary)) {
-        array_push($errors, "Please enter a valid salary value. It can have up to five digits before the decimal point and up to two digits after the decimal point.");
+    if (!preg_match("/(^\d{1,8}$)|(^\d{1,8}\.\d{1,2}$)/", $salary)) {
+        array_push($errors, "Please enter a valid salary value. It can have up to eight digits before the decimal point and up to two digits after the decimal point.");
     }
     if ($workLocation === "") {
         array_push($errors,"Please specify a working location.");
@@ -102,6 +102,7 @@ foreach ($errors as $error) {
                 }
             ?>
         </select>
+    </label>
     <label>
         Application deadline: <input type="datetime-local" name="deadline" value="<?php echo isset($deadline) ? $deadline : "" ?>"/>
     </label>

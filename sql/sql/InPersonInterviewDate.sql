@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (102,'2022-11-30 23:19:39','2023-10-20 13:18:01',0);
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (102,'2022-12-12 09:49:02','2023-04-30 21:43:47',0);
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (102,'2023-02-23 02:06:47','2022-11-28 02:26:22',0);
@@ -999,4 +998,3 @@ INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,Int
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (951,'2023-08-14 03:01:18','2023-03-21 04:52:18',0);
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (951,'2023-10-07 22:33:56','2023-07-10 18:51:16',0);
 INSERT INTO greeliving.InPersonInterviewDate(ApplicationID,InterviewTimeFrom,InterviewTimeTo,Booked) VALUES (951,'2023-10-18 22:01:33','2022-12-04 01:42:14',0);
-COMMIT;

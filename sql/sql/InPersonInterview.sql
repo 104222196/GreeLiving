@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (102);
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (103);
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (106);
@@ -78,4 +77,3 @@ INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (922);
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (934);
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (941);
 INSERT INTO greeliving.InPersonInterview(ApplicationID) VALUES (951);
-COMMIT;

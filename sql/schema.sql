@@ -18,8 +18,6 @@ DROP TABLE IF EXISTS greeliving.Interview;
 DROP TABLE IF EXISTS greeliving.JobApplication;
 DROP TABLE IF EXISTS greeliving.SavedJob;
 
--- COnstraint: Unique AuthenticationID for applicants and companies.
-
 CREATE TABLE greeliving.Applicant (
     ApplicantID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     AuthenticationID VARCHAR(100) NOT NULL,
@@ -45,7 +43,6 @@ CREATE TABLE greeliving.Course (
     CourseName VARCHAR(100) NOT NULL
 );
 
--- Assumptions: An applicant can only register for a course once.
 CREATE TABLE greeliving.CourseApplicant (
     CourseID INT NOT NULL,
     ApplicantID INT NOT NULL,
@@ -128,7 +125,7 @@ CREATE TABLE greeliving.Job (
     JobTitle VARCHAR(100) NOT NULL,
     DatePosted DATETIME NOT NULL DEFAULT NOW(),
     ApplicationDeadline DATETIME NOT NULL,
-    Salary DECIMAL(7,2) NOT NULL,
+    Salary DECIMAL(10,2) NOT NULL,
     WorkingLocation VARCHAR(100) NOT NULL,
     SpecializationID INT NOT NULL,
     ExperienceRequirement ENUM("Internship", "Entry level", "Junior", "Mid-level", "Senior") NOT NULL,
@@ -229,7 +226,7 @@ CREATE TABLE greeliving.Interview (
 );
 
 CREATE TABLE greeliving.InPersonInterview (
-    ApplicationID INT NOT NULL,
+    ApplicationID INT NOT NULL PRIMARY KEY,
     InterviewTypeID INT GENERATED ALWAYS AS ('1') STORED,
 
     CONSTRAINT FOREIGN KEY (ApplicationID, InterviewTypeID)
@@ -239,7 +236,7 @@ CREATE TABLE greeliving.InPersonInterview (
 );
 
 CREATE TABLE greeliving.OnTheGoInterview (
-    ApplicationID INT NOT NULL,
+    ApplicationID INT NOT NULL PRIMARY KEY,
     InterviewTypeID INT GENERATED ALWAYS AS ('2') STORED,
     InterviewTimeFrom DATETIME NOT NULL,
     InterviewTimeTo DATETIME NOT NULL,

@@ -1,4 +1,3 @@
-START TRANSACTION;
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (102,1);
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (103,1);
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (106,1);
@@ -170,4 +169,3 @@ INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (951,1);
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (957,2);
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (979,2);
 INSERT INTO greeliving.Interview(ApplicationID,InterviewTypeID) VALUES (999,2);
-COMMIT;
