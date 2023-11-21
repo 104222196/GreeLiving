@@ -33,7 +33,7 @@ if ($application["ApplicantID"] !== $_SESSION["applicantId"]) {
 
 // Handles post requests
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset( $_POST, $_POST["bookedDate"])) {
+    if (!isset($_POST, $_POST["bookedDate"])) {
         header("Location: /applicant/view-application/" . $applicationId);
         exit;
     }
@@ -55,8 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Gets the application info
-$statement = new mysqli_stmt($db, "SELECT JobApplication.*, Job.* FROM JobApplication 
+$statement = new mysqli_stmt($db, "SELECT * FROM JobApplication 
                                    JOIN Job ON JobApplication.JobID = Job.JobID
+                                   JOIN Company ON Job.CompanyID = Company.CompanyID
                                    WHERE ApplicationID = ?");
 $statement->bind_param("s", $applicationId);
 $success = $statement->execute();
@@ -72,52 +73,99 @@ if ($application["ApplicationStatus"] === "Interviewing") {
     $result = $statement->get_result();
     if ($result->num_rows > 0) {
         $interview = $result->fetch_assoc();
-    
+
         if ($interview["InterviewTypeID"] == "1") {
             $statement = new mysqli_stmt($db, "SELECT InterviewTimeFrom, InterviewTimeTo, Booked FROM InPersonInterviewDate WHERE ApplicationID = ?");
             $statement->bind_param("s", $applicationId);
             $statement->execute();
-    
+
             $inPersonInterviewDates = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
-        } else if ( $interview["InterviewTypeID"] == "2") {
+        } else if ($interview["InterviewTypeID"] == "2") {
             $statement = new mysqli_stmt($db, "SELECT InterviewTimeFrom, InterviewTimeTo, InterviewLink FROM OnTheGoInterview WHERE ApplicationID = ?");
             $statement->bind_param("s", $applicationId);
             $statement->execute();
-    
+
             $onTheGoInterview = $statement->get_result()->fetch_assoc();
         }
     }
 }
 
-echo "<pre>";
-print_r($application);
-if (isset($inPersonInterviewDates)) {
-    print_r($inPersonInterviewDates);
-}
-if (isset($onTheGoInterview)) {
-    print_r($onTheGoInterview);
-}
-echo "</pre>";
-
 ?>
 
-<?php
-if (isset($inPersonInterviewDates)) {
-    echo '<form method="post" action="">';
-    foreach ($inPersonInterviewDates as $inPersonInterviewDate) {
-        echo '<div>';
-        echo '<label>';
-        echo '<input type="radio" name="bookedDate" value="' . $inPersonInterviewDate['InterviewTimeFrom'] . '|' . $inPersonInterviewDate["InterviewTimeTo"] . '"';
-        echo $inPersonInterviewDate["Booked"] ? "checked" : "";
-        echo '/>';
-        echo DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate['InterviewTimeFrom'])->format("l, d-M-o h:i:s A");
-        echo ' to ';
-        echo DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate['InterviewTimeTo'])->format("l, d-M-o h:i:s A");
-        echo '</label>';
-        echo '</div>';
-    }
-    echo '<input type="submit" value="Book"/>';
-    echo '</form>';
-}
 
-?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>View application - GreeLiving for Applicants</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="/assets/css/header.css" rel="stylesheet" />
+    <link href="/assets/css/footer.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <?php require("./components/header_applicant.php") ?>
+
+    <main style="padding-top:100px">
+
+        <h1>View application to position
+            <?= $application["JobTitle"] ?> at <?=$application["CompanyName"]?>
+        </h1>
+
+        <h2>Details</h2>
+        <p>Time of application: <?= $application["TimeOfApplication"] ?></p>
+        <p>Application status: <?= $application["ApplicationStatus"] ?></p>
+
+        <h2>Attached documents</h2>
+        <p>CV: <a href="/uploads/<?= $application["CV"] ?>">See attached CV</a></p>
+        <p>Statement of purpose:
+            <?= $application["StatementOfPurpose"] ?>
+        </p>
+        <p>Expect to gain:
+            <?= $application["ExpectToGain"] ?>
+        </p>
+        <p>Questions:
+            <?= $application["Questions"] ?>
+        </p>
+
+        <?php if (isset($inPersonInterviewDates)): ?>
+            <h2>Book in-person interview date</h2>
+            <form method="post" action="">
+                <?php foreach ($inPersonInterviewDates as $inPersonInterviewDate): ?>
+                    <div>
+                        <label>
+                            <input type="radio" name="bookedDate" value="<?=$inPersonInterviewDate['InterviewTimeFrom'] . '|' . $inPersonInterviewDate["InterviewTimeTo"]?>" <?=$inPersonInterviewDate["Booked"] ? "checked" : ""?>/>
+                            <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate['InterviewTimeFrom'])->format("l, d-M-o h:i:s A")?>
+                            to
+                            <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate['InterviewTimeTo'])->format("l, d-M-o h:i:s A")?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <input type="submit" value="Book"/>
+            </form>
+        <?php endif; ?>
+
+        <?php if (isset($onTheGoInterview)): ?>
+            <h2>Online interview details</h2>
+            <p>Link: <?=$onTheGoInterview["InterviewLink"]?></p>
+            <p>
+                Time:
+                <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview['InterviewTimeFrom'])->format("l, d-M-o h:i:s A")?>
+                to
+                <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview['InterviewTimeTo'])->format("l, d-M-o h:i:s A")?>
+            </p>
+        <?php endif; ?>
+
+    </main>
+
+    <?php require("./components/footer.php") ?>
+
+</body>
+
+</html>

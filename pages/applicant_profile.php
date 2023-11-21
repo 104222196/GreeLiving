@@ -112,63 +112,99 @@ $courses = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 <html lang="en">
 
 <head>
-    <title>Applicant profile - GreeLiving</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Profile - GreeLiving for Job-seekers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet"/>
     <link href="/assets/css/footer.css" rel="stylesheet"/>
 </head>
 
-<body style="padding-top:100px">
-    <?php require("./components/header.php") ?>
+<body>
+    <?php require("./components/header_applicant.php") ?>
 
-    <h1><?php echo "Hello " . $applicant["FirstName"] . " " . $applicant["LastName"]; ?></h1>
+    <main style="padding-top:100px">
 
-    <?php
-    echo "<pre>";
-    echo "Applicant information";
-    print_r($applicant);
-    echo "</pre>";
-    ?>
+        <h1>Hello <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></h1>
+        <a href="/applicant/logout">Logout</a>
 
-    <h2>Courses</h2>
-    <?php foreach ($courses as $course): ?>
-        <div>
-            <p><?=$course["CourseName"]?></p>
-            <p>Status: <?= $course["CourseStatus"]?></p>
-        </div>
-    <?php endforeach; ?>
+        <h2>Your profile</h2>
+        <a href="/applicant/edit-profile">Edit profile</a>
+        <h3>Basic information</h3>
+        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p>Job title: <?=$applicant["JobTitle"]?></p>
+        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
 
-    <h2>Saved jobs</h2>
+        <h3>Job information</h3>
+        <p>Job role: <?=$applicant["JobTitle"]?></p>
+        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
+        <p>Career goal introduction: <?=$applicant["CareerGoal"]?></p>
 
-    <?php foreach ($savedJobs as $savedJob): ?>
-        <div>
-            <a href="/applicant/job/<?=$savedJob["JobID"]?>">
-                <?=$savedJob["JobTitle"]?>
-            </a>
-            <p><?=$savedJob["CompanyName"]?></p>
-        </div>
-    <?php endforeach; ?>
+        <h3>Personal information</h3>
+        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p>Date of birth: <?=DateTimeImmutable::createFromFormat("Y-m-d", $applicant["Birthdate"])->format("d/m/Y")?></p>
+        <p>Gender: <?=$applicant["Gender"]?></p>
+        <p>Nationality: <?=$applicant["Nationality"]?></p>
+        <p>Phone number: <?=$applicant["Phone"]?></p>
+        <p>Email: <?=$applicant["Email"]?></p>
+        <p>Living location: <?=$applicant["StreetAddress"] . " " . $applicant["District"] . " " . $applicant["City"] . " " . $applicant["CountryOfResidence"]?></p>
+        <p>Education background: <?=$applicant["EducationBackground"]?></p>
 
-    <h2>My applications</h2>
+        <h2>Courses</h2>
+        <?php if (count($courses) === 0): ?>
+            <p>You have not registered for any courses. Find a suitable course <a href="/applicant/courses">here</a>.</p>
+        <?php else: ?>
+            <?php foreach ($courses as $course): ?>
+                <div>
+                    <p><?=$course["CourseName"]?></p>
+                    <p>Status: <?= $course["CourseStatus"]?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
-    <?php foreach ($applications as $application): ?>
-        <div>
-            <h3><?=$application["JobTitle"]?></h3>
-            <p>at <?=$application["CompanyName"]?></p>
-            <p>Submitted: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $application["TimeOfApplication"])->format("d/m/Y")?></p>
-            <p>Status: <?=$application["ApplicationStatus"]?></p>
+        <h2>Saved jobs</h2>
 
-            <?php if (isset($interviews[$application["ApplicationID"]])): ?>
-                <?php if(gettype($interviews[$application["ApplicationID"]]) === "string"): ?>
-                    <p>Interview: <?=$interviews[$application["ApplicationID"]]?></p>
-                <?php else: ?>
-                    <p>Interview format: <?=$interviews[$application["ApplicationID"]]["Format"]?></p>
-                    <p>Interview schedule: From <?=$interviews[$application["ApplicationID"]]["From"]?> to <?=$interviews[$application["ApplicationID"]]["To"]?></p>
-                <?php endif; ?>
-            <?php endif; ?>
-            <a href="/applicant/view-application/<?= $application["ApplicationID"] ?>">More details</a>
-        </div>
-    <?php endforeach; ?>
+        <?php if (count($savedJobs) === 0): ?>
+            <p>You have not saved any jobs. Find a job of interest <a href="/applicant/jobsearch">here</a>.</p>
+        <?php else: ?>
+            <?php foreach ($savedJobs as $savedJob): ?>
+                <div>
+                    <a href="/applicant/job/<?=$savedJob["JobID"]?>">
+                        <?=$savedJob["JobTitle"]?>
+                    </a>
+                    <p><?=$savedJob["CompanyName"]?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>    
+
+        <h2>My applications and interviews</h2>
+
+        <?php if (count($applications) === 0): ?>
+            <p>You do not have any applications or interviews. Find a job of interest <a href="/applicant/jobsearch">here</a>.</p>
+        <?php else: ?>
+            <?php foreach ($applications as $application): ?>
+                <div>
+                    <h3><?=$application["JobTitle"]?></h3>
+                    <p>at <?=$application["CompanyName"]?></p>
+                    <p>Submitted: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $application["TimeOfApplication"])->format("d/m/Y")?></p>
+                    <p>Status: <?=$application["ApplicationStatus"]?></p>
+
+                    <?php if (isset($interviews[$application["ApplicationID"]])): ?>
+                        <?php if(gettype($interviews[$application["ApplicationID"]]) === "string"): ?>
+                            <p>Interview: <?=$interviews[$application["ApplicationID"]]?></p>
+                        <?php else: ?>
+                            <p>Interview format: <?=$interviews[$application["ApplicationID"]]["Format"]?></p>
+                            <p>Interview schedule: From <?=$interviews[$application["ApplicationID"]]["From"]?> to <?=$interviews[$application["ApplicationID"]]["To"]?></p>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <a href="/applicant/view-application/<?= $application["ApplicationID"] ?>">More details</a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+    </main>
 
     <?php require("./components/footer.php") ?>
 </body>

@@ -10,8 +10,9 @@ $validFormats = array("On-site", "Remote", "Hybrid");
 $errors = array();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST, $_POST["jobTitle"], $_POST["specialization"], $_POST["deadline"], $_POST["salary"],
-               $_POST["workLocation"], $_POST["experience"], $_POST["format"], $_POST["scope"], $_POST["benefits"])
+    if (
+        !isset($_POST, $_POST["jobTitle"], $_POST["specialization"], $_POST["deadline"], $_POST["salary"],
+        $_POST["workLocation"], $_POST["experience"], $_POST["format"], $_POST["scope"], $_POST["benefits"])
     ) {
         header("Location: /employer/post-job");
         exit;
@@ -29,37 +30,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $benefits = trim($_POST["benefits"]);
 
     if ($jobTitle === "") {
-        array_push( $errors,"Please specify the job title.");
+        $errors[] = "Please specify the job title.";
     }
     if (!preg_match("/^\d+$/", $specialization)) {
-        array_push($errors, "Please select a valid specialization.");
+        $errors[] = "Please select a valid specialization.";
     }
     if ($deadline === "") {
-        array_push($errors,"Please choose a valid deadline.");
+        $errors[] = "Please choose a valid deadline.";
     }
     $deadlineDt = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i", $deadline);
     if ($deadlineDt === false) {
-        array_push($errors,"Please make sure your deadline is in the correct format.");
+        $errors[] = "Please make sure your deadline is in the correct format.";
     }
     if (!preg_match("/(^\d{1,8}$)|(^\d{1,8}\.\d{1,2}$)/", $salary)) {
-        array_push($errors, "Please enter a valid salary value. It can have up to eight digits before the decimal point and up to two digits after the decimal point.");
+        $errors[] = "Please enter a valid salary value. It can have up to eight digits before the decimal point and up to two digits after the decimal point.";
     }
     if ($workLocation === "") {
-        array_push($errors,"Please specify a working location.");
+        $errors[] = "Please specify a working location.";
     }
     if (!in_array($experience, $validExperiences)) {
-        array_push($errors,"Please specify a vaid experience requirement.");
+        $errors[] = "Please specify a vaid experience requirement.";
     }
     if (!in_array($format, $validFormats)) {
-        array_push($errors,"Please specify a valid working format.");
+        $errors[] = "Please specify a valid working format.";
     }
     if ($scope === "") {
-        array_push($errors,"Please specify the scope of work.");
+        $errors[] = "Please specify the scope of work.";
     }
     if ($benefits === "") {
-        array_push($errors,"Please specify the work benefits.");
+        $errors[] = "Please specify the work benefits.";
     }
-    
+
     if (count($errors) === 0) {
         $deadline = $deadlineDt->format("Y-m-d H:i:s");
 
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $success = $statement->execute();
 
         if (!$success) {
-            array_push($errors,"An error happened. Please check your input and try again.");
+            $errors[] = "An error happened. Please check your input and try again.";
         } else {
             header("Location: /employer/profile");
             exit;
@@ -78,65 +79,105 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $statement = new mysqli_stmt($db, "SELECT * FROM Specialization");
 $statement->execute();
-$result = $statement->get_result();
+$specializations = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-foreach ($errors as $error) {
-    echo '<p style="color: red">' . $error . "</p>";
-}
-?>
+<head>
+    <title>Create job posting - GreeLiving for Employers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="/assets/css/header.css" rel="stylesheet" />
+    <link href="/assets/css/footer.css" rel="stylesheet" />
+</head>
 
-<form method="post" action="">
-    <label>
-        Job title: <input type="text" name="jobTitle" value="<?php echo isset($jobTitle) ? $jobTitle : "" ?>"/>
-    </label>
-    <label>
-        Specialization:
-        <select name="specialization">
-            <?php
-                while ($row = $result->fetch_assoc()) {
-                    echo '<option value="' . $row["SpecializationID"] . '">' . $row['SpecializationName'] . '</option>';
-                }
-            ?>
-        </select>
-    </label>
-    <label>
-        Application deadline: <input type="datetime-local" name="deadline" value="<?php echo isset($deadline) ? $deadline : "" ?>"/>
-    </label>
-    <label>
-        Salary: <input type="text" name="salary" value="<?php echo isset($salary) ? $salary : "" ?>"/>
-    </label>
-    <label>
-        Working location: <input type="text" name="workLocation" value="<?php echo isset($workLocation) ? $workLocation : "" ?>"/>
-    </label>
-    <label>
-        Experience requirement:
-        <select name="experience">
-            <option value="Internship" default>Internship</option>
-            <option value="Entry level">Entry level</option>
-            <option value="Junior">Junior</option>
-            <option value="Mid-level">Mid-level</option>
-            <option value="Senior">Senior</option>
-        </select>
-    </label>
-    <label>
-        Working format:
-        <select name="format">
-            <option value="On-site" default>On-site</option>
-            <option value="Remote">Remote</option>
-            <option value="Hybrid">Hybrid</option>
-        </select>
-    </label>
-    <label>
-        Scope of work:
-        <textarea name="scope"><?php echo isset($scope) ? $scope : "" ?></textarea>
-    </label>
-    <label>
-        Benefits:
-        <textarea name="benefits"><?php echo isset($benefits) ? $benefits : "" ?></textarea>
-    </label>
-    <input type="submit" value="Post job"/>
-</form>
+<body>
+
+    <?php require("./components/header_employer.php") ?>
+
+    <main style="padding-top:100px">
+
+        <h1>Create job posting</h1>
+
+        <?php foreach ($errors as $error): ?>
+            <p class="text-danger">
+                <?= $error ?>
+            </p>
+        <?php endforeach; ?>
+
+        <form method="post" action="">
+        <label>
+                Job title: <input type="text" name="jobTitle" value="<?= isset($jobTitle) ? $jobTitle : "" ?>" />
+            </label>
+
+            <label>
+                Specialization:
+                <select name="specialization">
+                    <?php foreach ($specializations as $specializationOption): ?>
+                        <option value="<?= $specializationOption["SpecializationID"] ?>" <?= (isset($specialization) && $specializationOption["SpecializationID"] == $specialization) ? " selected" : "" ?>>
+                            <?= $specializationOption["SpecializationName"] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Application deadline: <input type="datetime-local" name="deadline" value="<?= isset($deadline) ? $deadline : "" ?>" />
+            </label>
+
+            <label>
+                Salary: <input type="text" name="salary" value="<?= isset($salary) ? $salary : "" ?>" />
+            </label>
+
+            <label>
+                Working location: <input type="text" name="workLocation" value="<?= isset($workLocation) ? $workLocation : "" ?>" />
+            </label>
+
+            <label>
+                Experience requirement:
+                <select name="experience">
+                    <?php foreach ($validExperiences as $validExperience): ?>
+                        <option value="<?= $validExperience ?>" <?= (isset($experience) && $validExperience == $experience) ? " selected" : "" ?>>
+                            <?= $validExperience ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Working format:
+                <select name="format">
+                    <?php foreach ($validFormats as $validFormat): ?>
+                        <option value="<?= $validFormat ?>" <?= (isset($format) && $validFormat == $format) ? " selected" : "" ?>>
+                            <?= $validFormat ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Scope of work:
+                <textarea name="scope"><?= isset($scope) ? $scope : "" ?></textarea>
+            </label>
+
+            <label>
+                Benefits:
+                <textarea name="benefits"><?= isset($benefits) ? $benefits : "" ?></textarea>
+            </label>
+
+            <input type="submit" value="Post job" />
+        </form>
+
+    </main>
+
+    <?php require("./components/footer.php") ?>
+
+</body>
+
+</html>

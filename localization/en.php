@@ -6,6 +6,7 @@
         "courses"=> "Courses",
         "contact"=> "Contact",
         "jobsearch" => "Job search",
-        "profile" => "Profile"
+        "profile" => "Profile",
+        "postJob" => "Post job"
     );
 ?>

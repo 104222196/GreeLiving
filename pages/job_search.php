@@ -7,48 +7,46 @@ $query = "SELECT * FROM Job JOIN Specialization ON Job.SpecializationID = Specia
 
 $filters = array();
 
+// Get filter options
 if (isset($_GET["query"])) {
     $queryString = trim($_GET["query"]);
     if ($queryString !== "") {
-        array_push($filters,"(JobTitle LIKE '%" . $queryString . "%' OR CompanyName LIKE '%" . $queryString . "%')");
+        $queryString = $db->real_escape_string($queryString);
+        $filters[] = "(JobTitle LIKE '%" . $queryString . "%' OR CompanyName LIKE '%" . $queryString . "%')";
     }
 }
-
 if (isset($_GET["salary"])) {
     $salary = trim($_GET["salary"]);
     if (preg_match("/^\d+$/", $salary)) {
-        array_push($filters, "Salary >= '" . $salary . "'");
+        $filters[] = "Salary >= '" . $salary . "'";
     }
 }
-
 if (isset($_GET["experience"])) {
     $experience = trim($_GET["experience"]);
     if (preg_match("/^(Internship|Entry level|Junior|Mid-level|Senior)$/", $experience)) {
-        array_push($filters, "ExperienceRequirement = '" . $experience . "'");
+        $filters[] = "ExperienceRequirement = '" . $experience . "'";
     }
 }
-
 if (isset($_GET["format"])) {
     $format = trim($_GET["format"]);
     if (preg_match("/^(Remote|Hybrid|On-site)$/", $format)) {
-        array_push($filters, "WorkingFormat = '" . $format . "'");
+        $filters[] = "WorkingFormat = '" . $format . "'";
     }
 }
-
 if (isset($_GET["companySize"])) {
     $companySize = trim($_GET["companySize"]);
     if (preg_match("/^(1-20|21-50|51-100|100\+) employees$/", $companySize)) {
-        array_push($filters, "CompanySize = '" . $companySize . "'");
+        $filters[] = "CompanySize = '" . $companySize . "'";
     }
 }
-
 if (isset($_GET["specialization"])) {
     $specialization = trim($_GET["specialization"]);
     if ($specialization !== "") {
-        array_push($filters, "SpecializationName = '" . $specialization . "'");
+        $filters[] = "SpecializationName = '" . $db->real_escape_string($specialization) . "'";
     }
 }
 
+// Construct the final query
 if (count($filters) > 0) {
     $query .= " WHERE " . implode(" AND ", $filters);
 }
@@ -62,110 +60,155 @@ if (isset($_GET["page"])) {
     }
 }
 
-echo $query;
-
+// Run the query and get results
 $result = mysqli_query($db, $query);
-$specializations = mysqli_query($db, "SELECT SpecializationName FROM Specialization ORDER BY SpecializationName");
 
-function jobCard($job) {
-    echo '<a href="/applicant/job/' . $job["JobID"] . '">';
-    echo "<h2>" . $job["JobTitle"] . "</h2>";
-    echo "<p>at " . $job["CompanyName"] . "</p>";
-    echo "<p>posted on " . $job["DatePosted"] . "</p>";
-    echo "<p>deadline " . $job["ApplicationDeadline"] . "</p>"; 
-    echo "</a>";
+if ($result === false) {
+    echo "An error happened. Please try again.";
+    exit;
 }
 
-$experienceOptions = array("Internship", "Entry level", "Junior", "Mid-level", "Senior");
+$jobs = $result->fetch_all(MYSQLI_ASSOC);
+
+// Filter select values
+$experiences = array("Internship", "Entry level", "Junior", "Mid-level", "Senior");
+$companySizes = array("1-20 employees", "21-50 employees", "51-100 employees", "100+ employees");
+$workingFormats = array("On-site", "Remote", "Hybrid");
+$specializations = mysqli_query($db, "SELECT SpecializationName FROM Specialization ORDER BY SpecializationName")->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Job search - GreeLiving</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="/assets/css/header.css" rel="stylesheet" />
+    <link href="/assets/css/footer.css" rel="stylesheet" />
 </head>
+
 <body>
-    <h1>Job search</h1>
+    <?php require("./components/header_applicant.php") ?>
 
-    <form method="get" action="/applicant/jobsearch">
-        <label>
-            Search:
-            <input type="text" name="query" value=<?php echo isset($queryString) ? '"'.$queryString.'"' : '""' ?>/>
-        </label>
-        <label>
-            Expected salary (minimum):
-            <input type="range" name="salary" min="1" max="9999" value="1" id="salarySlider"/>
-            <span id="salaryValue">1</span>
-        </label>
-        <label>
-            Experience:
-            <select name="experience" value="someval">
-                <option value="" default>All levels</option>
-                <?php
-                    foreach ($experienceOptions as $option) {
-                        echo '<option value="' . $option . '"';
-                        echo isset($experience) && $experience === $option ? ' selected' : "";
-                        echo '>' . $option . '</option>';
-                    }
-                ?>
-            </select>
-        </label>
-        <label>
-            Company size:
-            <select name="companySize">
-                <option value="" default>All sizes</option>
-                <option value="1-20 employees">1-20 employees</option>
-                <option value="21-50 employees">21-50 employees</option>
-                <option value="51-100 employees">51-100 employees</option>
-                <option value="100+ employees">100+ employees</option>
-            </select>
-        </label>
-        <label>
-            Working format:
-            <select name="format">
-                <option value="" default>All</option>
-                <option value="Remote">Remote</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="On-site">On-site</option>
-            </select>
-        </label>
-        <label>
-            Specialization:
-            <select name="specialization">
-                <option value="" default>All</option>
-                <?php
-                
-                if ($specializations) {
-                    while ($row = mysqli_fetch_assoc($specializations)) {
-                        echo '<option value="' . $row["SpecializationName"] . '">' . $row["SpecializationName"] . "</option>";
-                    }
-                }
+    <main style="padding-top:100px">
+        <h1>Job search</h1>
 
-                ?>
-            </select>
-        </label>
-        <input type="submit" value="Search"/>
-    </form>
+        <h2>Filter jobs</h2>
 
-    <?php
+        <form method="get" action="/applicant/jobsearch">
+            <label>
+                Search:
+                <input type="text" name="query" placeholder="Enter job or company name" value="<?=isset($queryString) ? $queryString : "" ?>" />
+            </label>
 
-    if ($result == false) {
-        echo "". mysqli_error($db);
-    } else {
-        while ($row = mysqli_fetch_assoc($result)) {
-            jobCard($row);
-        }
-    }
+            <label>
+                Expected salary (minimum $<span id="salaryValue"><?=isset($salary) ? $salary : "1"?></span>):
+                <input type="range" name="salary" min="1" max="9999" id="salarySlider" value="<?=isset($salary) ? $salary : "1"?>" />
+            </label>
 
-    ?>
+            <label>
+                Experience:
+                <select name="experience" value="someval">
+                    <option value="" default>All levels</option>
+                    <?php foreach ($experiences as $experienceOption): ?>
+                        <option 
+                            value="<?=$experienceOption?>"
+                            <?=isset($experience) && $experience === $experienceOption ? ' selected' : ""?>
+                        >
+                            <?=$experienceOption?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Company size:
+                <select name="companySize">
+                    <option value="" default>All sizes</option>
+                    <?php foreach ($companySizes as $sizeOption): ?>
+                        <option 
+                            value="<?=$sizeOption?>"
+                            <?=isset($companySize) && $companySize === $sizeOption ? ' selected' : ""?>
+                        >
+                            <?=$sizeOption?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Working format:
+                <select name="format">
+                    <option value="" default>All</option>
+                    <?php foreach ($workingFormats as $formatOption): ?>
+                        <option 
+                            value="<?=$formatOption?>"
+                            <?=isset($format) && $format === $formatOption ? ' selected' : ""?>
+                        >
+                            <?=$formatOption?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Specialization:
+                <select name="specialization">
+                    <option value="" default>All</option>
+                    <?php foreach ($specializations as $specializationOption): ?>
+                        <option 
+                            value="<?=$specializationOption["SpecializationName"]?>"
+                            <?=isset($specialization) && $specialization === $specializationOption["SpecializationName"] ? ' selected' : ""?>
+                        >
+                            <?=$specializationOption["SpecializationName"]?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <input type="submit" value="Search" />
+        </form>
+
+        <h2>Jobs</h2>
+
+        <?php if (count($jobs) === 0): ?>
+            <p>No jobs match your search criteria.</p>
+        <?php else: ?>
+            <?php foreach ($jobs as $job): ?>
+                <div>
+                    <h3><?=$job["JobTitle"]?></h3>
+                    <p>at <?=$job["CompanyName"]?></p>
+                    <p>
+                        Posted: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $job["DatePosted"])->format("d/m/Y H:i:s")?>
+                    </p>
+                    <p class="text-danger">
+                        Application deadline: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $job["ApplicationDeadline"])->format("d/m/Y H:i:s")?>
+                    </p>
+                    <p>Salary: $<?=$job["Salary"]?></p>
+                    <p>Working location: <?=$job["WorkingLocation"]?></p>
+                    <p>Specialization: <?=$job["SpecializationName"]?></p>
+                    <p>Experience requirement: <?=$job["ExperienceRequirement"]?></p>
+                    <p>Working format: <?=$job["WorkingFormat"]?></p>
+                    <a href="/applicant/job/<?=$job["JobID"]?>">More details</a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+    </main>
+
+
+    <?php require("./components/footer.php") ?>
 
     <script>
-        document.getElementById("salarySlider").addEventListener("change", function(event) {
+        document.getElementById("salarySlider").addEventListener("change", function (event) {
             document.getElementById("salaryValue").innerText = event.target.value;
         });
     </script>
 </body>
+
 </html>

@@ -15,8 +15,16 @@ Route::add('/change-language', function () {
     require("./pages/change_language.php");
 });
 
+Route::add("/about", function () {
+    require("./pages/about.php");
+});
+
+Route::add("/contact", function () {
+    require("./pages/contact.php");
+});
+
 Route::add('/applicant/home', function () {
-    require("./pages/home.php");
+    require("./pages/home_applicant.php");
 });
 
 Route::add("/applicant/profile", function () {
@@ -118,6 +126,10 @@ Route::add('/employer/view-applicant/([0-9]*)', function ($applicantId) {
 Route::add('/employer/edit-profile', function () {
     require('./pages/edit_employer_profile.php');
 }, array('get','post'));
+
+Route::add("/employer/home", function () {
+    require("./pages/home_employer.php");
+});
 
 Route::add('/applicant/courses', function () {
     require('./pages/course_list.php');

@@ -14,11 +14,12 @@ $errors = array();
 
 // Check if this a form submision
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST, $_POST["fName"], $_POST["lName"], $_POST["birthdate"], $_POST["gender"],
+    if (
+        !isset($_POST, $_POST["fName"], $_POST["lName"], $_POST["birthdate"], $_POST["gender"],
         $_POST["phone"], $_POST["nationality"], $_POST["countryOfResidence"], $_POST["city"],
         $_POST["district"], $_POST["streetAddress"], $_POST["jobTitle"], $_POST["experience"],
-        $_POST["education"], $_POST["careerGoal"]))
-    {
+        $_POST["education"], $_POST["careerGoal"])
+    ) {
         header("Location: /applicant/setup");
         exit;
     }
@@ -90,8 +91,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $statement = new mysqli_stmt($db, "INSERT INTO Applicant (AuthenticationID, FirstName, LastName, Birthdate, Gender, Email, Phone, Nationality, CountryOfResidence, 
                                            City, District, StreetAddress, JobTitle, ExperienceLevel, EducationBackground, CareerGoal)
                                            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        $statement->bind_param("ssssssssssssssss", $authID, $fName, $lName, $birthdate, $gender, $email, $phone, $nationality, $countryOfResidence, $city, $district, 
-                                $streetAddress, $jobTitle, $experience, $education, $careerGoal);
+        $statement->bind_param(
+            "ssssssssssssssss",
+            $authID,
+            $fName,
+            $lName,
+            $birthdate,
+            $gender,
+            $email,
+            $phone,
+            $nationality,
+            $countryOfResidence,
+            $city,
+            $district,
+            $streetAddress,
+            $jobTitle,
+            $experience,
+            $education,
+            $careerGoal
+        );
         $success = $statement->execute();
 
         if (!$success) {
@@ -107,107 +125,121 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Setup profile - GreeLiving for Job-seekers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="/assets/css/header.css" rel="stylesheet" />
+    <link href="/assets/css/footer.css" rel="stylesheet" />
 </head>
+
 <body>
+    <?php require("./components/header_applicant.php") ?>
 
-<?php foreach ($errors as $error): ?>
-    <p class="text-danger"><?=$error?></p>
-<?php endforeach; ?>
+    <main style="padding-top:100px">
 
-<form method="post" action="/applicant/setup">
-    <label>
-        First name: <input type="text" name="fName" value="<?=isset($fName) ? $fName : ""?>" />
-    </label>
+        <h1>Setup profile</h1>
+        <p>Let's get started with your basic information!</p>
 
-    <label>
-        Last name: <input type="text" name="lName" value="<?=isset($lName) ? $lName : ""?>" />
-    </label>
+        <?php foreach ($errors as $error): ?>
+            <p class="text-danger">
+                <?= $error ?>
+            </p>
+        <?php endforeach; ?>
 
-    <label>
-        Birthdate: <input type="date" name="birthdate" value="<?=isset($birthdate) ? $birthdate : ""?>" />
-    </label>
+        <form method="post" action="/applicant/setup">
+            <label>
+                First name: <input type="text" name="fName" value="<?= isset($fName) ? $fName : "" ?>" />
+            </label>
 
-    <label>
-        Gender:
-        <select name="gender">
-            <?php foreach ($validGenders as $validGender): ?>
-                <option
-                    value="<?=$validGender?>"
-                    <?=(isset($gender) && $validGender === $gender) ? " selected" : ""?>
-                >
-                    <?=$validGender?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </label>
+            <label>
+                Last name: <input type="text" name="lName" value="<?= isset($lName) ? $lName : "" ?>" />
+            </label>
 
-    <label>
-        Phone: <input type="text" name="phone" value="<?=isset($phone) ? $phone : ""?>" />
-    </label>
+            <label>
+                Birthdate: <input type="date" name="birthdate" value="<?= isset($birthdate) ? $birthdate : "" ?>" />
+            </label>
 
-    <label>
-        Nationality: <input type="text" name="nationality" value="<?=isset($nationality) ? $nationality : ""?>" />
-    </label>
+            <label>
+                Gender:
+                <select name="gender">
+                    <?php foreach ($validGenders as $validGender): ?>
+                        <option value="<?= $validGender ?>" <?= (isset($gender) && $validGender === $gender) ? " selected" : "" ?>>
+                            <?= $validGender ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
 
-    <label>
-        Country of residence: <input type="text" name="countryOfResidence" value="<?=isset($countryOfResidence) ? $countryOfResidence : ""?>" />
-    </label>
+            <label>
+                Phone: <input type="text" name="phone" value="<?= isset($phone) ? $phone : "" ?>" />
+            </label>
 
-    <label>
-        City: <input type="text" name="city" value="<?=isset($city) ? $city : ""?>" />
-    </label>
+            <label>
+                Nationality: <input type="text" name="nationality"
+                    value="<?= isset($nationality) ? $nationality : "" ?>" />
+            </label>
 
-    <label>
-        District: <input type="text" name="district" value="<?=isset($district) ? $district : ""?>" />
-    </label>
+            <label>
+                Country of residence: <input type="text" name="countryOfResidence"
+                    value="<?= isset($countryOfResidence) ? $countryOfResidence : "" ?>" />
+            </label>
 
-    <label>
-        Street address: <input type="text" name="streetAddress" value="<?=isset($streetAddress) ? $streetAddress : ""?>" />
-    </label>
+            <label>
+                City: <input type="text" name="city" value="<?= isset($city) ? $city : "" ?>" />
+            </label>
 
-    <label>
-        Job title: <input type="text" name="jobTitle" value="<?=isset($jobTitle) ? $jobTitle : ""?>" />
-    </label>
+            <label>
+                District: <input type="text" name="district" value="<?= isset($district) ? $district : "" ?>" />
+            </label>
 
-    <label>
-        Experience level:
-        <select name="experience">
-            <?php foreach ($validExperiences as $validExperience): ?>
-                <option
-                    value="<?=$validExperience?>"
-                    <?=(isset($experience) && $validExperience === $experience) ? " selected" : ""?>
-                >
-                    <?=$validExperience?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </label>
+            <label>
+                Street address: <input type="text" name="streetAddress"
+                    value="<?= isset($streetAddress) ? $streetAddress : "" ?>" />
+            </label>
 
-    <label>
-        Education background:
-        <select name="education">
-            <?php foreach ($validEducationLevels as $validEducationLevel): ?>
-                <option
-                    value="<?=$validEducationLevel?>"
-                    <?=(isset($education) && $validEducationLevel === $education) ? " selected" : ""?>
-                >
-                    <?=$validEducationLevel?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </label>
+            <label>
+                Job title: <input type="text" name="jobTitle" value="<?= isset($jobTitle) ? $jobTitle : "" ?>" />
+            </label>
 
-    <label>
-        Career goal:
-        <textarea name="careerGoal"><?=isset($careerGoal) ? $careerGoal : ""?></textarea>
-    </label>
+            <label>
+                Experience level:
+                <select name="experience">
+                    <?php foreach ($validExperiences as $validExperience): ?>
+                        <option value="<?= $validExperience ?>" <?= (isset($experience) && $validExperience === $experience) ? " selected" : "" ?>>
+                            <?= $validExperience ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
 
-    <input type="submit" value="Submit"/>
-</form>
-    
+            <label>
+                Education background:
+                <select name="education">
+                    <?php foreach ($validEducationLevels as $validEducationLevel): ?>
+                        <option value="<?= $validEducationLevel ?>" <?= (isset($education) && $validEducationLevel === $education) ? " selected" : "" ?>>
+                            <?= $validEducationLevel ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Career goal:
+                <textarea name="careerGoal"><?= isset($careerGoal) ? $careerGoal : "" ?></textarea>
+            </label>
+
+            <input type="submit" value="Submit" />
+        </form>
+
+    </main>
+
+    <?php require("./components/footer.php") ?>
+
 </body>
+
 </html>

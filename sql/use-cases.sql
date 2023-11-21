@@ -164,3 +164,16 @@ SET ApplicationDeadline = "2024-12-31 23:59:59"
 WHERE JobID >= '1';
 
 DELETE FROM greeliving.JobApplication WHERE ApplicationStatus = "Saved";
+
+EXPLAIN SELECT InPersonInterview.ApplicationID, InPersonInterview.InterviewTypeID, Applicant.FirstName, Applicant.LastName, InterviewTimeFrom, InterviewTimeTo FROM InPersonInterview
+JOIN InPersonInterviewDate ON InPersonInterview.ApplicationID = InPersonInterviewDate.ApplicationID
+JOIN JobApplication ON InPersonInterview.ApplicationID = JobApplication.ApplicationID
+JOIN Job ON JobApplication.JobID = Job.JobID
+JOIN Applicant ON JobApplication.ApplicantID = Applicant.ApplicantID
+WHERE Job.CompanyID = '1001' AND Booked != '0' AND InterviewTimeTo > NOW();
+
+SELECT OnTheGoInterview.ApplicationID, OnTheGoInterview.InterviewTypeID, Applicant.FirstName, Applicant.LastName, InterviewTimeFrom, InterviewTimeTo, InterviewLink FROM OnTheGoInterview
+JOIN JobApplication ON OnTheGoInterview.ApplicationID = JobApplication.ApplicationID
+JOIN Job ON JobApplication.JobID = Job.JobID
+JOIN Applicant ON JobApplication.ApplicantID = Applicant.ApplicantID
+WHERE Job.CompanyID = '1001' AND InterviewTimeTo > NOW();

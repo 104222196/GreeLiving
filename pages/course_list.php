@@ -24,19 +24,20 @@ $courses = $statement->get_result();
     <link href="/assets/css/footer.css" rel="stylesheet"/>
 </head>
 
-<body style="padding-top:100px">
-    <?php require("./components/header.php") ?>
+<body>
+    <?php require("./components/header_applicant.php") ?>
 
-    <h1>Training courses</h1>
-
-    <?php while ($row = $courses->fetch_assoc()): ?>
-        <div>
-            <a href="/applicant/courses/<?=$row["CourseID"]?>">
+    <main style="padding-top:100px">
+        <h1>Training courses</h1>
+        
+        <?php while ($row = $courses->fetch_assoc()): ?>
+            <div>
                 <h2><?= $row["CourseName"]?></h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit saepe excepturi temporibus modi eos expedita amet sit est ipsum vitae.</p>
-            </a>
-        </div>
-    <?php endwhile; ?>
+                <a href="/applicant/courses/<?=$row["CourseID"]?>">More details</a>
+            </div>
+        <?php endwhile; ?>
+    </main>
 
     <?php require("./components/footer.php") ?>
 </body>

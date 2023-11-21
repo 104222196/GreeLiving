@@ -5,6 +5,7 @@
         "courses"=> "Khóa học",
         "contact"=> "Liên hệ",
         "jobsearch" => "Tìm việc",
-        "profile" => "Hồ sơ"
+        "profile" => "Hồ sơ",
+        "postJob" => "Tuyển dụng"
     );
 ?>

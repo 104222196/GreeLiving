@@ -20,16 +20,16 @@
 
 	<nav id="menu" class="main-nav" role="navigation">
 		<ul class="main-menu">
-			<li><a href="/"><?php echo $content["home"] ?></a></li>
-			<li><a href="/about"><?php echo $content["about"] ?></a></li>
-			<li><a href="/contact"><?php echo $content["contact"] ?></a></li>
-			<li><a href="/applicant/courses"><?php echo $content["courses"] ?></a></li>
-			<li><a href="/applicant/jobsearch"><?php echo $content["jobsearch"] ?></a></li>
-			<li><a href="/applicant/profile"><?php echo $content["profile"] ?></a></li>
+			<li><a href="/applicant/home"><?=$content["home"] ?></a></li>
+			<li><a href="/about"><?=$content["about"] ?></a></li>
+			<li><a href="/contact"><?=$content["contact"] ?></a></li>
+			<li><a href="/applicant/courses"><?=$content["courses"] ?></a></li>
+			<li><a href="/applicant/jobsearch"><?=$content["jobsearch"] ?></a></li>
+			<li><a href="/applicant/profile"><?=$content["profile"] ?></a></li>
 			<li>
-				<a href=<?php echo $returnUrl ?>>
-					<span <?php echo(($_SESSION["language"] != "vn") ? 'class="unbolded"' : "")?>>VN</span> | 
-					<span <?php echo(($_SESSION["language"] != "en") ? 'class="unbolded"' : "")?>>EN</span>
+				<a href=<?=$returnUrl ?>>
+					<span <?=$_SESSION["language"] != "vn" ? 'class="unbolded"' : ""?>>VN</span> | 
+					<span <?=$_SESSION["language"] != "en" ? 'class="unbolded"' : ""?>>EN</span>
 				</a>
 			</li>
 		</ul>
