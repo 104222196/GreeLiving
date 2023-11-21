@@ -6,7 +6,7 @@
 	(isset($_SERVER["QUERY_STRING"])) && $returnUrl .= "?" . $_SERVER["QUERY_STRING"];
 ?>
 
-<header class="main-header clearfix" role="header">
+<header class="main-header clearfix" role="header" id="header">
 
 	<div class="logo">
 		<a href="#">

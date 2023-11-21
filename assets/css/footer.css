@@ -1,17 +1,17 @@
 @media screen and (max-width: 767px) {
-    footer p {
+    footer#footer p {
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 0.25px;
     }
 }
 
-footer {
+footer#footer {
     background-color: #152036;
     text-align: center;
 }
 
-footer p {
+footer#footer p {
     margin-bottom: 0px;
     padding: 25px 0px;
     color: #fff;
@@ -21,7 +21,7 @@ footer p {
     letter-spacing: 0.5px;
 }
 
-footer p a,
-footer p a:hover {
+footer#footer p a,
+footer#footer p a:hover {
     color: #f5a425;
 }

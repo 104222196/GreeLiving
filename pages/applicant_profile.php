@@ -120,6 +120,7 @@ $courses = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet"/>
     <link href="/assets/css/footer.css" rel="stylesheet"/>
+    <link href="/assets/css/applicant_profile.css" rel="stylesheet"/>
 </head>
 
 <body>
