@@ -39,46 +39,55 @@ $courses = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet"/>
     <link href="/assets/css/footer.css" rel="stylesheet"/>
+    <link href="/assets/css/applicant_view_employer.css" rel="stylesheet"/>
 </head>
 
 <body>
     <?php require("./components/header_employer.php") ?>
 
-    <main style="padding-top:100px">
+    <main style="padding-top:100px; padding-bottom:100px" class="container-lg">
 
         <h1>Applicant <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></h1>
 
+        <hr>
+
         <h2>Applicant profile</h2>
         <h3>Basic information</h3>
-        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
-        <p>Job title: <?=$applicant["JobTitle"]?></p>
-        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
+        <p><strong>Name:</strong> <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p><strong>Job title:</strong> <?=$applicant["JobTitle"]?></p>
+        <p><strong>Experience level:</strong> <?=$applicant["ExperienceLevel"]?></p>
 
         <h3>Job information</h3>
-        <p>Job role: <?=$applicant["JobTitle"]?></p>
-        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
-        <p>Career goal introduction: <?=$applicant["CareerGoal"]?></p>
+        <p><strong>Job role:</strong> <?=$applicant["JobTitle"]?></p>
+        <p><strong>Experience level:</strong> <?=$applicant["ExperienceLevel"]?></p>
+        <p><strong>Career goal introduction:</strong> <?=$applicant["CareerGoal"]?></p>
 
         <h3>Personal information</h3>
-        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
-        <p>Date of birth: <?=DateTimeImmutable::createFromFormat("Y-m-d", $applicant["Birthdate"])->format("d/m/Y")?></p>
-        <p>Gender: <?=$applicant["Gender"]?></p>
-        <p>Nationality: <?=$applicant["Nationality"]?></p>
-        <p>Phone number: <?=$applicant["Phone"]?></p>
-        <p>Email: <?=$applicant["Email"]?></p>
-        <p>Living location: <?=$applicant["StreetAddress"] . " " . $applicant["District"] . " " . $applicant["City"] . " " . $applicant["CountryOfResidence"]?></p>
-        <p>Education background: <?=$applicant["EducationBackground"]?></p>
+        <p><strong>Name:</strong> <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p><strong>Date of birth:</strong> <?=DateTimeImmutable::createFromFormat("Y-m-d", $applicant["Birthdate"])->format("d/m/Y")?></p>
+        <p><strong>Gender:</strong> <?=$applicant["Gender"]?></p>
+        <p><strong>Nationality:</strong> <?=$applicant["Nationality"]?></p>
+        <p><strong>Phone number:</strong> <?=$applicant["Phone"]?></p>
+        <p><strong>Email:</strong> <?=$applicant["Email"]?></p>
+        <p><strong>Living location:</strong> <?=$applicant["StreetAddress"] . " " . $applicant["District"] . " " . $applicant["City"] . " " . $applicant["CountryOfResidence"]?></p>
+        <p><strong>Education background:</strong> <?=$applicant["EducationBackground"]?></p>
+
+        <hr>
 
         <h2>Courses</h2>
         <?php if (count($courses) === 0): ?>
             <p>This applicant has not registered for any courses.</p>
         <?php else: ?>
-            <?php foreach ($courses as $course): ?>
-                <div>
-                    <p><?=$course["CourseName"]?></p>
-                    <p>Status: <?= $course["CourseStatus"]?></p>
-                </div>
-            <?php endforeach; ?>
+            <div class="card-container">
+                <?php foreach ($courses as $course): ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?=$course["CourseName"]?></h3>
+                            <p class="card-subtitle">Status: <?= $course["CourseStatus"]?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
 
     </main>

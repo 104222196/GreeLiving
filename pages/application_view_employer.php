@@ -243,6 +243,7 @@ if ($result->num_rows > 0) {
     <p>Name: <?=$application["FirstName"] . " " . $application["LastName"]?></p>
     <p>Email: <?=$application["Email"]?></p>
     <p>Phone: <?=$application["Phone"]?></p>
+    <p>Profile: <a href="/employer/view-applicant/<?=$application["ApplicantID"]?>">To applicant's profile</a></p>
 
     <h3>Attached documents</h3>
     <p>CV: <a href="/uploads/<?=$application["CV"]?>">See attached CV</a></p>

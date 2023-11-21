@@ -126,83 +126,104 @@ $courses = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 <body>
     <?php require("./components/header_applicant.php") ?>
 
-    <main style="padding-top:100px">
+    <main style="padding-top:100px; padding-bottom:100px" class="container-lg">
 
-        <h1>Hello <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></h1>
-        <a href="/applicant/logout">Logout</a>
+        <h1>
+            Hello <?=$applicant["FirstName"] . " " . $applicant["LastName"]?>
+            <a href="/applicant/logout" class="btn btn-outline-primary">Logout</a>
+        </h1>
+
+        <hr>
 
         <h2>Your profile</h2>
-        <a href="/applicant/edit-profile">Edit profile</a>
         <h3>Basic information</h3>
-        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
-        <p>Job title: <?=$applicant["JobTitle"]?></p>
-        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
-
+        <p><strong>Name:</strong> <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p><strong>Job title:</strong> <?=$applicant["JobTitle"]?></p>
+        <p><strong>Experience level:</strong> <?=$applicant["ExperienceLevel"]?></p>
+        
         <h3>Job information</h3>
-        <p>Job role: <?=$applicant["JobTitle"]?></p>
-        <p>Experience level: <?=$applicant["ExperienceLevel"]?></p>
-        <p>Career goal introduction: <?=$applicant["CareerGoal"]?></p>
-
+        <p><strong>Job role:</strong> <?=$applicant["JobTitle"]?></p>
+        <p><strong>Experience level:</strong> <?=$applicant["ExperienceLevel"]?></p>
+        <p><strong>Career goal introduction:</strong> <?=$applicant["CareerGoal"]?></p>
+        
         <h3>Personal information</h3>
-        <p>Name: <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
-        <p>Date of birth: <?=DateTimeImmutable::createFromFormat("Y-m-d", $applicant["Birthdate"])->format("d/m/Y")?></p>
-        <p>Gender: <?=$applicant["Gender"]?></p>
-        <p>Nationality: <?=$applicant["Nationality"]?></p>
-        <p>Phone number: <?=$applicant["Phone"]?></p>
-        <p>Email: <?=$applicant["Email"]?></p>
-        <p>Living location: <?=$applicant["StreetAddress"] . " " . $applicant["District"] . " " . $applicant["City"] . " " . $applicant["CountryOfResidence"]?></p>
-        <p>Education background: <?=$applicant["EducationBackground"]?></p>
+        <p><strong>Name:</strong> <?=$applicant["FirstName"] . " " . $applicant["LastName"]?></p>
+        <p><strong>Date of birth:</strong> <?=DateTimeImmutable::createFromFormat("Y-m-d", $applicant["Birthdate"])->format("d/m/Y")?></p>
+        <p><strong>Gender:</strong> <?=$applicant["Gender"]?></p>
+        <p><strong>Nationality:</strong> <?=$applicant["Nationality"]?></p>
+        <p><strong>Phone number:</strong> <?=$applicant["Phone"]?></p>
+        <p><strong>Email:</strong> <?=$applicant["Email"]?></p>
+        <p><strong>Living location:</strong> <?=$applicant["StreetAddress"] . " " . $applicant["District"] . " " . $applicant["City"] . " " . $applicant["CountryOfResidence"]?></p>
+        <p><strong>Education background:</strong> <?=$applicant["EducationBackground"]?></p>
+        <a href="/applicant/edit-profile" class="btn btn-outline-primary">Edit profile</a>
+
+        <hr>
 
         <h2>Courses</h2>
         <?php if (count($courses) === 0): ?>
             <p>You have not registered for any courses. Find a suitable course <a href="/applicant/courses">here</a>.</p>
         <?php else: ?>
-            <?php foreach ($courses as $course): ?>
-                <div>
-                    <p><?=$course["CourseName"]?></p>
-                    <p>Status: <?= $course["CourseStatus"]?></p>
-                </div>
-            <?php endforeach; ?>
+            <div class="card-container">
+                <?php foreach ($courses as $course): ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?=$course["CourseName"]?></h3>
+                            <p class="card-subtitle">Status: <?= $course["CourseStatus"]?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
+
+        <hr>
 
         <h2>Saved jobs</h2>
 
         <?php if (count($savedJobs) === 0): ?>
             <p>You have not saved any jobs. Find a job of interest <a href="/applicant/jobsearch">here</a>.</p>
         <?php else: ?>
-            <?php foreach ($savedJobs as $savedJob): ?>
-                <div>
-                    <a href="/applicant/job/<?=$savedJob["JobID"]?>">
-                        <?=$savedJob["JobTitle"]?>
-                    </a>
-                    <p><?=$savedJob["CompanyName"]?></p>
-                </div>
-            <?php endforeach; ?>
+            <div class="card-container">
+                <?php foreach ($savedJobs as $savedJob): ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?=$savedJob["JobTitle"]?></h3>
+                            <p class="card-subtitle">at <?=$savedJob["CompanyName"]?></p>
+                            <a class="card-link" href="/applicant/job/<?=$savedJob["JobID"]?>">More info</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>    
+
+        <hr>
 
         <h2>My applications and interviews</h2>
 
         <?php if (count($applications) === 0): ?>
             <p>You do not have any applications or interviews. Find a job of interest <a href="/applicant/jobsearch">here</a>.</p>
         <?php else: ?>
-            <?php foreach ($applications as $application): ?>
-                <div>
-                    <h3><?=$application["JobTitle"]?></h3>
-                    <p>at <?=$application["CompanyName"]?></p>
-                    <p>Submitted: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $application["TimeOfApplication"])->format("d/m/Y")?></p>
-                    <p>Status: <?=$application["ApplicationStatus"]?></p>
+            <div class="card-container">
+                <?php foreach ($applications as $application): ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><?=$application["JobTitle"]?></h3>
+                            <p class="card-subtitle">at <?=$application["CompanyName"]?></p>
+                            <p>Submitted: <?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $application["TimeOfApplication"])->format("d/m/Y")?></p>
+                            <p>Status: <?=$application["ApplicationStatus"]?></p>
 
-                    <?php if (isset($interviews[$application["ApplicationID"]])): ?>
-                        <?php if(gettype($interviews[$application["ApplicationID"]]) === "string"): ?>
-                            <p>Interview: <?=$interviews[$application["ApplicationID"]]?></p>
-                        <?php else: ?>
-                            <p>Interview format: <?=$interviews[$application["ApplicationID"]]["Format"]?></p>
-                            <p>Interview schedule: From <?=$interviews[$application["ApplicationID"]]["From"]?> to <?=$interviews[$application["ApplicationID"]]["To"]?></p>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    <a href="/applicant/view-application/<?= $application["ApplicationID"] ?>">More details</a>
-                </div>
-            <?php endforeach; ?>
+                            <?php if (isset($interviews[$application["ApplicationID"]])): ?>
+                                <?php if(gettype($interviews[$application["ApplicationID"]]) === "string"): ?>
+                                    <p>Interview: <?=$interviews[$application["ApplicationID"]]?></p>
+                                <?php else: ?>
+                                    <p>Interview format: <?=$interviews[$application["ApplicationID"]]["Format"]?></p>
+                                    <p>Interview schedule: From <?=$interviews[$application["ApplicationID"]]["From"]?> to <?=$interviews[$application["ApplicationID"]]["To"]?></p>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <a class="card-link" href="/applicant/view-application/<?= $application["ApplicationID"] ?>">More details</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
 
     </main>
