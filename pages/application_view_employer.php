@@ -227,6 +227,8 @@ if ($result->num_rows > 0) {
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/application_view_employer.css">
+    <link rel="stylesheet" href="/assets/css/job_post.css">
 </head>
 
 <body>
@@ -235,96 +237,124 @@ if ($result->num_rows > 0) {
 
     <main style="padding-top:100px">
 
-    <h1>View application to position <?=$application["JobTitle"]?></h1>
+        <h1>View application to position
+            <?= $application["JobTitle"] ?>
+        </h1>
 
-    <h2>Details</h2>
+        <h2>Details</h2>
+        <div class="control-container">
+            <div class="child">
+                <h3>Applicant details</h3>
+                <p>Name:
+                    <?= $application["FirstName"] . " " . $application["LastName"] ?>
+                </p>
+                <p>Email:
+                    <?= $application["Email"] ?>
+                </p>
+                <p>Phone:
+                    <?= $application["Phone"] ?>
+                </p>
+                <p>Profile: <a href="/employer/view-applicant/<?= $application["ApplicantID"] ?>">To applicant's
+                        profile</a></p>
+            </div>
+            <div class="child">
+                <h3>Attached documents</h3>
+                <p>CV: <a href="/uploads/<?= $application["CV"] ?>">See attached CV</a></p>
+                <p>Statement of purpose:
+                    <?= $application["StatementOfPurpose"] ?>
+                </p>
+                <p>Expect to gain:
+                    <?= $application["ExpectToGain"] ?>
+                </p>
+                <p>Questions:
+                    <?= $application["Questions"] ?>
+                </p>
+            </div>
+        </div>
 
-    <h3>Applicant details</h3>
-    <p>Name: <?=$application["FirstName"] . " " . $application["LastName"]?></p>
-    <p>Email: <?=$application["Email"]?></p>
-    <p>Phone: <?=$application["Phone"]?></p>
-    <p>Profile: <a href="/employer/view-applicant/<?=$application["ApplicantID"]?>">To applicant's profile</a></p>
+        <h2>Edit application status</h2>
 
-    <h3>Attached documents</h3>
-    <p>CV: <a href="/uploads/<?=$application["CV"]?>">See attached CV</a></p>
-    <p>Statement of purpose: <?= $application["StatementOfPurpose"]?></p>
-    <p>Expect to gain: <?= $application["ExpectToGain"]?></p>
-    <p>Questions: <?= $application["Questions"]?></p>
-
-    <h2>Edit application status</h2>
-
-    <?php foreach ($errors as $error): ?>
+        <?php foreach ($errors as $error): ?>
             <p class="text-danger">
                 <?= $error ?>
             </p>
         <?php endforeach; ?>
 
         <form action="" method="post">
-            <label>
-                Application status:
-                <select name="status" id="status">
-                    <?php foreach ($validStatuses as $status): ?>
-                        <option value="<?=$status?>" <?=($application["ApplicationStatus"] === $status) ? " selected" : ""?>>
-                            <?=$status?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+            <div class="formContainer">
+                    <div>
+                        <label>
+                            Application status:
+                            <select name="status" id="status">
+                                <?php foreach ($validStatuses as $status): ?>
+                                    <option value="<?= $status ?>" <?= ($application["ApplicationStatus"] === $status) ? " selected" : "" ?>>
+                                        <?= $status ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </label>
 
-            <p class="bg-warning">Note: Your applicant will not see these details unless you set the status to
-                "Interviewing"</p>
+                        <p class="bg-warning">Note: Your applicant will not see these details unless you set the status
+                            to
+                            "Interviewing"</p>
+                    </div>
 
-            <fieldset id="format">
-                <legend>Interview format</legend>
-                <label>
-                    In-person <input type="radio" name="interviewFormat" value="in-person" id="inPersonSelector" <?=(isset($interview) && $interview["InterviewTypeID"] == "1") ? "checked" : "" ?> />
-                </label>
-                <label>
-                    Online (on-the-go) <input type="radio" name="interviewFormat" value="on-the-go" id="onlineSelector"
-                        <?=(isset($interview) && $interview["InterviewTypeID"] == "2") ? "checked" : "" ?> />
-                </label>
-            </fieldset>
+                    <fieldset id="format">
+                        <legend>Interview format</legend>
+                        <label>
+                            In-person <input type="radio" name="interviewFormat" value="in-person" id="inPersonSelector"
+                                <?= (isset($interview) && $interview["InterviewTypeID"] == "1") ? "checked" : "" ?> />
+                        </label>
+                        <label>
+                            Online (on-the-go) <input type="radio" name="interviewFormat" value="on-the-go"
+                                id="onlineSelector" <?= (isset($interview) && $interview["InterviewTypeID"] == "2") ? "checked" : "" ?> />
+                        </label>
+                    </fieldset>
 
-            <fieldset id="inPerson">
-                <legend>In-person interview</legend>
-                <?php if (isset($inPersonInterviewDates)): ?>
-                    <?php foreach ($inPersonInterviewDates as $inPersonInterviewDate): ?>
-                        <div>
-                            <label>
-                                Interview start:
-                                <input type="datetime-local" name="inPersonStart[]" value="<?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeFrom"])->format("Y-m-d\\TH:i")?>"/>
-                            </label>
-                            <label>
-                                Interview end:
-                                <input type="datetime-local" name="inPersonEnd[]" value="<?=DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeTo"])->format("Y-m-d\\TH:i")?>"/>
-                            </label>
-                            <button class="removeDate">Remove</button>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                <button id="addInPersonDate">Add another date</button>
-            </fieldset>
+                    <fieldset id="inPerson">
+                        <legend>In-person interview</legend>
+                        <?php if (isset($inPersonInterviewDates)): ?>
+                            <?php foreach ($inPersonInterviewDates as $inPersonInterviewDate): ?>
+                                <div>
+                                    <label>
+                                        Interview start:
+                                        <input type="datetime-local" name="inPersonStart[]"
+                                            value="<?= DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeFrom"])->format("Y-m-d\\TH:i") ?>" />
+                                    </label>
+                                    <label>
+                                        Interview end:
+                                        <input type="datetime-local" name="inPersonEnd[]"
+                                            value="<?= DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $inPersonInterviewDate["InterviewTimeTo"])->format("Y-m-d\\TH:i") ?>" />
+                                    </label>
+                                    <button class="removeDate">Remove</button>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <button id="addInPersonDate">Add another date</button>
+                    </fieldset>
 
-            <fieldset id="online" disabled>
-                <legend>Online interview</legend>
-                <label>
-                    Interview start:
-                    <input type="datetime-local" name="onTheGoStart"
-                        value="<?=isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeFrom"])->format("Y-m-d\\TH:i") : "" ?>" />
-                </label>
-                <label>
-                    Interview end:
-                    <input type="datetime-local" name="onTheGoEnd"
-                        value="<?=isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeTo"])->format("Y-m-d\\TH:i") : "" ?>" />
-                </label>
-                <label>
-                    Link to meeting:
-                    <input type="text" name="onTheGoLink"
-                        value="<?=isset($onTheGoInterview) ? $onTheGoInterview["InterviewLink"] : "" ?>" />
-                </label>
-            </fieldset>
+                    <fieldset id="online" disabled>
+                        <legend>Online interview</legend>
+                        <label>
+                            Interview start:
+                            <input type="datetime-local" name="onTheGoStart"
+                                value="<?= isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeFrom"])->format("Y-m-d\\TH:i") : "" ?>" />
+                        </label>
+                        <label>
+                            Interview end:
+                            <input type="datetime-local" name="onTheGoEnd"
+                                value="<?= isset($onTheGoInterview) ? DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $onTheGoInterview["InterviewTimeTo"])->format("Y-m-d\\TH:i") : "" ?>" />
+                        </label>
+                        <label>
+                            Link to meeting:
+                            <input type="text" name="onTheGoLink"
+                                value="<?= isset($onTheGoInterview) ? $onTheGoInterview["InterviewLink"] : "" ?>" />
+                        </label>
+                    </fieldset>
 
-            <input type="submit" value="Update application" />
+                <button class="submitbtn" type="submit">Update application</button>
+            </div>
+
         </form>
 
     </main>

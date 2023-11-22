@@ -95,6 +95,7 @@ $specializations = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/job_post.css">
 </head>
 
 <body>
@@ -112,66 +113,96 @@ $specializations = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         <?php endforeach; ?>
 
         <form method="post" action="">
-        <label>
-                Job title: <input type="text" name="jobTitle" value="<?= isset($jobTitle) ? $jobTitle : "" ?>" />
-            </label>
+            <div class="formContainer">
+                <div class="form-control">
+                    <div class="form-group">
+                        <label>
+                            Job title: <input type="text" name="jobTitle"
+                                value="<?= isset($jobTitle) ? $jobTitle : "" ?>" />
+                        </label>
+                    </div>
 
-            <label>
-                Specialization:
-                <select name="specialization">
-                    <?php foreach ($specializations as $specializationOption): ?>
-                        <option value="<?= $specializationOption["SpecializationID"] ?>" <?= (isset($specialization) && $specializationOption["SpecializationID"] == $specialization) ? " selected" : "" ?>>
-                            <?= $specializationOption["SpecializationName"] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Specialization:
+                            <select name="specialization">
+                                <?php foreach ($specializations as $specializationOption): ?>
+                                    <option value="<?= $specializationOption["SpecializationID"] ?>"
+                                        <?= (isset($specialization) && $specializationOption["SpecializationID"] == $specialization) ? " selected" : "" ?>>
+                                        <?= $specializationOption["SpecializationName"] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </label>
+                    </div>
 
-            <label>
-                Application deadline: <input type="datetime-local" name="deadline" value="<?= isset($deadline) ? $deadline : "" ?>" />
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Application deadline: <input type="datetime-local" name="deadline"
+                                value="<?= isset($deadline) ? $deadline : "" ?>" />
+                        </label>
 
-            <label>
-                Salary: <input type="text" name="salary" value="<?= isset($salary) ? $salary : "" ?>" />
-            </label>
+                    </div>
 
-            <label>
-                Working location: <input type="text" name="workLocation" value="<?= isset($workLocation) ? $workLocation : "" ?>" />
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Salary: <input type="text" name="salary" value="<?= isset($salary) ? $salary : "" ?>" />
+                        </label>
+                    </div>
 
-            <label>
-                Experience requirement:
-                <select name="experience">
-                    <?php foreach ($validExperiences as $validExperience): ?>
-                        <option value="<?= $validExperience ?>" <?= (isset($experience) && $validExperience == $experience) ? " selected" : "" ?>>
-                            <?= $validExperience ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Working location: <input type="text" name="workLocation"
+                                value="<?= isset($workLocation) ? $workLocation : "" ?>" />
+                        </label>
+                    </div>
 
-            <label>
-                Working format:
-                <select name="format">
-                    <?php foreach ($validFormats as $validFormat): ?>
-                        <option value="<?= $validFormat ?>" <?= (isset($format) && $validFormat == $format) ? " selected" : "" ?>>
-                            <?= $validFormat ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Experience requirement:
+                            <select name="experience">
+                                <?php foreach ($validExperiences as $validExperience): ?>
+                                    <option value="<?= $validExperience ?>" <?= (isset($experience) && $validExperience == $experience) ? " selected" : "" ?>>
+                                        <?= $validExperience ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </label>
+                    </div>
 
-            <label>
-                Scope of work:
-                <textarea name="scope"><?= isset($scope) ? $scope : "" ?></textarea>
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Working format:
+                            <select name="format">
+                                <?php foreach ($validFormats as $validFormat): ?>
+                                    <option value="<?= $validFormat ?>" <?= (isset($format) && $validFormat == $format) ? " selected" : "" ?>>
+                                        <?= $validFormat ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </label>
+                    </div>
 
-            <label>
-                Benefits:
-                <textarea name="benefits"><?= isset($benefits) ? $benefits : "" ?></textarea>
-            </label>
+                    <div class="form-group">
+                        <label>
+                            Scope of work:
+                            <textarea name="scope"><?= isset($scope) ? $scope : "" ?></textarea>
+                        </label>
+                    </div>
 
-            <input type="submit" value="Post job" />
+                    <div class="form-group">
+                        <label>
+                            Benefits:
+                            <textarea name="benefits"><?= isset($benefits) ? $benefits : "" ?></textarea>
+                        </label>
+                    </div>
+
+
+
+                </div>
+                <button class="submitbtn" type="submit">Post job</button>
+
+            </div>
         </form>
 
     </main>

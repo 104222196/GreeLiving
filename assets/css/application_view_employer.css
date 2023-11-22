@@ -1,0 +1,21 @@
+h1{
+    text-align: center;
+    margin-bottom: 1em;
+    
+}
+h2 {
+    text-align: center;
+    padding: 0.5em;
+    background-color: #9BEDFF;
+    border-radius: 40px;
+}
+.control-container{
+    background-color: transparent;
+    border: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+}
+.child{
+    padding-left: 15em;
+}
