@@ -79,6 +79,8 @@ if (isApplicantLoggedIn()) {
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/job_details.css">
+
 </head>
 
 <body>

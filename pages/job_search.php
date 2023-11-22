@@ -90,6 +90,7 @@ $specializations = mysqli_query($db, "SELECT SpecializationName FROM Specializat
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/job_search.css">
 </head>
 
 <body>
@@ -180,7 +181,7 @@ $specializations = mysqli_query($db, "SELECT SpecializationName FROM Specializat
             <p>No jobs match your search criteria.</p>
         <?php else: ?>
             <?php foreach ($jobs as $job): ?>
-                <div>
+                <div class="job-content">
                     <h3><?=$job["JobTitle"]?></h3>
                     <p>at <?=$job["CompanyName"]?></p>
                     <p>
