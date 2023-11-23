@@ -28,14 +28,16 @@ $courses = $statement->get_result();
     <?php require("./components/header_applicant.php") ?>
 
     <main style="padding-top:100px">
-        <h1>Training courses</h1>
+        <h1 class="d-flex justify-content-center">Training courses</h1>
         
         <?php while ($row = $courses->fetch_assoc()): ?>
-            <div>
-                <h2><?= $row["CourseName"]?></h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit saepe excepturi temporibus modi eos expedita amet sit est ipsum vitae.</p>
-                <a href="/applicant/courses/<?=$row["CourseID"]?>">More details</a>
-            </div>
+            <div class="container mt-5">
+    <div class="text-center">
+        <h2><?= $row["CourseName"] ?></h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus doloribus ratione architecto vero distinctio.</p>
+        <a class="btn btn-primary" href="/applicant/courses/<?= $row["CourseID"] ?>">More details</a>
+    </div>
+</div>
         <?php endwhile; ?>
     </main>
 

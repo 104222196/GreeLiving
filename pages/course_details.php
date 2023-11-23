@@ -81,65 +81,81 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             </p>
         <?php endforeach; ?>
 
-        <h1>
-            <?= $course["CourseName"] ?>
-        </h1>
+        <div class="container mt-5">
 
-        <section>
-            <h2>Introduction</h2>
+    <h1 class="text-center"><?= $course["CourseName"] ?></h1>
+
+    <div class="row">
+
+        <section class="col-sm-3">
+            <h2 class="text-center">Introduction</h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe est explicabo voluptates veritatis corrupti ratione aperiam laudantium quasi! Eum rem, fugit asperiores accusamus quas delectus vero nisi aspernatur velit quidem officiis illo similique, aut magnam iste enim, voluptas quibusdam recusandae error deserunt dolorum consequuntur dolorem dicta. Labore voluptate sapiente numquam.</p>
         </section>
 
-        <section>
-            <h2>Course information</h2>
-            <p>Length: 12 weeks</p>
-            <p>Provider: GreeLiving</p>
-            <p>Price: $999</p>
+        <section class="col-sm-3">
+            <h2 class="text-center">Course information</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Length: 12 weeks</li>
+                <li class="list-group-item">Provider: GreeLiving</li>
+                <li class="list-group-item">Price: $999</li>
+            </ul>
         </section>
 
-        <section>
-            <h2>Course outline</h2>
+        <section class="col-sm-3">
+            <h2 class="text-center">Course outline</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis rem illum itaque iste accusamus nisi iusto reiciendis nihil quasi aspernatur placeat dicta, eligendi, labore ipsa sequi. Earum, esse similique. Vel fugit reiciendis, voluptatem quas atque similique assumenda, ut doloremque nam adipisci quibusdam corporis et aliquam voluptas voluptatum architecto unde repellat.</p>
         </section>
 
-        <section>
-            <h2>Course benefits</h2>
+        <section class="col-sm-3">
+            <h2 class="text-center">Course benefits</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam nemo id qui. Minima ullam praesentium, eveniet laboriosam eligendi pariatur voluptatem fugit ut ab recusandae earum itaque sequi molestiae obcaecati dignissimos cum dicta fugiat aliquam eos officiis esse odio. Quas ratione inventore debitis voluptatibus incidunt, voluptatem nihil quibusdam magni praesentium cupiditate!</p>
         </section>
 
-        <form method="post" action="/applicant/courses/<?= $course["CourseID"] ?>">
-            <fieldset>
-                <legend>Personal information</legend>
-                <label>
-                    Name: <input type="text" name="name"/>
-                </label>
-                <label>
-                    Age: <input type="text" name="age"/>
-                </label>
-                <label>
-                    Gender: <input type="text" name="gender"/>
-                </label>
-                <label>
-                    Address: <input type="text" name="address"/>
-                </label>
-            </fieldset>
+    </div>
 
-            <fieldset>
-                <legend>Bank account information</legend>
-                <label>
-                    Bank branch: <input type="text" name="branch"/>
-                </label>
-                <label>
-                    Card number: <input type="text" name="number"/>
-                </label>
-                <label>
-                    Account name: <input type="text" name="accName"/>
-                </label>
-            </fieldset>
+</div>
+        </div>
+        <div class="container mt-5">
+    <form method="post" action="/applicant/courses/<?= $course["CourseID"] ?>" class="needs-validation" novalidate>
+        <fieldset>
+            <legend>Personal information</legend>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="text" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="text" class="form-control" id="gender" name="gender" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+        </fieldset>
 
-            <input type="submit" name="register" value="Buy the course now!" />
-        </form>
+        <fieldset>
+            <legend>Bank account information</legend>
+            <div class="form-group">
+                <label for="branch">Bank branch:</label>
+                <input type="text" class="form-control" id="branch" name="branch" required>
+            </div>
+            <div class="form-group">
+                <label for="number">Card number:</label>
+                <input type="text" class="form-control" id="number" name="number" required>
+            </div>
+            <div class="form-group">
+                <label for="accName">Account name:</label>
+                <input type="text" class="form-control" id="accName" name="accName" required>
+            </div>
+        </fieldset>
 
+        <button type="submit" name="register" class="btn btn-primary">Buy the course now!</button>
+    </form>
+</div>
     </main>
 
 
