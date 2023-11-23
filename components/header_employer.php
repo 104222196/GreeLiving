@@ -31,6 +31,7 @@
 					<span <?=$_SESSION["language"] != "en" ? 'class="unbolded"' : ""?>>EN</span>
 				</a>
 			</li>
+			<li><a href="/applicant/home"><?=$content["toApplicant"] ?></a></li>
 		</ul>
 	</nav>
 

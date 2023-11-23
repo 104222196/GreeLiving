@@ -32,20 +32,24 @@ document.getElementById("addInPersonDate").addEventListener("click", function (e
 
     const startLabel = document.createElement("label");
     startLabel.innerText = "Interview start: ";
+    startLabel.classList.add("form-label");
     const startInput = document.createElement("input");
     startInput.type = "datetime-local";
     startInput.name = "inPersonStart[]";
+    startInput.classList.add("form-control");
     startLabel.appendChild(startInput);
 
     const endLabel = document.createElement("label");
     endLabel.innerText = "Interview end: ";
+    endLabel.classList.add("form-label");
     const endInput = document.createElement("input");
     endInput.type = "datetime-local";
     endInput.name = "inPersonEnd[]";
+    endInput.classList.add("form-control");
     endLabel.appendChild(endInput);
 
     const removeButton = document.createElement("button");
-    removeButton.classList.add("removeDate");
+    removeButton.classList.add("removeDate", "btn", "btn-outline-danger");
     removeButton.innerText = "Remove";
     removeButton.addEventListener("click", function (event) {
         event.preventDefault();

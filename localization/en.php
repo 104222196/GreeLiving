@@ -7,6 +7,8 @@
         "contact"=> "Contact",
         "jobsearch" => "Job search",
         "profile" => "Profile",
-        "postJob" => "Post job"
+        "postJob" => "Post job",
+        "toEmployer" => "For employers",
+        "toApplicant" => "For applicants"
     );
 ?>
