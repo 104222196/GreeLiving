@@ -1,3 +1,4 @@
+
 <?php
 
 // Check if this is in fact the first time log in.
@@ -135,6 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/applicant_setup.css">
+
 </head>
 
 <body>

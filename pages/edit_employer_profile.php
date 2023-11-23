@@ -79,6 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         crossorigin="anonymous"></script>
     <link href="/assets/css/header.css" rel="stylesheet" />
     <link href="/assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/edit_employer_profile.css">
+
 </head>
 
 <body>
