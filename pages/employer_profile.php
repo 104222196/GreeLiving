@@ -6,7 +6,7 @@ checkEmployerId();
 $db = $GLOBALS["db"];
 
 // Gets the employer's information.
-$statement = new mysqli_stmt($db, "SELECT * FROM Company WHERE CompanyID = ?");
+$statement = new mysqli_stmt($db, "SELECT CompanyName, CompanySize, Phone, Email, Introduction FROM Company WHERE CompanyID = ?");
 $statement->bind_param("s", $_SESSION["employerId"]);
 $success = $statement->execute();
 
@@ -30,7 +30,11 @@ if (!$success) {
 }
 
 // Gets the list of applications to the company.
-$statement = new mysqli_stmt($db, "SELECT * FROM JobApplication JOIN Applicant ON JobApplication.ApplicantID = Applicant.ApplicantID JOIN Job ON JobApplication.JobID = Job.JobID WHERE CompanyID = ? ORDER BY TimeOfApplication DESC");
+$statement = new mysqli_stmt($db, "SELECT ApplicationID, FirstName, LastName, Job.JobTitle, TimeOfApplication, ApplicationStatus FROM JobApplication 
+                                   JOIN Applicant ON JobApplication.ApplicantID = Applicant.ApplicantID 
+                                   JOIN Job ON JobApplication.JobID = Job.JobID 
+                                   WHERE CompanyID = ? 
+                                   ORDER BY TimeOfApplication DESC");
 $statement->bind_param("s", $_SESSION["employerId"]);
 $success = $statement->execute();
 

@@ -2,7 +2,7 @@
 
 $db = $GLOBALS["db"];
 
-$statement = new mysqli_stmt($db, "SELECT * FROM Job 
+$statement = new mysqli_stmt($db, "SELECT JobTitle, ApplicationDeadline, Salary, WorkingLocation, SpecializationName, ExperienceRequirement, WorkingFormat, ScopeOfWork, Benefits, CompanyName, Email, Phone, Introduction FROM Job 
                                    JOIN Specialization ON Job.SpecializationID = Specialization.SpecializationID 
                                    JOIN Company ON Job.CompanyID = Company.CompanyID WHERE JobID = ?");
 $statement->bind_param("s", $jobId);
@@ -51,7 +51,7 @@ if (isApplicantLoggedIn()) {
     $applicantId = $_SESSION["applicantId"];
     $jobId = trim($jobId);
 
-    $statement = new mysqli_stmt($db, "SELECT * FROM SavedJob WHERE JobID = ? AND ApplicantID = ?");
+    $statement = new mysqli_stmt($db, "SELECT JobID FROM SavedJob WHERE JobID = ? AND ApplicantID = ?");
     $statement->bind_param("ss", $jobId, $applicantId);
     $statement->execute();
     $statement->store_result();

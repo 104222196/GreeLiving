@@ -3,7 +3,9 @@
 $resultsPerPage = '50';
 
 $db = $GLOBALS["db"];
-$query = "SELECT * FROM Job JOIN Specialization ON Job.SpecializationID = Specialization.SpecializationID JOIN Company ON Job.CompanyID = Company.CompanyID";
+$query = "SELECT JobID, JobTitle, DatePosted, ApplicationDeadline, Salary, WorkingLocation, WorkingFormat, ExperienceRequirement, SpecializationName, CompanyName, CompanySize FROM Job 
+          JOIN Specialization ON Job.SpecializationID = Specialization.SpecializationID 
+          JOIN Company ON Job.CompanyID = Company.CompanyID";
 
 $filters = array();
 
@@ -42,7 +44,7 @@ if (isset($_GET["companySize"])) {
 if (isset($_GET["specialization"])) {
     $specialization = trim($_GET["specialization"]);
     if ($specialization !== "") {
-        $filters[] = "SpecializationName = '" . $db->real_escape_string($specialization) . "'";
+        $filters[] = "Job.SpecializationID = '" . $db->real_escape_string($specialization) . "'";
     }
 }
 
@@ -74,7 +76,7 @@ $jobs = $result->fetch_all(MYSQLI_ASSOC);
 $experiences = array("Internship", "Entry level", "Junior", "Mid-level", "Senior");
 $companySizes = array("1-20 employees", "21-50 employees", "51-100 employees", "100+ employees");
 $workingFormats = array("On-site", "Remote", "Hybrid");
-$specializations = mysqli_query($db, "SELECT SpecializationName FROM Specialization ORDER BY SpecializationName")->fetch_all(MYSQLI_ASSOC);
+$specializations = mysqli_query($db, "SELECT SpecializationID, SpecializationName FROM Specialization")->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -163,8 +165,8 @@ $specializations = mysqli_query($db, "SELECT SpecializationName FROM Specializat
                     <option value="" default>All</option>
                     <?php foreach ($specializations as $specializationOption): ?>
                         <option 
-                            value="<?=$specializationOption["SpecializationName"]?>"
-                            <?=isset($specialization) && $specialization === $specializationOption["SpecializationName"] ? ' selected' : ""?>
+                            value="<?=$specializationOption["SpecializationID"]?>"
+                            <?=isset($specialization) && $specialization === $specializationOption["SpecializationID"] ? ' selected' : ""?>
                         >
                             <?=$specializationOption["SpecializationName"]?>
                         </option>

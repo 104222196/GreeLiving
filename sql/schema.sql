@@ -183,28 +183,10 @@ CREATE TABLE greeliving.JobApplication (
         ON UPDATE CASCADE
 );
 
-DELIMITER $$
-CREATE TRIGGER greeliving.JobApplication_Deadline_Trigger 
-	BEFORE INSERT ON greeliving.JobApplication
-	FOR EACH ROW
-BEGIN
-	DECLARE Deadline DATETIME;
-    
-	SELECT ApplicationDeadline INTO Deadline FROM Job WHERE JobID = new.JobID;
-    
-    IF new.TimeOfApplication > Deadline THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Cannot apply after the application deadline!";
-	END IF;
-END $$
-
-DELIMITER ;
-
 CREATE TABLE greeliving.InterviewType (
     InterviewTypeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     InterviewType VARCHAR(10) NOT NULL
 );
-
-INSERT INTO greeliving.InterviewType (InterviewType) VALUES ("in-person"), ("on-the-go");
 
 CREATE TABLE greeliving.Interview (
     ApplicationID INT NOT NULL,
@@ -261,3 +243,23 @@ CREATE TABLE greeliving.InPersonInterviewDate (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE INDEX i_salary ON greeliving.Job (Salary);
+
+INSERT INTO greeliving.InterviewType (InterviewType) VALUES ("in-person"), ("on-the-go");
+
+DELIMITER $$
+CREATE TRIGGER greeliving.JobApplication_Deadline_Trigger 
+	BEFORE INSERT ON greeliving.JobApplication
+	FOR EACH ROW
+BEGIN
+	DECLARE Deadline DATETIME;
+    
+	SELECT ApplicationDeadline INTO Deadline FROM greeliving.Job WHERE JobID = new.JobID;
+    
+    IF new.TimeOfApplication > Deadline THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Cannot apply after the application deadline!";
+	END IF;
+END $$
+
+DELIMITER ;

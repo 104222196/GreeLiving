@@ -2,7 +2,7 @@
 
 $db = $GLOBALS["db"];
 
-$statement = new mysqli_stmt($db, "SELECT * FROM Course WHERE CourseID = ?");
+$statement = new mysqli_stmt($db, "SELECT CourseName FROM Course WHERE CourseID = ?");
 $statement->bind_param("s", $courseId);
 $success = $statement->execute();
 

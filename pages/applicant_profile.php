@@ -6,7 +6,7 @@ checkApplicantId();
 $db = $GLOBALS["db"];
 
 // Get the applicant's personal info.
-$statement = new mysqli_stmt($db,"SELECT * FROM Applicant WHERE ApplicantID = ?");
+$statement = new mysqli_stmt($db,"SELECT FirstName, LastName, Birthdate, Gender, Email, Phone, Nationality, CountryOfResidence, City, District, StreetAddress, JobTitle, ExperienceLevel, EducationBackground, CareerGoal FROM Applicant WHERE ApplicantID = ?");
 $statement->bind_param("s", $_SESSION["applicantId"]);
 $success = $statement->execute();
 
@@ -19,7 +19,7 @@ $result = $statement->get_result();
 $applicant = $result->fetch_assoc();
 
 // Get the applicant's saved jobs.
-$statement = new mysqli_stmt($db, "SELECT * FROM SavedJob 
+$statement = new mysqli_stmt($db, "SELECT SavedJob.JobID, JobTitle, CompanyName FROM SavedJob 
                                    JOIN Job ON SavedJob.JobID = Job.JobID
                                    JOIN Company ON Job.CompanyID = Company.CompanyID
                                    WHERE SavedJob.ApplicantID = ?");
@@ -29,7 +29,7 @@ $statement->execute();
 $savedJobs = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Get the applicant's job applications.
-$statement = new mysqli_stmt($db, "SELECT ApplicationID, Job.JobID, TimeOfApplication, ApplicationStatus, CompanyName, JobTitle, WorkingLocation, WorkingFormat FROM JobApplication 
+$statement = new mysqli_stmt($db, "SELECT ApplicationID, JobApplication.JobID, TimeOfApplication, ApplicationStatus, CompanyName, JobTitle, WorkingLocation, WorkingFormat FROM JobApplication 
                                    JOIN Job ON JobApplication.JobID = Job.JobID 
                                    JOIN Company ON Job.CompanyID = Company.CompanyID
                                    WHERE ApplicantID = ? 

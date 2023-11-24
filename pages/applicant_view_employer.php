@@ -5,7 +5,9 @@ checkEmployerLogIn();
 
 $db = $GLOBALS["db"];
 
-$statement = new mysqli_stmt($db, "SELECT * FROM Applicant WHERE ApplicantID = ?");
+$statement = new mysqli_stmt($db, "SELECT FirstName, LastName, Birthdate, Gender, Email, Phone, Nationality, CountryOfResidence, City, District, StreetAddress, JobTitle, ExperienceLevel, EducationBackground, CareerGoal 
+                                   FROM Applicant 
+                                   WHERE ApplicantID = ?");
 $statement->bind_param("s", $applicantId);
 $statement->execute();
 $result = $statement->get_result();

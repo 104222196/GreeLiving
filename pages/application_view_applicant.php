@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Gets the application info
-$statement = new mysqli_stmt($db, "SELECT * FROM JobApplication 
+$statement = new mysqli_stmt($db, "SELECT JobTitle, CompanyName, ApplicationStatus, TimeOfApplication, CV, StatementOfPurpose, ExpectToGain, Questions FROM JobApplication 
                                    JOIN Job ON JobApplication.JobID = Job.JobID
                                    JOIN Company ON Job.CompanyID = Company.CompanyID
                                    WHERE ApplicationID = ?");

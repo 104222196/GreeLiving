@@ -6,7 +6,7 @@ checkEmployerId();
 $db = $GLOBALS["db"];
 
 // Gets the current information.
-$statement = new mysqli_stmt($db, "SELECT * FROM Company WHERE CompanyID = ?");
+$statement = new mysqli_stmt($db, "SELECT CompanyName, CompanySize, Phone, Introduction FROM Company WHERE CompanyID = ?");
 $statement->bind_param("s", $_SESSION["employerId"]);
 $success = $statement->execute();
 
