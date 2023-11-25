@@ -1,11 +1,26 @@
 # GreeLiving
-Website for GreeLiving. Written in PHP.
+Website for GreeLiving. Written in PHP. Created by Group 6 of COS20031.
 
-# Setting up
+## Necessary software
+This project requires the installation of PHP, Git, Composer (which is a package manager for PHP), and MySQL.
 
-Some environment variables needed to run this project must be specified before it can start. PLEASE CREATE A FILE CALLED `.env` AND PUT IT IN THE SAME DIRECTORY AS `index.php`.
+Download PHP: [PHP download](https://www.php.net/downloads.php)  (if you have XAMPP, you can use the `php.exe` file in `xampp/php/` instead. However, please make sure that the PHP version is above 8.2 because some packages might not work. You can check the version of PHP with `php -v` in the terminal.)
 
-In the `.env` PLEASE ADD THE FOLLOWING INFORMATION.
+Download Composer: [Composer](https://getcomposer.org/download/) (during installation, please refer to the PHP executable from the previous step.)
+
+Download Git: [Git](https://git-scm.com/downloads) (this is required for the installation of Composer packages).
+
+Download MySQL: [MySQL Community](https://dev.mysql.com/downloads/)
+
+Please check your environment variables to make sure that the paths to the PHP, Composer, and Git executables are present.
+
+## Cloning the project and installing packages
+
+Use Git to clone the project on https://github.com/gnut04/GreeLiving. Then, `cd` into the project directory and run `composer install` to install the necessary packages. You may encounter issues if you have not set up Composer correctly, for instance by not having it in PATH.
+
+## Defining environment variables and creating the database
+
+Copy the contents pertaining to the `.env` file on the project's `README.md` and change the information related to the database as necessary. Most importantly, please specify the password to connect to your MySQL server. If you use XAMPP, the password might not be necessary, so leave it as a blank `''`.
 
 ```
 AUTH0_BASE_URL='http://127.0.0.1:3000'
@@ -26,15 +41,13 @@ DATABASE_PASSWORD='<IMPORANT: YOUR MYSQL DATABASE PASSWORD>'
 DATABASE_DATABASE='greeliving'
 ```
 
-This project requires Composer to run. Composer is a package manager for PHP that can be downloaded from [the official website](https://getcomposer.org/download/).
+Then, run the `.sql` scripts on your database engine to create the database. Please go to the folder `/sql` in the project directory and run the file `schema.sql` followed by `dummydata.sql`.
 
-The Composer installer will ask for a PHP executable (a.k.a. php.exe) on your system. If you already have XAMPP installed, you can refer it to the executable file found in `/xampp/php/php.exe` (the location of XAMPP will vary based on your past installation.)
+## Running the project
 
-On the terminal, `cd` to the project's directory and run `composer install`. This will install all the packages needed for the website to run. 
+In the project's directory, type `server` to start the PHP server. It runs a batch script that starts a server at `127.0.0.1:3000`. Please **do not** change this address. Provided you have done the above steps correctly, the website should run.
 
-To start the development server, type `php -S 127.0.0.1:3000` in the terminal. Please do **NOT** type `localhost:3000` because it will not work with the authentication module.
 
-# Database initialization
+## Troubleshooting
 
-Using phpMyAdmin, MySQL Workbench, or a preferred tool of your choice, run the scripts `schema.sql` and `dummydata.sql` in the `/sql` folder to create the database. THE WEBSITE WILL NOT FUNCTION WITHOUT THESE TABLES.
-
+Sometimes, you may encounter errors related to the installation of packages or the running of the server. Many of these errors are caused by the `php.ini` file in the same folder as the `php.exe` file. You can use the `php.ini` file included in the project’s repository as a possible quick fix.
