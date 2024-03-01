@@ -8,6 +8,13 @@ Download PHP: [PHP download](https://www.php.net/downloads.php)  (if you have XA
 
 Download Composer: [Composer](https://getcomposer.org/download/) (during installation, please refer to the PHP executable from the previous step.)
 
+```
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+
 Download Git: [Git](https://git-scm.com/downloads) (this is required for the installation of Composer packages).
 
 Download MySQL: [MySQL Community](https://dev.mysql.com/downloads/)
