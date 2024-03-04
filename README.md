@@ -1,12 +1,23 @@
 # GreeLiving
 Website for GreeLiving. Written in PHP. Created by Group 6 of COS20031.
 
-## Necessary software
-This project requires the installation of PHP, Git, Composer (which is a package manager for PHP), and MySQL.
+## Set up instructions
 
-Download PHP: [PHP download](https://www.php.net/downloads.php)  (if you have XAMPP, you can use the `php.exe` file in `xampp/php/` instead. However, please make sure that the PHP version is above 8.2 because some packages might not work. You can check the version of PHP with `php -v` in the terminal.)
+### Step 1 - Download and set up PHP
 
-Download Composer: [Composer](https://getcomposer.org/download/) (during installation, please refer to the PHP executable from the previous step.)
+This project needs PHP to run and you will need a PHP excutable file available on your computer. If you already have XAMPP installed, you can use the `php.exe` file that comes with XAMPP. Otherwise, go to PHP's website on [this link](https://www.php.net/downloads.php) to find a suitable download option. Please make sure that the PHP version is above 8.2 because some packages might not work.
+
+To check that you have a valid version of PHP installed, type `php -v` in the terminal. Note that you may need to add the path to the PHP executable to the system's environment variables so that the terminal can run it.
+
+In the folder containing the `php.exe` file, copy and paste the file `cacert.pem` in the code directory into the directory `extras/ssl` (on the same directory as `php.exe`.) You will need this to run the server.
+
+Afterwards, copy and paste the `php.ini` file in the source code into the directory containing `php.exe`. This file contains important settings to enable our server to work. You may wish to back up other `php.ini` files already present if you plan to use them in the future.
+
+In the `php.ini` file, find the location of the `curl.cainfo` and `openssl.cafile` lines and replace the paths with the **absolute path** to the `cacert.pem` file you added earlier.
+
+### Step 2 - Download Composer and install packages
+
+Composer is a package manager for PHP and is used by this project to install several third-party libraries. To install Composer, check out the official documentation on [this link](https://getcomposer.org/download/). The link has options to install Composer globally, which allows you to use it everywhere on your system, or locally, which restricts Composer to the directory in which it is installed. If you do not plan on using Composer in the future and is only looking to test this project, you can install it locally with:
 
 ```
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -15,46 +26,48 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 ```
 
-Download Git: [Git](https://git-scm.com/downloads) (this is required for the installation of Composer packages).
-
-Download MySQL: [MySQL Community](https://dev.mysql.com/downloads/)
-
-Please check your environment variables to make sure that the paths to the PHP, Composer, and Git executables are present.
-
-## Cloning the project and installing packages
-
-Use Git to clone the project on https://github.com/gnut04/GreeLiving. Then, `cd` into the project directory and run `composer install` to install the necessary packages. You may encounter issues if you have not set up Composer correctly, for instance by not having it in PATH.
-
-## Defining environment variables and creating the database
-
-Copy the contents pertaining to the `.env` file on the project's `README.md` and change the information related to the database as necessary. Most importantly, please specify the password to connect to your MySQL server. If you use XAMPP, the password might not be necessary, so leave it as a blank `''`.
+After Composer is installed, you need to install the necessary libraries with
 
 ```
-AUTH0_BASE_URL='http://127.0.0.1:3000'
-
-AUTH0_APPLICANTS_DOMAIN='https://dev-26j7nd5wbpafvpg2.us.auth0.com'
-AUTH0_APPLICANTS_CLIENT_ID='vDNw4iiDOHGHd7BblTusIKJ8V0jiANUx'
-AUTH0_APPLICANTS_CLIENT_SECRET='2d9v7-OXT6xx-ux1ZQekw3CwNMtW0mC7Nfh3GGvG7oSLbnsgtkdjeq9BnhKpxFkz'
-AUTH0_APPLICANTS_COOKIE_SECRET='c89c4ca664c98b58379aa03d351fb96775379319bdf17e8a446fee724ca30a0e'
-
-AUTH0_COMPANIES_DOMAIN='https://greeliving-employer.us.auth0.com'
-AUTH0_COMPANIES_CLIENT_ID='5u20cQ1jCqPBkBmaZq4ErGt3cuZUlXee'
-AUTH0_COMPANIES_CLIENT_SECRET='MO_DbmlIHkaMBQzsQHf3-6yw2zZrGtwbNnDGDRmqhNgp-Zm-59FyuffsmeNsHHuy'
-AUTH0_COMPANIES_COOKIE_SECRET='12171f2c09bea41648f7ec3c58e98c27a9bac5ecade7f437bf0dec34f3bf5b45'
-
-DATABASE_HOST='localhost'
-DATABASE_USER='root'
-DATABASE_PASSWORD='<IMPORANT: YOUR MYSQL DATABASE PASSWORD>'
-DATABASE_DATABASE='greeliving'
+composer install
 ```
 
-Then, run the `.sql` scripts on your database engine to create the database. Please go to the folder `/sql` in the project directory and run the file `schema.sql` followed by `dummydata.sql`.
+if you installed Composer **globally**, or
 
-## Running the project
+```
+php composer.phar install
+```
 
-In the project's directory, type `server` to start the PHP server. It runs a batch script that starts a server at `127.0.0.1:3000`. Please **do not** change this address. Provided you have done the above steps correctly, the website should run.
+if you installed it **locally**.
 
+You can check the vendor directory to see if the packages have been installed.
 
-## Troubleshooting
+### Step 3 - Set up MySQL
 
-Sometimes, you may encounter errors related to the installation of packages or the running of the server. Many of these errors are caused by the `php.ini` file in the same folder as the `php.exe` file. You can use the `php.ini` file included in the project’s repository as a possible quick fix.
+The database for this project is stored on MySQL. To download MySQL, refer to the official website at [this link](https://dev.mysql.com/downloads/).
+
+With your MySQL server running, run the `schema.sql` script followed by the `dummydata.sql` script located in the `/sql` directory. These scripts set up the tables and populate them with dummy data.
+
+### Step 4 - Set up the environment variables
+
+This project makes use of several environment variables located in the `.env` file in the code directory. In this file, leave everything unchanged except `DATABASE_USER` and `DATABASE_PASSWORD`. These are the username and password of your MySQL user which are used to connect the website to the database.
+
+### Step 5 - Run the web server
+
+With everything set up correctly, you can run the server by typing this command in the terminal:
+
+```
+php -S 127.0.0.1:3000
+```
+
+**You must not change this address of the server as it will interfere with authentication.**
+
+Alternatively, if you are on Windows, you can run the `server.bat` file instead of typing the above command for convenience.
+
+```
+server
+```
+
+## Contact
+
+If you have any questions related to this project, please email me at tunggnut2004@gmail.com.

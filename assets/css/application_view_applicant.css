@@ -1,6 +1,6 @@
 main {
-    padding-top: 100px;
-    margin: 20px;
+    max-width: 1024px;
+    margin: 4rem auto;
 }
 
 h1, h2 {
@@ -41,6 +41,12 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.text-danger {
-    color: #dc3545;
+.info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.interview-book {
+    margin-top: 2rem;
 }

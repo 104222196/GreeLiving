@@ -280,6 +280,11 @@ if ($result->num_rows > 0) {
         <?php endforeach; ?>
 
         <form action="" method="post">
+
+            <p class="alert alert-warning">
+                Note: Your applicant will not see the interview details 
+                unless you set the status to "Interviewing"
+            </p>
             <label class="form-label">
                 Application status:
                 <select name="status" id="status" class="form-select">
@@ -290,11 +295,6 @@ if ($result->num_rows > 0) {
                     <?php endforeach; ?>
                 </select>
             </label>
-
-            <p class="text-warning">
-                Note: Your applicant will not see the interview details 
-                unless you set the status to "Interviewing"
-            </p>
 
             <fieldset id="format">
                 <legend>Interview format</legend>

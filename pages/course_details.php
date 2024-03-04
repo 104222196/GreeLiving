@@ -2,7 +2,7 @@
 
 $db = $GLOBALS["db"];
 
-$statement = new mysqli_stmt($db, "SELECT CourseName FROM Course WHERE CourseID = ?");
+$statement = new mysqli_stmt($db, "SELECT CourseID, CourseName FROM Course WHERE CourseID = ?");
 $statement->bind_param("s", $courseId);
 $success = $statement->execute();
 
@@ -71,13 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     <main style="padding-top:100px; padding-bottom: 100px">
 
         <?php if (isset($successMessage)): ?>
-            <p class="text-success">
+            <p class="alert alert-success mx-2">
                 <?= $successMessage ?>
             </p>
         <?php endif; ?>
 
         <?php foreach ($errors as $error): ?>
-            <p class="text-danger">
+            <p class="alert alert-danger mx-2">
                 <?= $error ?>
             </p>
         <?php endforeach; ?>

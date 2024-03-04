@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if ($_SESSION["language"] == "vn") {
+    require_once("./localization/vn.php");
+} else {
+    require_once("./localization/en.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,92 +48,12 @@
 
     <div class="video-overlay header-text">
       <div class="caption">
-        <h6>live an ideal global life</h6>
+        <h6><?= $content["liveIdealGlobal"] ?></h6>
         <h2><em>Greeliving</em></h2>
-        <h3>Nền tảng học tập và làm việc thành công tại Úc</h3>
+        <h3><?= $content["platform"] ?></h3>
         <div class="main-button">
           <div class="scroll-to-section">
-            <a href="#section2">tìm hiểu thêm</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ***** Main Banner Area End ***** -->
-
-  <section class="features">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-12">
-          <div class="features-post">
-            <div class="features-content">
-              <div class="content-show">
-                <h4><i class="fa fa-pencil"></i>Giới thiệu</h4>
-              </div>
-              <div class="content-hide">
-                <p>
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet. Donec maximus
-                  elementum ex. Cras convallis ex rhoncus, laoreet libero eu,
-                  vehicula libero.
-                </p>
-                <p class="hidden-sm">
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet.
-                </p>
-                <div class="scroll-to-section">
-                  <a href="#section2">More Info.</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-12">
-          <div class="features-post second-features">
-            <div class="features-content">
-              <div class="content-show">
-                <h4><i class="fa fa-graduation-cap"></i>Các khóa đào tạo</h4>
-              </div>
-              <div class="content-hide">
-                <p>
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet. Donec maximus
-                  elementum ex. Cras convallis ex rhoncus, laoreet libero eu,
-                  vehicula libero.
-                </p>
-                <p class="hidden-sm">
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet.
-                </p>
-                <div class="scroll-to-section">
-                  <a href="#section3">Details</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-12">
-          <div class="features-post third-features">
-            <div class="features-content">
-              <div class="content-show">
-                <h4><i class="fa fa-book"></i>Cơ hội việc làm</h4>
-              </div>
-              <div class="content-hide">
-                <p>
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet. Donec maximus
-                  elementum ex. Cras convallis ex rhoncus, laoreet libero eu,
-                  vehicula libero.
-                </p>
-                <p class="hidden-sm">
-                  Curabitur id eros vehicula, tincidunt libero eu, lobortis
-                  mi. In mollis eros a posuere imperdiet.
-                </p>
-                <div class="scroll-to-section">
-                  <a href="#section4">Read More</a>
-                </div>
-              </div>
-            </div>
+            <a href="#section2"><?= $content["exploreMore"] ?></a>
           </div>
         </div>
       </div>
@@ -133,15 +65,15 @@
       <div class="row">
         <div class="col-md-12">
           <div class="section-heading">
-            <h2>Vì sao nên chọn Greeliving</h2>
+            <h2><?= $content["whyUs"] ?></h2>
           </div>
         </div>
         <div class="col-md-12">
           <div id="tabs">
             <ul>
-              <li><a href="#tabs-1">Best Education</a></li>
-              <li><a href="#tabs-2">Top Management</a></li>
-              <li><a href="#tabs-3">Quality Meeting</a></li>
+              <li><a href="#tabs-1"><?= $content["bestEdu"] ?></a></li>
+              <li><a href="#tabs-2"><?= $content["topMan"] ?></a></li>
+              <li><a href="#tabs-3"><?= $content["qualMeeting"] ?></a></li>
             </ul>
             <section class="tabs-content">
               <article id="tabs-1">
@@ -150,14 +82,9 @@
                     <img src="/assets/images/choose-us-image-01.png" alt="" />
                   </div>
                   <div class="col-md-6">
-                    <h4>Best Education</h4>
+                    <h4><?= $content["bestEdu"] ?></h4>
                     <p>
-                      Grad School is free educational HTML template with
-                      Bootstrap 4.5.2 CSS layout. Feel free to use it for
-                      educational or commercial purposes. You may want to make
-                      <a href="https://paypal.me/templatemo" target="_parent" rel="sponsored">a little donation</a>
-                      to TemplateMo. Please tell your friends about us. Thank
-                      you.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima recusandae debitis ducimus maxime necessitatibus consectetur hic neque molestiae repellendus, iste animi voluptas alias sit nostrum error maiores deleniti temporibus dolorem culpa odio! Magni doloremque numquam aliquid, in quasi, tempora animi fuga ea nihil eum, sunt possimus? Ad aliquam repellat libero!
                     </p>
                   </div>
                 </div>
@@ -168,16 +95,9 @@
                     <img src="/assets/images/choose-us-image-02.png" alt="" />
                   </div>
                   <div class="col-md-6">
-                    <h4>Top Level</h4>
+                    <h4><?= $content["topMan"] ?></h4>
                     <p>
-                      You can modify this HTML layout by editing contents and
-                      adding more pages as you needed. Since this template has
-                      options to add dropdown menus, you can put many HTML
-                      pages.
-                    </p>
-                    <p>
-                      Suspendisse tincidunt, magna ut finibus rutrum, libero
-                      dolor euismod odio, nec interdum quam felis non ante.
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt earum enim optio maxime inventore velit vero magnam voluptatibus maiores veritatis! Quam magnam, assumenda, officia hic error blanditiis illo laborum earum provident similique ex odio esse consequuntur qui quisquam animi doloremque. Porro temporibus neque asperiores nostrum, tempora libero dolor mollitia sequi!
                     </p>
                   </div>
                 </div>
@@ -188,15 +108,9 @@
                     <img src="/assets/images/choose-us-image-03.png" alt="" />
                   </div>
                   <div class="col-md-6">
-                    <h4>Quality Meeting</h4>
+                    <h4><?= $content["qualMeeting"] ?></h4>
                     <p>
-                      You are NOT allowed to redistribute this template ZIP
-                      file on any template collection website. However, you
-                      can use this template to convert into a specific theme
-                      for any kind of CMS platform such as WordPress. For more
-                      information, you shall
-                      <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">contact TemplateMo</a>
-                      now.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum quam veritatis amet veniam temporibus et reiciendis eveniet perspiciatis laudantium ipsa impedit sit, eos quos maxime odio dignissimos laborum autem? Libero eum omnis ab tempora possimus quasi quo explicabo excepturi sed eaque molestiae, deserunt laudantium eius aliquid blanditiis totam neque molestias.
                     </p>
                   </div>
                 </div>
@@ -215,44 +129,40 @@
           <div class="continer centerIt">
             <div>
               <h4>
-                Nền tảng <em>học tập</em> và <em>làm việc</em> thành công ở Úc
+              <?= $content["platform"] ?>
               </h4>
               <p>
-                Greeliving Learning Hub là nền tảng kết nối nhu cầu học tập và
-                các cơ hội việc làm trên toàn cầu giúp mọi người không ngừng
-                nâng cao kiến thức, kỹ năng, mở rộng mạng lưới quan hệ để kiến
-                tạo một cuộc sống an cư, lạc nghiệp và ngày càng thịnh vượng
-                dù đang ở Việt Nam hay bất cứ quốc gia nào trên thế giới.
+              <?= $content["description"] ?>
               </p>
             </div>
             <div class="introduce-box">
               <div class="column">
                 <i class="fa fa-diamond"></i>
-                <p><span class="number">11+</span><br>Năm kinh nghiệm đào tạo</p>
+                <p><span class="number">11+</span><br><?= $content["experience"] ?></p>
               </div>
               <div class="column">
                 <i class="fa fa-graduation-cap"></i>
-                <p><span class="number">1000+</span><br>Học viên tốt nghiệp các khóa đào tạo</p>
+                <p><span class="number">1000+</span><br><?= $content["grads"] ?></p>
               </div>
               <div class="column">
                 <i class="fa fa-building"></i>
-                <p><span class="number">100+</span><br>Đối tác đào tạo và doanh nghiệp</p>
-              </div>
+                <p><span class="number">100+</span><br><?= $content["partners"] ?>
             </div>
           </div>
         </div>
+      </div>
         <div class="col-md-5">
           <div class="right-content">
             <div class="top-content">
-              <h6>
-                ĐĂNG KÍ NHẬN THÔNG TIN <EM>KHÓA HỌC</EM>
+              <h6 style="font-weight: bold; text-transform: capitalize;">
+                <?= $content["register"] ?>
               </h6>
             </div>
             <form id="contact" action="" method="get">
               <div class="row">
                 <div class="col-md-12">
                   <fieldset>
-                    <input name="name" type="text" class="form-control" id="name" placeholder="Họ và tên" required="" />
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Name" required="" />
                   </fieldset>
                 </div>
                 <div class="col-md-12">
@@ -263,13 +173,13 @@
                 <div class="col-md-12">
                   <fieldset>
                     <input name="phone-number" type="text" class="form-control" id="phone-number"
-                      placeholder="Số điện thoại" required="" />
+                      placeholder="Phone" required="" />
                   </fieldset>
                 </div>
                 <div class="col-md-12">
                   <fieldset>
                     <button type="submit" id="form-submit" class="button">
-                      gửi đăng kí
+                    <?= $content["send"] ?>
                     </button>
                   </fieldset>
                 </div>
@@ -277,234 +187,6 @@
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section courses" id="section4">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="section-heading">
-            <h2>Lựa chọn khóa học</h2>
-          </div>
-        </div>
-        <div class="owl-carousel owl-theme">
-          <div class="item">
-            <img src="/assets/images/courses-01.jpg" alt="Course #1" />
-            <div class="down-content">
-              <h4>Digital Marketing</h4>
-              <p>
-                You can get free images and videos for your websites by
-                visiting Unsplash, Pixabay, and Pexels.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-01.png" alt="Author 1" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-02.jpg" alt="Course #2" />
-            <div class="down-content">
-              <h4>Business World</h4>
-              <p>
-                Quisque cursus augue ut velit dictum, quis volutpat enim
-                blandit. Maecenas a lectus ac ipsum porta.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-02.png" alt="Author 2" />
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-03.jpg" alt="Course #3" />
-            <div class="down-content">
-              <h4>Media Technology</h4>
-              <p>
-                Pellentesque ultricies diam magna, auctor cursus lectus
-                pretium nec. Maecenas finibus lobortis enim.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-03.png" alt="Author 3" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-04.jpg" alt="Course #4" />
-            <div class="down-content">
-              <h4>Communications</h4>
-              <p>
-                Download free images and videos for your websites by visiting
-                Unsplash, Pixabay, and Pexels.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-04.png" alt="Author 4" />
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-05.jpg" alt="" />
-            <div class="down-content">
-              <h4>Business Ethics</h4>
-              <p>
-                Pellentesque ultricies diam magna, auctor cursus lectus
-                pretium nec. Maecenas finibus lobortis enim.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-05.png" alt="" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-01.jpg" alt="" />
-            <div class="down-content">
-              <h4>Photography</h4>
-              <p>
-                Quisque cursus augue ut velit dictum, quis volutpat enim
-                blandit. Maecenas a lectus ac ipsum porta.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-01.png" alt="" />
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-02.jpg" alt="" />
-            <div class="down-content">
-              <h4>Web Development</h4>
-              <p>
-                Pellentesque ultricies diam magna, auctor cursus lectus
-                pretium nec. Maecenas finibus lobortis enim.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-02.png" alt="" />
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-03.jpg" alt="" />
-            <div class="down-content">
-              <h4>Learn HTML CSS</h4>
-              <p>
-                You can get free images and videos for your websites by
-                visiting Unsplash, Pixabay, and Pexels.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-03.png" alt="" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-04.jpg" alt="" />
-            <div class="down-content">
-              <h4>Social Media</h4>
-              <p>
-                Pellentesque ultricies diam magna, auctor cursus lectus
-                pretium nec. Maecenas finibus lobortis enim.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-04.png" alt="" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-05.jpg" alt="" />
-            <div class="down-content">
-              <h4>Digital Arts</h4>
-              <p>
-                Quisque cursus augue ut velit dictum, quis volutpat enim
-                blandit. Maecenas a lectus ac ipsum porta.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-05.png" alt="" />
-              </div>
-              <div class="text-button-free">
-                <a href="#">Free <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="/assets/images/courses-01.jpg" alt="" />
-            <div class="down-content">
-              <h4>Media Streaming</h4>
-              <p>
-                Pellentesque ultricies diam magna, auctor cursus lectus
-                pretium nec. Maecenas finibus lobortis enim.
-              </p>
-              <div class="author-image">
-                <img src="/assets/images/author-01.png" alt="" />
-              </div>
-              <div class="text-button-pay">
-                <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section video" id="section5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 align-self-center">
-          <div class="left-content">
-            <span>our presentation is for you</span>
-            <h4>Watch the video to learn more <em>about Grad School</em></h4>
-            <p>
-              You are NOT allowed to redistribute this template ZIP file on
-              any template collection website. However, you can use this
-              template to convert into a specific theme for any kind of CMS
-              platform such as WordPress. You may
-              <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">contact TemplateMo</a>
-              for details. <br /><br />Suspendisse tincidunt, magna ut finibus
-              rutrum, libero dolor euismod odio, nec interdum quam felis non
-              ante.
-            </p>
-            <div class="main-button">
-              <a rel="nofollow" href="https://fb.com/templatemo" target="_parent">External URL</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <article class="video-item">
-            <div class="video-caption">
-              <h4>Power HTML Template</h4>
-            </div>
-            <figure>
-              <a href="https://www.youtube.com/watch?v=r9LtOG6pNUw" class="play"><img
-                  src="/assets/images/main-thumb.png" /></a>
-            </figure>
-          </article>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -513,14 +195,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="section-heading">
-            <h2>Let’s Keep In Touch</h2>
+            <h2><?= $content["contactText"] ?></h2>
           </div>
         </div>
         <div class="col-md-6">
-          <!-- Do you need a working HTML contact-form script?
-                  
-                    Please visit https://templatemo.com/contact page -->
-
           <form id="contact" action="" method="post">
             <div class="row">
               <div class="col-md-6">
@@ -565,18 +243,10 @@
 
   <?php require("./components/footer.php") ?>
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
-
-
-  <!-- <script src="./assets/js/owl-carousel.js"></script>
-    <script src="./assets/js/tabs.js"></script>
-    <script src="./assets/js/slick-slider.js"></script>
-    <script src="./assets/js/custom.js"></script> -->
 </body>
 
 </html>

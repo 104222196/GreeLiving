@@ -112,12 +112,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </h1>
 
         <?php foreach ($errors as $error): ?>
-            <p class="text-danger">
+            <p class="alert alert-danger">
                 <?= $error ?>
             </p>
         <?php endforeach; ?>
 
-        <p>Please complete the following form for your job application.</p>
+        <p class="alert alert-primary">Please complete the following form for your job application.</p>
 
         <form method="post" action="/applicant/apply/<?= $jobId ?>" enctype="multipart/form-data">
             <label>
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 Do you have any questions for us?
                 <textarea name="questions"><?= isset($questions) ? $questions : ""; ?></textarea>
             </label>
-            <input type="submit" name="submit" value="Submit" />
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
         </form>
 
     </main>

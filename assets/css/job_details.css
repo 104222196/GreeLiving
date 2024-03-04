@@ -1,6 +1,12 @@
 main {
+    padding: 0 4rem;
     padding-top: 100px;
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 1024px;
+}
+
+h1 {
+    text-align: center;
 }
 
 h1, h2 {
@@ -11,30 +17,21 @@ p {
     margin-bottom: 10px;
 }
 
-form {
-    margin-top: 20px;
+.info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.button-group {
+    display: flex;
+    gap: 2rem;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 2rem;
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+.button-group * {
+    display: block;
 }

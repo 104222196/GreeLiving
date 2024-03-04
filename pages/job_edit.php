@@ -143,79 +143,128 @@ $specializations = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         <h1>Edit job posting</h1>
 
         <?php foreach ($errors as $error): ?>
-            <p class="text-danger">
+            <p class="alert alert-danger">
                 <?= $error ?>
             </p>
         <?php endforeach; ?>
 
         <form method="post" action="">
-            <div class="formContainer">
-                <div class="form-control">
-                    <label>
-                        Job title: <input type="text" name="jobTitle" value="<?= $jobTitle ?>" />
-                    </label>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="jobTitle">Job title:</label>
+                        <input 
+                            type="text"
+                            id="jobTitle"
+                            name="jobTitle"
+                            class="form-control"
+                            value="<?= isset($jobTitle) ? $jobTitle : "" ?>"
+                        />                        
+                    </div>
 
-                    <label>
-                        Specialization:
-                        <select name="specialization">
-                            <?php foreach ($specializations as $specializationOption): ?>
-                                <option value="<?= $specializationOption["SpecializationID"] ?>"
-                                    <?= $specializationOption["SpecializationID"] == $specialization ? " selected" : "" ?>>
-                                    <?= $specializationOption["SpecializationName"] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
+                    <div class="form-group">
+                        <label for="deadline">
+                            Application deadline:</label> <input id="deadline" type="datetime-local" name="deadline" class="form-control"
+                                value="<?= isset($deadline) ? $deadline : "" ?>" />
+                        
 
-                    <label>
-                        Application deadline: <input type="datetime-local" name="deadline" value="<?= $deadline ?>" />
-                    </label>
-
-                    <label>
-                        Salary: <input type="text" name="salary" value="<?= $salary ?>" />
-                    </label>
-
-                    <label>
-                        Working location: <input type="text" name="workLocation" value="<?= $workLocation ?>" />
-                    </label>
-
-                    <label>
-                        Experience requirement:
-                        <select name="experience">
-                            <?php foreach ($validExperiences as $validExperience): ?>
-                                <option value="<?= $validExperience ?>" <?= $validExperience == $experience ? " selected" : "" ?>>
-                                    <?= $validExperience ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
-
-                    <label>
-                        Working format:
-                        <select name="format">
-                            <?php foreach ($validFormats as $validFormat): ?>
-                                <option value="<?= $validFormat ?>" <?= $validFormat == $format ? " selected" : "" ?>>
-                                    <?= $validFormat ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
-
-                    <label>
-                        Scope of work:
-                        <textarea name="scope"><?= $scope ?></textarea>
-                    </label>
-
-                    <label>
-                        Benefits:
-                        <textarea name="benefits"><?= $benefits ?></textarea>
-                    </label>
-
+                    </div>
                 </div>
-                <button class="submitbtn" type="submit">Edit</button>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="specialization">
+                            Specialization:</label>
+                            <select id="specialization" name="specialization" class="form-control">
+                                <?php foreach ($specializations as $specializationOption): ?>
+                                    <option value="<?= $specializationOption["SpecializationID"] ?>"
+                                        <?= (isset($specialization) && $specializationOption["SpecializationID"] == $specialization) ? " selected" : "" ?>>
+                                        <?= $specializationOption["SpecializationName"] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                    </div>
+                </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="salary">
+                            Salary:</label>
+                        <input type="text" id="salary" name="salary" value="<?= isset($salary) ? $salary : "" ?>" class="form-control"/>
+                        
+                    </div>
+                </div>
 
+                <div class="col">
+
+                    <div class="form-group">
+                        <label for="workLocation">
+                            Working location:</label>
+                        <input type="text" id="workLocation" name="workLocation"
+                                value="<?= isset($workLocation) ? $workLocation : "" ?>" class="form-control" />
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+
+                    <div class="form-group">
+                        <label for="experience">
+                            Experience requirement:</label>
+                            <select name="experience" id="experience" class="form-control">
+                                <?php foreach ($validExperiences as $validExperience): ?>
+                                    <option value="<?= $validExperience ?>" <?= (isset($experience) && $validExperience == $experience) ? " selected" : "" ?>>
+                                        <?= $validExperience ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        
+                    </div>
+                </div>
+
+                <div class="col">
+
+                    <div class="form-group">
+                        <label for="format">
+                            Working format:</label>
+                            <select name="format" id="format" class="form-control">
+                                <?php foreach ($validFormats as $validFormat): ?>
+                                    <option value="<?= $validFormat ?>" <?= (isset($format) && $validFormat == $format) ? " selected" : "" ?>>
+                                        <?= $validFormat ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="scope">
+                            Scope of work:</label>
+                            <textarea name="scope" id="scope" class="form-control"><?= isset($scope) ? $scope : "" ?></textarea>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="form-group">
+                        <label for="benefits">
+                            Benefits:</label>
+                            <textarea name="benefits" id="benefits" class="form-control"><?= isset($benefits) ? $benefits : "" ?></textarea>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Edit job"/>
         </form>
 
     </main>

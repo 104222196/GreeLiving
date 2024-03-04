@@ -98,7 +98,7 @@ $specializations = mysqli_query($db, "SELECT SpecializationID, SpecializationNam
 <body>
     <?php require("./components/header_applicant.php") ?>
 
-    <main style="padding-top:100px">
+    <main style="padding-top:100px; max-width: 1440px; margin: 0 auto">
         <h1>Job search</h1>
 
         <h2>Filter jobs</h2>

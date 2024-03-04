@@ -90,62 +90,86 @@ if (isApplicantLoggedIn()) {
         <h1>
             <?= $job["JobTitle"] ?>
         </h1>
-        <p>Employer:
-            <?= $job["CompanyName"] ?>
-        </p>
-        <p>Application deadline:
-            <?= $job["ApplicationDeadline"] ?>
-        </p>
-        <p>
-            Salary:
-            <?= $job["Salary"] ?>
-        </p>
-        <p>
-            Working location:
-            <?= $job["WorkingLocation"] ?>
-        </p>
-        <p>Specialization:
-            <?= $job["SpecializationName"] ?>
-        </p>
-        <p>Experience requirement:
-            <?= $job["ExperienceRequirement"] ?>
-        </p>
-        <p>Working format:
-            <?= $job["WorkingFormat"] ?>
-        </p>
-        <p>Scope of work:
-            <?= $job["ScopeOfWork"] ?>
-        <p>Benefits:
-            <?= $job["Benefits"] ?>
-        <h2>About
-            <?= $job["CompanyName"] ?>
-        </h2>
-        <p>Email:
-            <?= $job["Email"] ?>
-        </p>
-        <p>Phone:
-            <?= $job["Phone"] ?>
-        </p>
-        <p>Introduction:
-            <?= $job["Introduction"] ?>
-        </p>
+        
+        <div class="info-cards">
 
-        <form method="post" action="">
-            <input type="hidden" name="jobId" value="<?= $jobId ?>" />
-            <input type="submit" <?php
-            if (isset($saved)) {
-                if ($saved) {
-                    echo 'name="unsave" value="Unsave"';
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Employer information</h2>
+                    <p class="card-text">
+                        <strong>Company name:</strong>
+                        <?= $job["CompanyName"] ?>
+                    </p>
+                    <p class="card-text">
+                        <strong>Email:</strong>
+                        <?= $job["Email"] ?>
+                    </p>
+                    <p class="card-text">
+                        <strong>Phone:</strong>
+                        <?= $job["Phone"] ?>
+                    </p>
+                    <p class="card-text">
+                        <strong>Introduction:</strong>
+                        <?= $job["Introduction"] ?>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h2>Job information</h2>
+                    <p>
+                        <strong>Application deadline:</strong>
+                        <?= $job["ApplicationDeadline"] ?>
+                    </p>
+                    <p>
+                        <strong>Salary:</strong>
+                        <?= $job["Salary"] ?>
+                    </p>
+                    <p>
+                        <strong>Working location:</strong>
+                        <?= $job["WorkingLocation"] ?>
+                    </p>
+                    <p>
+                        <strong>Specialization:</strong>
+                        <?= $job["SpecializationName"] ?>
+                    </p>
+                    <p>
+                        <strong>Experience requirement:</strong>
+                        <?= $job["ExperienceRequirement"] ?>
+                    </p>
+                    <p>
+                    <strong>Working format:</strong>
+                        <?= $job["WorkingFormat"] ?>
+                    </p>
+                    <p><strong>Scope of work:</strong>
+                        <?= $job["ScopeOfWork"] ?>
+                    </p>
+                    <p><strong>Benefits:</strong>
+                        <?= $job["Benefits"] ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <form method="post" action="">
+                <input type="hidden" name="jobId" value="<?= $jobId ?>" />
+                <input type="submit" class="btn btn-secondary" <?php
+                if (isset($saved)) {
+                    if ($saved) {
+                        echo 'name="unsave" value="Unsave"';
+                    } else {
+                        echo 'name="save" value="Save"';
+                    }
                 } else {
                     echo 'name="save" value="Save"';
                 }
-            } else {
-                echo 'name="save" value="Save"';
-            }
-            ?> />
-        </form>
+                ?> />
+            </form>
 
-        <a href="/applicant/apply/<?= $jobId ?>">Apply this job</a>
+            <a href="/applicant/apply/<?= $jobId ?>" class="btn btn-primary">Apply to this job</a>
+        </div>
     </main>
 
     <?php require("./components/footer.php") ?>
