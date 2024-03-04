@@ -132,41 +132,44 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         <div class="container mt-5">
             <form method="post" action="/applicant/courses/<?= $course["CourseID"] ?>" class="needs-validation"
                 novalidate>
-                <fieldset>
-                    <legend>Personal information</legend>
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <input type="text" class="form-control" id="age" name="age" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Gender:</label>
-                        <input type="text" class="form-control" id="gender" name="gender" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                </fieldset>
+                <div class="form-container">
+                    <fieldset>
+                        <legend>Personal information</legend>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="text" class="form-control" id="age" name="age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <input type="text" class="form-control" id="gender" name="gender" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                    </fieldset>
 
-                <fieldset>
-                    <legend>Bank account information</legend>
-                    <div class="form-group">
-                        <label for="branch">Bank branch:</label>
-                        <input type="text" class="form-control" id="branch" name="branch" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="number">Card number:</label>
-                        <input type="text" class="form-control" id="number" name="number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="accName">Account name:</label>
-                        <input type="text" class="form-control" id="accName" name="accName" required>
-                    </div>
-                </fieldset>
+                    <fieldset>
+                        <legend>Bank account information</legend>
+                        <div class="form-group">
+                            <label for="branch">Bank branch:</label>
+                            <input type="text" class="form-control" id="branch" name="branch" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Card number:</label>
+                            <input type="text" class="form-control" id="number" name="number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="accName">Account name:</label>
+                            <input type="text" class="form-control" id="accName" name="accName" required>
+                        </div>
+                    </fieldset>
+                </div>
+
 
                 <button type="submit" name="register" class="btn btn-primary d-block mx-auto mt-3">Buy the course
                     now!</button>
