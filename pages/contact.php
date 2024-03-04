@@ -16,7 +16,7 @@
 <body>
     <?php require("./components/header_applicant.php"); ?>
 
-    <main style="padding-top: 100px">
+    <main style="padding-top: 100px; padding-bottom: 1rem;">
             <div class="container mt-5">
 
         <h1 class="text-center">Contact us</h1>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label for="message">Message:</label>
                 <textarea class="form-control" id="message" name="message" placeholder="Send us a message"></textarea>
-            </div>
+            </div><br>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

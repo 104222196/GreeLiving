@@ -182,6 +182,7 @@ $specializations = mysqli_query($db, "SELECT SpecializationID, SpecializationNam
         <?php if (count($jobs) === 0): ?>
             <p>No jobs match your search criteria.</p>
         <?php else: ?>
+            <div class="job-container">
             <?php foreach ($jobs as $job): ?>
                 <div class="job-content">
                     <h3><?=$job["JobTitle"]?></h3>
@@ -200,6 +201,7 @@ $specializations = mysqli_query($db, "SELECT SpecializationID, SpecializationNam
                     <a href="/applicant/job/<?=$job["JobID"]?>">More details</a>
                 </div>
             <?php endforeach; ?>
+            </div>
         <?php endif; ?>
 
     </main>
